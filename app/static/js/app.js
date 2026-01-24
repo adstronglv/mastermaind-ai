@@ -132,7 +132,7 @@ function updateLanguageUI() {
     const code = document.getElementById('lang-code');
     if (flag && code) {
         flag.textContent = currentLang === 'de' ? '🇩🇪' : '🇬🇧';
-        code.textContent = currentLang.toUpperCase();
+        code.textContent = currentLang === 'de' ? 'Deutsch' : 'English';
     }
     applyTranslations();
 }
@@ -161,16 +161,28 @@ function loadExample(type) {
     const example = examples[type];
     if (example) {
         const prompt = example[currentLang] || example.de;
-        document.getElementById('input-prompt').value = prompt;
-        document.getElementById('input-prompt').dispatchEvent(new Event('input'));
+        const inputField = document.getElementById('input-prompt');
+        inputField.value = prompt;
+        inputField.dispatchEvent(new Event('input'));
 
         // Set task type
         if (type === 'coding') setTaskType('coding');
         else if (type === 'marketing' || type === 'email') setTaskType('marketing');
         else setTaskType('general');
 
-        // Scroll to input
-        document.getElementById('input-prompt').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        // Highlight the input field
+        inputField.style.borderColor = '#a855f7';
+        setTimeout(() => {
+            inputField.style.borderColor = '';
+        }, 2000);
+
+        // Scroll to input with offset
+        setTimeout(() => {
+            const mainTool = document.querySelector('.max-w-4xl.mx-auto.px-4.pb-16');
+            if (mainTool) {
+                mainTool.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }, 100);
     }
 }
 
