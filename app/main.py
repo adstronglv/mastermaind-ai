@@ -156,6 +156,18 @@ async def pricing(request: Request):
     return templates.TemplateResponse("pricing.html", {"request": request})
 
 
+@app.get("/impressum", response_class=HTMLResponse)
+async def impressum(request: Request):
+    """Render impressum page."""
+    return templates.TemplateResponse("impressum.html", {"request": request})
+
+
+@app.get("/datenschutz", response_class=HTMLResponse)
+async def datenschutz(request: Request):
+    """Render privacy policy page."""
+    return templates.TemplateResponse("datenschutz.html", {"request": request})
+
+
 @app.post("/api/optimize")
 async def api_optimize(req: PromptRequest):
     """Optimize a prompt."""

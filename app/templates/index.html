@@ -26,9 +26,9 @@
                     <span id="lang-flag">🇩🇪</span>
                     <span id="lang-code">Deutsch</span>
                 </button>
-                <a href="/pricing" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition">
-                    <span data-i18n="goPro">Pro Version</span>
-                </a>
+                <span class="bg-white/10 text-gray-400 px-4 py-2 rounded-lg cursor-not-allowed">
+                    <span data-i18n="goPro">Pro - Coming Soon</span>
+                </span>
             </nav>
         </div>
     </header>
@@ -244,10 +244,51 @@
     <!-- Footer -->
     <footer class="border-t border-white/10 py-8">
         <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="/impressum" class="hover:text-gray-300 transition">Impressum</a>
+                <a href="/datenschutz" class="hover:text-gray-300 transition">Datenschutz</a>
+            </div>
             <p>&copy; 2026 PromptEngineer. Powered by Claude AI.</p>
         </div>
     </footer>
 
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-slate-800 border-t border-white/10 p-4 z-50 hidden">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p class="text-gray-300 text-sm">
+                Diese Website verwendet Cookies, um Ihre Spracheinstellungen zu speichern.
+                <a href="/datenschutz" class="text-purple-400 hover:text-purple-300 underline">Mehr erfahren</a>
+            </p>
+            <div class="flex gap-3">
+                <button onclick="acceptCookies()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition">
+                    Akzeptieren
+                </button>
+                <button onclick="declineCookies()" class="bg-white/10 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/20 transition">
+                    Nur notwendige
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script src="/static/js/app.js"></script>
+    <script>
+        // Cookie Banner Logic
+        function showCookieBanner() {
+            const consent = localStorage.getItem('cookieConsent');
+            if (!consent) {
+                document.getElementById('cookie-banner').classList.remove('hidden');
+            }
+        }
+        function acceptCookies() {
+            localStorage.setItem('cookieConsent', 'all');
+            document.getElementById('cookie-banner').classList.add('hidden');
+        }
+        function declineCookies() {
+            localStorage.setItem('cookieConsent', 'necessary');
+            document.getElementById('cookie-banner').classList.add('hidden');
+        }
+        // Show banner on load
+        document.addEventListener('DOMContentLoaded', showCookieBanner);
+    </script>
 </body>
 </html>
