@@ -377,7 +377,7 @@ async def generate_image_with_flux(prompt: str) -> str:
         raise HTTPException(status_code=500, detail="FAL API key not configured")
     fal_api_key = fal_api_key.strip()  # Remove any whitespace/newlines
 
-    async with httpx.AsyncClient(timeout=60.0) as client:
+    async with httpx.AsyncClient(timeout=120.0) as client:
         # Submit the image generation request
         response = await client.post(
             "https://queue.fal.run/fal-ai/flux-pro/v1.1",
@@ -403,7 +403,7 @@ async def generate_image_with_flux(prompt: str) -> str:
             request_id = result["request_id"]
 
             # Poll for result
-            for _ in range(30):  # Max 30 attempts (60 seconds)
+            for _ in range(60):  # Max 60 attempts (120 seconds)
                 await asyncio.sleep(2)
 
                 status_response = await client.get(
