@@ -407,9 +407,9 @@ async def generate_image_with_flux(prompt: str) -> str:
         if "request_id" in result:
             request_id = result["request_id"]
 
-            # Poll for result (Schnell is fast, should complete in 5-10 sec)
-            for _ in range(15):
-                await asyncio.sleep(1)
+            # Poll for result (increased timeout for reliability)
+            for _ in range(30):
+                await asyncio.sleep(2)
 
                 status_response = await client.get(
                     f"https://queue.fal.run/fal-ai/flux/schnell/requests/{request_id}/status",
