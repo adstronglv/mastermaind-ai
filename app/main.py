@@ -318,11 +318,12 @@ Generate a prompt for creating a professional advertising image. The prompt shou
 4. Be suitable for social media advertising
 5. Be 2-3 sentences, specific and detailed
 6. IMPORTANT: Avoid showing hands or fingers prominently
-7. Include CONTEXT and ENVIRONMENT - show relevant settings, equipment, tools, or props related to the business
-8. Show ACTION or EMOTION - people doing something, not just standing, or show the mood/atmosphere
-9. Include specific details about lighting, colors, and composition
+7. Include CONTEXT and ENVIRONMENT - show relevant settings, equipment, tools, or props
+8. PREFER: Product shots, close-ups of equipment, or single person in simple natural pose
+9. AVOID: Multiple people interacting, complex group poses, or dynamic action shots
+10. If showing a person: natural relaxed pose, candid moment, or back/side view
 
-End the prompt with: "professional photography, 8k, sharp focus, cinematic lighting"
+End the prompt with: "professional product photography, natural pose, 8k, sharp focus"
 
 Respond with ONLY the image prompt, nothing else."""
 
