@@ -6,3 +6,5 @@ pydantic
 jinja2
 python-multipart
 aiofiles
+fal-client
+httpx

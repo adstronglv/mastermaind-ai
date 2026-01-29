@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Creator - Generate AI Ads | AdStrong</title>
+    <meta name="description" content="Create stunning ad creatives with AI. Generate images and copy for Instagram, Facebook, and more in seconds.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">A</span>
+                </div>
+                <span class="text-white font-bold text-xl">AdStrong</span>
+            </a>
+            <nav class="flex items-center gap-4">
+                <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
+                <a href="/prompt" class="text-gray-300 hover:text-white transition">Prompt Engineer</a>
+                <span class="text-white font-medium">Ad Creator</span>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-4 py-8 text-center">
+        <div class="inline-block bg-gradient-to-r from-pink-500/20 to-orange-500/20 text-pink-300 px-3 py-1 rounded-full text-sm mb-4">
+            Ad Creator
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+            Create Ads with AI
+        </h1>
+        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
+            Generate stunning ad creatives in seconds. Just describe your business and let AI do the rest.
+        </p>
+        <div class="flex justify-center gap-4 text-sm text-gray-400">
+            <span class="flex items-center gap-1">
+                <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                3 free generations/day
+            </span>
+            <span class="flex items-center gap-1">
+                <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                No signup required
+            </span>
+        </div>
+    </section>
+
+    <!-- Main Tool -->
+    <section class="max-w-4xl mx-auto px-4 pb-16">
+        <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
+            <!-- Step 1: Business Info -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold text-sm">1</div>
+                    <h2 class="text-lg font-semibold text-white">Describe Your Business</h2>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-gray-300 text-sm mb-2">Business Name</label>
+                        <input
+                            type="text"
+                            id="business-name"
+                            class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500"
+                            placeholder="e.g. TechFlow Solutions"
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 text-sm mb-2">What do you sell?</label>
+                        <input
+                            type="text"
+                            id="product"
+                            class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500"
+                            placeholder="e.g. Project management software"
+                        >
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <label class="block text-gray-300 text-sm mb-2">Target Audience</label>
+                        <input
+                            type="text"
+                            id="audience"
+                            class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500"
+                            placeholder="e.g. Small business owners, Startups"
+                        >
+                    </div>
+                    <div>
+                        <label class="block text-gray-300 text-sm mb-2">Unique Selling Point</label>
+                        <input
+                            type="text"
+                            id="usp"
+                            class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500"
+                            placeholder="e.g. 10x faster than competitors"
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Style -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold text-sm">2</div>
+                    <h2 class="text-lg font-semibold text-white">Choose Style</h2>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                    <button onclick="selectStyle('modern')" id="style-modern" class="style-btn active p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">&#128142;</div>
+                        <div class="text-white text-sm font-medium">Modern</div>
+                        <div class="text-gray-500 text-xs">Clean & minimal</div>
+                    </button>
+                    <button onclick="selectStyle('bold')" id="style-bold" class="style-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">&#128165;</div>
+                        <div class="text-white text-sm font-medium">Bold</div>
+                        <div class="text-gray-500 text-xs">High contrast</div>
+                    </button>
+                    <button onclick="selectStyle('minimal')" id="style-minimal" class="style-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">&#9898;</div>
+                        <div class="text-white text-sm font-medium">Minimal</div>
+                        <div class="text-gray-500 text-xs">Simple & elegant</div>
+                    </button>
+                    <button onclick="selectStyle('playful')" id="style-playful" class="style-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">&#127881;</div>
+                        <div class="text-white text-sm font-medium">Playful</div>
+                        <div class="text-gray-500 text-xs">Fun & colorful</div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Step 3: Platforms -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold text-sm">3</div>
+                    <h2 class="text-lg font-semibold text-white">Select Platforms</h2>
+                </div>
+
+                <div class="flex flex-wrap gap-3">
+                    <label class="platform-label flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 cursor-pointer hover:border-pink-500/50 transition">
+                        <input type="checkbox" id="platform-instagram" checked class="accent-pink-500">
+                        <span class="text-white text-sm">Instagram</span>
+                    </label>
+                    <label class="platform-label flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 cursor-pointer hover:border-pink-500/50 transition">
+                        <input type="checkbox" id="platform-facebook" checked class="accent-pink-500">
+                        <span class="text-white text-sm">Facebook</span>
+                    </label>
+                    <label class="platform-label flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 cursor-pointer hover:border-pink-500/50 transition">
+                        <input type="checkbox" id="platform-google" class="accent-pink-500">
+                        <span class="text-white text-sm">Google Ads</span>
+                    </label>
+                    <label class="platform-label flex items-center gap-2 px-4 py-2 rounded-lg border border-white/20 bg-white/5 cursor-pointer hover:border-pink-500/50 transition">
+                        <input type="checkbox" id="platform-linkedin" class="accent-pink-500">
+                        <span class="text-white text-sm">LinkedIn</span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Generate Button -->
+            <button
+                onclick="generateAds()"
+                id="generate-btn"
+                class="w-full bg-gradient-to-r from-pink-500 to-orange-500 text-white py-4 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2 text-lg"
+            >
+                <span id="btn-text">Generate 3 Ad Variants</span>
+                <svg id="btn-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+            </button>
+
+            <!-- Rate Limit Info -->
+            <div class="text-center mt-3">
+                <span id="usage-info" class="text-gray-500 text-sm">3 generations remaining today</span>
+            </div>
+        </div>
+
+        <!-- Loading State -->
+        <div id="loading-state" class="hidden mt-8">
+            <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 text-center">
+                <div class="animate-spin w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
+                <h3 class="text-xl font-semibold text-white mb-2">Creating Your Ads...</h3>
+                <p class="text-gray-400 mb-4">This usually takes 20-30 seconds</p>
+
+                <!-- Progress Bar -->
+                <div class="max-w-md mx-auto mb-4">
+                    <div class="h-2 bg-white/10 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="h-full bg-gradient-to-r from-pink-500 to-orange-500 transition-all duration-1000" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Random Tips -->
+                <div id="loading-tip" class="text-gray-500 text-sm italic">
+                    "High-quality images increase CTR by up to 40%"
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div id="results-section" class="hidden mt-8">
+            <!-- Warning Banner -->
+            <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 mb-6 flex items-center gap-3">
+                <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+                <span class="text-yellow-200 text-sm">Download now! Image links expire in 1 hour.</span>
+            </div>
+
+            <!-- Download All Button -->
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-white">Your Ad Creatives</h2>
+                <button onclick="downloadAll()" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+                    </svg>
+                    Download All
+                </button>
+            </div>
+
+            <!-- Results Grid -->
+            <div id="results-grid" class="grid md:grid-cols-3 gap-6">
+                <!-- Results will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-8 mt-16">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="/impressum" class="hover:text-gray-300 transition">Impressum</a>
+                <a href="/datenschutz" class="hover:text-gray-300 transition">Privacy Policy</a>
+            </div>
+            <p>&copy; 2026 AdStrong. Powered by Claude AI & FLUX Pro.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/ads.js"></script>
+</body>
+</html>

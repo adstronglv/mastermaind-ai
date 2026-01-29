@@ -1,8 +1,12 @@
 """
-PromptEngineer - AI Prompt Optimization Platform
+AdStrong - AI Marketing Tools Platform
+Includes: Prompt Engineer + Ad Creator
 """
 
 import os
+import json
+import asyncio
+import httpx
 from datetime import datetime
 from pathlib import Path
 from typing import Any
@@ -19,9 +23,9 @@ load_dotenv()
 
 # Initialize FastAPI
 app = FastAPI(
-    title="PromptEngineer",
-    description="AI-powered prompt optimization platform",
-    version="1.0.0",
+    title="AdStrong",
+    description="AI-powered marketing tools platform",
+    version="2.0.0",
 )
 
 # CORS
@@ -53,6 +57,15 @@ class OptimizationResult(BaseModel):
     score_before: int
     score_after: int
     tips: list[str]
+
+
+class AdRequest(BaseModel):
+    business_name: str
+    product: str
+    audience: str
+    usp: str = ""
+    style: str = "modern"
+    platforms: list[str] = ["instagram"]
 
 
 # In-memory usage tracking (replace with DB in production)
@@ -146,8 +159,20 @@ Provide your analysis in JSON format."""
 # Routes
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    """Render home page."""
+    """Render home page with tool selection."""
     return templates.TemplateResponse("index.html", {"request": request})
+
+
+@app.get("/prompt", response_class=HTMLResponse)
+async def prompt_page(request: Request):
+    """Render Prompt Engineer page."""
+    return templates.TemplateResponse("prompt.html", {"request": request})
+
+
+@app.get("/ads", response_class=HTMLResponse)
+async def ads_page(request: Request):
+    """Render Ad Creator page."""
+    return templates.TemplateResponse("ads.html", {"request": request})
 
 
 @app.get("/pricing", response_class=HTMLResponse)
@@ -262,6 +287,212 @@ async def get_tips():
 async def health():
     """Health check endpoint."""
     return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
+
+
+# Ad Creator API
+async def generate_image_prompt(business_name: str, product: str, audience: str, usp: str, style: str) -> str:
+    """Use Claude to generate an image prompt for FLUX Pro."""
+    client = get_anthropic_client()
+
+    style_descriptions = {
+        "modern": "clean, minimalist, professional, sleek design with subtle gradients",
+        "bold": "high contrast, vibrant colors, strong typography, eye-catching",
+        "minimal": "simple, elegant, lots of white space, understated",
+        "playful": "fun, colorful, dynamic, energetic, playful elements"
+    }
+
+    style_desc = style_descriptions.get(style, style_descriptions["modern"])
+
+    prompt = f"""Create a detailed image generation prompt for an advertisement.
+
+Business: {business_name}
+Product/Service: {product}
+Target Audience: {audience}
+Unique Selling Point: {usp if usp else 'Not specified'}
+Visual Style: {style_desc}
+
+Generate a prompt for creating a professional advertising image. The prompt should:
+1. Describe a visually appealing scene that represents the product/service
+2. Include the visual style elements
+3. NOT include any text or logos in the image
+4. Be suitable for social media advertising
+5. Be 1-2 sentences, specific and detailed
+
+Respond with ONLY the image prompt, nothing else."""
+
+    response = client.messages.create(
+        model="claude-3-haiku-20240307",
+        max_tokens=300,
+        messages=[{"role": "user", "content": prompt}]
+    )
+
+    return response.content[0].text.strip()
+
+
+async def generate_ad_copy(business_name: str, product: str, audience: str, usp: str, variant: int) -> dict:
+    """Use Claude to generate headline and copy for the ad."""
+    client = get_anthropic_client()
+
+    prompt = f"""Create advertising copy for a social media ad.
+
+Business: {business_name}
+Product/Service: {product}
+Target Audience: {audience}
+Unique Selling Point: {usp if usp else 'Quality and reliability'}
+Variant: {variant} of 3 (make each variant unique in tone/approach)
+
+Generate:
+1. A compelling headline (max 10 words, attention-grabbing)
+2. Ad copy (max 30 words, persuasive, includes call-to-action)
+
+Respond in JSON format:
+{{"headline": "...", "copy": "..."}}"""
+
+    response = client.messages.create(
+        model="claude-3-haiku-20240307",
+        max_tokens=200,
+        messages=[{"role": "user", "content": prompt}]
+    )
+
+    result_text = response.content[0].text.strip()
+
+    try:
+        start = result_text.find("{")
+        end = result_text.rfind("}") + 1
+        if start >= 0 and end > start:
+            return json.loads(result_text[start:end])
+    except:
+        pass
+
+    return {
+        "headline": f"Discover {business_name}",
+        "copy": f"The best {product} for {audience}. Try it today!"
+    }
+
+
+async def generate_image_with_flux(prompt: str) -> str:
+    """Generate an image using FLUX Pro via fal.ai."""
+    fal_api_key = os.getenv("FAL_API_KEY")
+    if not fal_api_key:
+        raise HTTPException(status_code=500, detail="FAL API key not configured")
+
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        # Submit the image generation request
+        response = await client.post(
+            "https://queue.fal.run/fal-ai/flux-pro/v1.1",
+            headers={
+                "Authorization": f"Key {fal_api_key}",
+                "Content-Type": "application/json"
+            },
+            json={
+                "prompt": prompt,
+                "image_size": "square_hd",
+                "num_images": 1,
+                "enable_safety_checker": True
+            }
+        )
+
+        if response.status_code != 200:
+            raise HTTPException(status_code=500, detail=f"Image generation failed: {response.text}")
+
+        result = response.json()
+
+        # Check if it's a queued request
+        if "request_id" in result:
+            request_id = result["request_id"]
+
+            # Poll for result
+            for _ in range(30):  # Max 30 attempts (60 seconds)
+                await asyncio.sleep(2)
+
+                status_response = await client.get(
+                    f"https://queue.fal.run/fal-ai/flux-pro/v1.1/requests/{request_id}/status",
+                    headers={"Authorization": f"Key {fal_api_key}"}
+                )
+
+                if status_response.status_code == 200:
+                    status_data = status_response.json()
+
+                    if status_data.get("status") == "COMPLETED":
+                        # Get the result
+                        result_response = await client.get(
+                            f"https://queue.fal.run/fal-ai/flux-pro/v1.1/requests/{request_id}",
+                            headers={"Authorization": f"Key {fal_api_key}"}
+                        )
+
+                        if result_response.status_code == 200:
+                            final_result = result_response.json()
+                            if "images" in final_result and len(final_result["images"]) > 0:
+                                return final_result["images"][0]["url"]
+
+                    elif status_data.get("status") == "FAILED":
+                        raise HTTPException(status_code=500, detail="Image generation failed")
+
+            raise HTTPException(status_code=500, detail="Image generation timed out")
+
+        # Direct response (not queued)
+        if "images" in result and len(result["images"]) > 0:
+            return result["images"][0]["url"]
+
+        raise HTTPException(status_code=500, detail="No image generated")
+
+
+@app.post("/api/ads/generate")
+async def generate_ads(req: AdRequest):
+    """Generate ad creatives using AI."""
+    if not req.business_name or len(req.business_name) < 2:
+        raise HTTPException(status_code=400, detail="Business name too short")
+
+    if not req.product or len(req.product) < 5:
+        raise HTTPException(status_code=400, detail="Product description too short")
+
+    if not req.audience or len(req.audience) < 3:
+        raise HTTPException(status_code=400, detail="Audience description too short")
+
+    try:
+        ads = []
+
+        # Generate 3 ad variants
+        for i in range(3):
+            # Generate image prompt with slight variation
+            variation_suffix = ["", " with warm lighting", " with cool tones"][i]
+            image_prompt = await generate_image_prompt(
+                req.business_name,
+                req.product,
+                req.audience,
+                req.usp,
+                req.style
+            )
+            image_prompt += variation_suffix
+
+            # Generate image and copy in parallel
+            image_url_task = generate_image_with_flux(image_prompt)
+            copy_task = generate_ad_copy(
+                req.business_name,
+                req.product,
+                req.audience,
+                req.usp,
+                i + 1
+            )
+
+            image_url, copy_data = await asyncio.gather(image_url_task, copy_task)
+
+            ads.append({
+                "image_url": image_url,
+                "headline": copy_data["headline"],
+                "copy": copy_data["copy"],
+                "prompt_used": image_prompt
+            })
+
+        return {
+            "status": "success",
+            "ads": ads
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ad generation failed: {str(e)}")
 
 
 if __name__ == "__main__":

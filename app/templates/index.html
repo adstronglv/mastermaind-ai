@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PromptEngineer - KI Prompt Optimierung</title>
-    <meta name="description" content="Optimiere deine AI Prompts für bessere Ergebnisse mit ChatGPT, Claude und anderen KI-Modellen.">
+    <title>AdStrong - AI Tools for Marketers</title>
+    <meta name="description" content="Create better content faster with AI. Optimize prompts, generate ads, and boost your marketing with AdStrong.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
@@ -14,212 +14,153 @@
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
                 <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                    <span class="text-white font-bold text-xl">P</span>
+                    <span class="text-white font-bold text-xl">A</span>
                 </div>
-                <span class="text-white font-bold text-xl">PromptEngineer</span>
+                <span class="text-white font-bold text-xl">AdStrong</span>
             </div>
             <nav class="flex items-center gap-4">
-                <a href="#demo" class="text-gray-300 hover:text-white transition">Demo</a>
-                <a href="#templates" class="text-gray-300 hover:text-white transition">Templates</a>
-                <!-- Language Toggle -->
-                <button onclick="toggleLanguage()" id="lang-toggle" class="text-gray-300 hover:text-white transition flex items-center gap-1 text-sm border border-white/20 px-3 py-1 rounded font-medium">
-                    <span id="lang-flag">🇩🇪</span>
-                    <span id="lang-code">Deutsch</span>
-                </button>
-                <span class="bg-white/10 text-gray-400 px-4 py-2 rounded-lg cursor-not-allowed">
-                    <span data-i18n="goPro">Pro - Coming Soon</span>
-                </span>
+                <a href="/prompt" class="text-gray-300 hover:text-white transition">Prompt Engineer</a>
+                <a href="/ads" class="text-gray-300 hover:text-white transition">Ad Creator</a>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="max-w-6xl mx-auto px-4 py-12 text-center">
-        <h1 class="text-5xl font-bold text-white mb-4" data-i18n="heroTitle">
-            Optimiere deine KI-Prompts
+    <section class="max-w-6xl mx-auto px-4 py-20 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold text-white mb-6">
+            AI Tools for Marketers
         </h1>
-        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto" data-i18n="heroSubtitle">
-            Bessere Ergebnisse von ChatGPT, Claude und anderen KI-Modellen.
-            Unsere KI analysiert und verbessert deine Prompts sofort.
+        <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto">
+            Create better content faster with artificial intelligence.
+            Free tools to optimize your prompts and generate ad creatives.
         </p>
-        <div class="flex justify-center gap-4 text-sm text-gray-400 mb-8">
-            <span class="flex items-center gap-1">
-                <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                <span data-i18n="freeOptimizations">10 kostenlose Optimierungen/Tag</span>
-            </span>
-            <span class="flex items-center gap-1">
-                <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                </svg>
-                <span data-i18n="noSignup">Keine Registrierung nötig</span>
-            </span>
-        </div>
-    </section>
 
-    <!-- LIVE DEMO - Before/After Section -->
-    <section id="demo" class="max-w-5xl mx-auto px-4 pb-12">
-        <h2 class="text-2xl font-bold text-white text-center mb-6" data-i18n="demoTitle">
-            ✨ Sieh den Unterschied
-        </h2>
-        <div class="grid md:grid-cols-2 gap-4 mb-8">
-            <!-- Before -->
-            <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-5">
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="text-red-400 text-xl">❌</span>
-                    <span class="text-red-400 font-semibold" data-i18n="before">Vorher</span>
-                    <span class="ml-auto bg-red-500/20 text-red-400 text-xs px-2 py-1 rounded">Score: 3/10</span>
-                </div>
-                <p class="text-gray-300 text-sm" data-i18n="demoBefore">
-                    "Schreib mir einen Text über KI"
+        <!-- Tool Cards -->
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Prompt Engineer Card -->
+            <a href="/prompt" class="group bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 text-left hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300">
+                <div class="text-5xl mb-4">&#128221;</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Prompt Engineer</h2>
+                <p class="text-gray-400 mb-6">
+                    Optimize your prompts for ChatGPT, Claude and other AI models.
+                    Get better results with improved prompts.
                 </p>
-            </div>
-            <!-- After -->
-            <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-5">
-                <div class="flex items-center gap-2 mb-3">
-                    <span class="text-green-400 text-xl">✅</span>
-                    <span class="text-green-400 font-semibold" data-i18n="after">Nachher</span>
-                    <span class="ml-auto bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded">Score: 9/10</span>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center gap-2 text-gray-300 text-sm">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        Free to use
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-300 text-sm">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        No signup required
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-300 text-sm">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        Instant results
+                    </div>
                 </div>
-                <p class="text-gray-300 text-sm" data-i18n="demoAfter">
-                    "Schreibe einen 500-Wort Blogbeitrag über künstliche Intelligenz für Einsteiger. Erkläre 3 praktische Anwendungen im Alltag. Nutze einen freundlichen, leicht verständlichen Ton. Strukturiere den Text mit Zwischenüberschriften."
+                <div class="flex items-center gap-2 text-purple-400 font-semibold group-hover:text-purple-300 transition">
+                    Try Prompt Engineer
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
+            </a>
+
+            <!-- Ad Creator Card -->
+            <a href="/ads" class="group bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 text-left hover:border-pink-500/50 hover:bg-white/10 transition-all duration-300 relative overflow-hidden">
+                <div class="absolute top-4 right-4 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                    NEW
+                </div>
+                <div class="text-5xl mb-4">&#127912;</div>
+                <h2 class="text-2xl font-bold text-white mb-2">Ad Creator</h2>
+                <p class="text-gray-400 mb-6">
+                    Generate stunning ad creatives with AI in seconds.
+                    Images and copy for Instagram, Facebook and more.
                 </p>
-            </div>
-        </div>
-
-        <!-- Example Cards -->
-        <div class="grid md:grid-cols-3 gap-4 mb-8">
-            <div class="bg-white/5 border border-white/10 rounded-lg p-4 cursor-pointer hover:border-purple-500/50 transition" onclick="loadExample('marketing')">
-                <div class="text-2xl mb-2">📢</div>
-                <h3 class="text-white font-medium mb-1" data-i18n="exMarketing">Marketing</h3>
-                <p class="text-gray-400 text-xs" data-i18n="exMarketingDesc">"Schreib Werbung für mein Produkt"</p>
-            </div>
-            <div class="bg-white/5 border border-white/10 rounded-lg p-4 cursor-pointer hover:border-purple-500/50 transition" onclick="loadExample('coding')">
-                <div class="text-2xl mb-2">💻</div>
-                <h3 class="text-white font-medium mb-1" data-i18n="exCoding">Programmierung</h3>
-                <p class="text-gray-400 text-xs" data-i18n="exCodingDesc">"Schreib eine Funktion die X macht"</p>
-            </div>
-            <div class="bg-white/5 border border-white/10 rounded-lg p-4 cursor-pointer hover:border-purple-500/50 transition" onclick="loadExample('email')">
-                <div class="text-2xl mb-2">✉️</div>
-                <h3 class="text-white font-medium mb-1" data-i18n="exEmail">E-Mail</h3>
-                <p class="text-gray-400 text-xs" data-i18n="exEmailDesc">"Schreib eine professionelle E-Mail"</p>
-            </div>
+                <div class="space-y-2 mb-6">
+                    <div class="flex items-center gap-2 text-gray-300 text-sm">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        3 free generations/day
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-300 text-sm">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        AI-generated images
+                    </div>
+                    <div class="flex items-center gap-2 text-gray-300 text-sm">
+                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                        </svg>
+                        Headlines & copy included
+                    </div>
+                </div>
+                <div class="flex items-center gap-2 text-pink-400 font-semibold group-hover:text-pink-300 transition">
+                    Create Ad
+                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </div>
+            </a>
         </div>
     </section>
 
-    <!-- Main Tool -->
-    <section class="max-w-4xl mx-auto px-4 pb-16">
-        <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
-            <!-- Task Type Selection -->
-            <div class="flex flex-wrap gap-2 mb-4">
-                <button onclick="setTaskType('general')" id="btn-general" class="task-btn active px-4 py-2 rounded-lg text-sm font-medium transition">
-                    <span data-i18n="catGeneral">Allgemein</span>
-                </button>
-                <button onclick="setTaskType('coding')" id="btn-coding" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition">
-                    <span data-i18n="catCoding">Coding</span>
-                </button>
-                <button onclick="setTaskType('creative')" id="btn-creative" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition">
-                    <span data-i18n="catCreative">Kreativ</span>
-                </button>
-                <button onclick="setTaskType('marketing')" id="btn-marketing" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition">
-                    <span data-i18n="catMarketing">Marketing</span>
-                </button>
-            </div>
-
-            <!-- Input -->
-            <div class="mb-4">
-                <label class="block text-gray-300 text-sm mb-2" data-i18n="yourPrompt">Dein Prompt</label>
-                <textarea
-                    id="input-prompt"
-                    rows="5"
-                    class="w-full bg-white/5 border border-white/20 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none"
-                    data-i18n-placeholder="promptPlaceholder"
-                    placeholder="Gib deinen Prompt hier ein... (z.B. 'Schreib einen Blogbeitrag über KI')"
-                ></textarea>
-                <div class="flex justify-between text-xs text-gray-500 mt-1">
-                    <span id="char-count">0 / 5000</span>
-                    <span data-i18n="minChars">Min 10 Zeichen</span>
+    <!-- Features Section -->
+    <section class="max-w-6xl mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold text-white text-center mb-12">Why AdStrong?</h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
                 </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Lightning Fast</h3>
+                <p class="text-gray-400">Generate content in seconds, not hours. Save time and focus on what matters.</p>
             </div>
-
-            <!-- Optimize Button -->
-            <button
-                onclick="optimizePrompt()"
-                id="optimize-btn"
-                class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
-            >
-                <span id="btn-text" data-i18n="optimizeBtn">🚀 Prompt Optimieren</span>
-                <svg id="btn-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
-                </svg>
-            </button>
-
-            <!-- Results -->
-            <div id="results" class="hidden mt-6">
-                <div class="border-t border-white/10 pt-6">
-                    <!-- Score -->
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-red-400" id="score-before">-</div>
-                            <div class="text-xs text-gray-500" data-i18n="before">Vorher</div>
-                        </div>
-                        <div class="flex-1 h-3 bg-white/10 rounded-full overflow-hidden">
-                            <div id="score-bar" class="h-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 transition-all duration-1000" style="width: 0%"></div>
-                        </div>
-                        <div class="text-center">
-                            <div class="text-3xl font-bold text-green-400" id="score-after">-</div>
-                            <div class="text-xs text-gray-500" data-i18n="after">Nachher</div>
-                        </div>
-                    </div>
-
-                    <!-- Optimized Prompt -->
-                    <div class="mb-6">
-                        <label class="block text-gray-300 text-sm mb-2 flex items-center justify-between">
-                            <span data-i18n="optimizedPrompt">Optimierter Prompt</span>
-                            <button onclick="copyOptimized()" class="text-purple-400 hover:text-purple-300 text-xs flex items-center gap-1">
-                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                </svg>
-                                <span data-i18n="copy">Kopieren</span>
-                            </button>
-                        </label>
-                        <div id="optimized-prompt" class="bg-green-500/10 border border-green-500/30 rounded-lg p-4 text-green-200 whitespace-pre-wrap"></div>
-                    </div>
-
-                    <!-- Improvements -->
-                    <div class="mb-6">
-                        <label class="block text-gray-300 text-sm mb-2" data-i18n="improvements">Verbesserungen</label>
-                        <ul id="improvements-list" class="space-y-2"></ul>
-                    </div>
-
-                    <!-- Tips -->
-                    <div>
-                        <label class="block text-gray-300 text-sm mb-2" data-i18n="proTips">Profi-Tipps</label>
-                        <ul id="tips-list" class="space-y-2"></ul>
-                    </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-pink-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
                 </div>
+                <h3 class="text-xl font-semibold text-white mb-2">AI-Powered</h3>
+                <p class="text-gray-400">Powered by Claude AI and FLUX Pro for best-in-class results.</p>
             </div>
-        </div>
-    </section>
-
-    <!-- Templates Section -->
-    <section id="templates" class="max-w-6xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-white text-center mb-8" data-i18n="templatesTitle">Prompt-Vorlagen</h2>
-        <div id="templates-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Templates loaded via JS -->
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2">Free to Start</h3>
+                <p class="text-gray-400">No credit card required. Start creating for free today.</p>
+            </div>
         </div>
     </section>
 
     <!-- CTA Section -->
     <section class="max-w-4xl mx-auto px-4 py-16 text-center">
         <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-8">
-            <h2 class="text-3xl font-bold text-white mb-4" data-i18n="ctaTitle">Bereit für bessere Prompts?</h2>
-            <p class="text-gray-300 mb-6" data-i18n="ctaSubtitle">Starte jetzt kostenlos - keine Kreditkarte erforderlich.</p>
-            <a href="#demo" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition">
-                <span data-i18n="ctaButton">Jetzt ausprobieren</span>
-            </a>
+            <h2 class="text-3xl font-bold text-white mb-4">Ready to Create?</h2>
+            <p class="text-gray-300 mb-6">Choose a tool above and start creating amazing content with AI.</p>
+            <div class="flex justify-center gap-4 flex-wrap">
+                <a href="/prompt" class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                    Optimize Prompts
+                </a>
+                <a href="/ads" class="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                    Create Ads
+                </a>
+            </div>
         </div>
     </section>
 
@@ -228,49 +169,10 @@
         <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
             <div class="flex justify-center gap-6 mb-4">
                 <a href="/impressum" class="hover:text-gray-300 transition">Impressum</a>
-                <a href="/datenschutz" class="hover:text-gray-300 transition">Datenschutz</a>
+                <a href="/datenschutz" class="hover:text-gray-300 transition">Privacy Policy</a>
             </div>
-            <p>&copy; 2026 PromptEngineer. Powered by Claude AI.</p>
+            <p>&copy; 2026 AdStrong. Powered by Claude AI.</p>
         </div>
     </footer>
-
-    <!-- Cookie Banner -->
-    <div id="cookie-banner" class="fixed bottom-0 left-0 right-0 bg-slate-800 border-t border-white/10 p-4 z-50 hidden">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p class="text-gray-300 text-sm">
-                Diese Website verwendet Cookies, um Ihre Spracheinstellungen zu speichern.
-                <a href="/datenschutz" class="text-purple-400 hover:text-purple-300 underline">Mehr erfahren</a>
-            </p>
-            <div class="flex gap-3">
-                <button onclick="acceptCookies()" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-lg text-sm font-medium hover:opacity-90 transition">
-                    Akzeptieren
-                </button>
-                <button onclick="declineCookies()" class="bg-white/10 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-white/20 transition">
-                    Nur notwendige
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <script src="/static/js/app.js"></script>
-    <script>
-        // Cookie Banner Logic
-        function showCookieBanner() {
-            const consent = localStorage.getItem('cookieConsent');
-            if (!consent) {
-                document.getElementById('cookie-banner').classList.remove('hidden');
-            }
-        }
-        function acceptCookies() {
-            localStorage.setItem('cookieConsent', 'all');
-            document.getElementById('cookie-banner').classList.add('hidden');
-        }
-        function declineCookies() {
-            localStorage.setItem('cookieConsent', 'necessary');
-            document.getElementById('cookie-banner').classList.add('hidden');
-        }
-        // Show banner on load
-        document.addEventListener('DOMContentLoaded', showCookieBanner);
-    </script>
 </body>
 </html>
