@@ -66,6 +66,11 @@ class AdRequest(BaseModel):
     usp: str = ""
     style: str = "modern"
     platforms: list[str] = ["instagram"]
+    include_people: bool = True
+
+
+class RegenerateRequest(BaseModel):
+    prompt: str
 
 
 # In-memory usage tracking (replace with DB in production)
@@ -290,7 +295,7 @@ async def health():
 
 
 # Ad Creator API
-async def generate_image_prompt(business_name: str, product: str, audience: str, usp: str, style: str) -> str:
+async def generate_image_prompt(business_name: str, product: str, audience: str, usp: str, style: str, include_people: bool = True) -> str:
     """Use Claude to generate an image prompt for FLUX Pro."""
     client = get_anthropic_client()
 
@@ -302,6 +307,22 @@ async def generate_image_prompt(business_name: str, product: str, audience: str,
     }
 
     style_desc = style_descriptions.get(style, style_descriptions["modern"])
+
+    if include_people:
+        people_rules = """CRITICAL RULES FOR PHOTOREALISM WITH PEOPLE:
+- People should be shown in NATURAL, RELAXED poses (standing, sitting, walking naturally)
+- Faces must look real: natural expressions, proper symmetry, realistic skin texture
+- Hands must have exactly 5 fingers with normal proportions, natural nail shapes
+- Bodies must have correct anatomy and proportions
+- AVOID: twisted poses, unnatural angles, contorted limbs, exaggerated expressions
+- AVOID: multiple people interacting (keep it simple - 1 person max)
+- Lighting should be soft and natural, no harsh shadows on faces"""
+    else:
+        people_rules = """CRITICAL RULES - NO PEOPLE:
+- DO NOT include any people, faces, or human body parts in the image
+- Focus ONLY on: products, equipment, interiors, environments, objects, food, items
+- Show the product/service environment without human presence
+- Use atmospheric shots: equipment close-ups, interior views, product arrangements"""
 
     prompt = f"""Create a detailed image generation prompt for an advertisement.
 
@@ -318,14 +339,7 @@ Generate a prompt for creating a professional advertising image. The prompt shou
 4. Be suitable for social media advertising
 5. Be 2-3 sentences, specific and detailed
 
-CRITICAL RULES FOR PHOTOREALISM:
-- People should be shown in NATURAL, RELAXED poses (standing, sitting, walking naturally)
-- Faces must look real: natural expressions, proper symmetry, realistic skin texture
-- Hands must have exactly 5 fingers with normal proportions, natural nail shapes
-- Bodies must have correct anatomy and proportions
-- AVOID: twisted poses, unnatural angles, contorted limbs, exaggerated expressions
-- AVOID: multiple people interacting (keep it simple - 1 person max, or product-only)
-- Lighting should be soft and natural, no harsh shadows on faces
+{people_rules}
 
 End the prompt with: "ultra photorealistic, 8K detail, shot on Canon EOS R5 with 85mm f/1.4 lens, natural soft lighting, anatomically correct, magazine quality advertisement"
 
@@ -441,7 +455,8 @@ async def generate_ads(req: AdRequest):
                 req.product,
                 req.audience,
                 req.usp,
-                req.style
+                req.style,
+                req.include_people
             )
             image_prompt += variation_suffix
 
@@ -473,6 +488,22 @@ async def generate_ads(req: AdRequest):
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Ad generation failed: {str(e)}")
+
+
+@app.post("/api/ads/regenerate")
+async def regenerate_ad(req: RegenerateRequest):
+    """Regenerate a single ad image using the same prompt."""
+    if not req.prompt or len(req.prompt) < 10:
+        raise HTTPException(status_code=400, detail="Invalid prompt")
+
+    try:
+        image_url = await generate_image_with_flux(req.prompt)
+        return {
+            "status": "success",
+            "image_url": image_url
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Regeneration failed: {str(e)}")
 
 
 if __name__ == "__main__":

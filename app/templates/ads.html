@@ -164,6 +164,22 @@
                 </div>
             </div>
 
+            <!-- People Toggle -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold text-sm">4</div>
+                    <h2 class="text-lg font-semibold text-white">Image Content</h2>
+                </div>
+
+                <label class="flex items-center gap-3 px-4 py-3 rounded-lg border border-white/20 bg-white/5 cursor-pointer hover:border-pink-500/50 transition">
+                    <input type="checkbox" id="include-people" checked class="accent-pink-500 w-5 h-5">
+                    <div>
+                        <span class="text-white font-medium">Include people in images</span>
+                        <p class="text-gray-500 text-xs mt-1">AI-generated people may occasionally have imperfections. Use Regenerate if needed.</p>
+                    </div>
+                </label>
+            </div>
+
             <!-- Generate Button -->
             <button
                 onclick="generateAds()"

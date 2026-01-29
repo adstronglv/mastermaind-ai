@@ -155,7 +155,8 @@ async function generateAds() {
         audience: document.getElementById('audience').value.trim(),
         usp: document.getElementById('usp').value.trim() || '',
         style: selectedStyle,
-        platforms: getSelectedPlatforms()
+        platforms: getSelectedPlatforms(),
+        include_people: document.getElementById('include-people').checked
     };
 
     // UI: Show loading
@@ -250,6 +251,11 @@ function displayResults(result) {
                         </svg>
                         Download
                     </button>
+                    <button onclick="regenerateImage(${index})" id="regen-btn-${index}" class="bg-yellow-500/20 hover:bg-yellow-500/30 text-yellow-400 py-2 px-3 rounded-lg text-sm font-medium transition" title="Regenerate image">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                        </svg>
+                    </button>
                     <button onclick="copyText('${escapeHtml(ad.headline)}\\n\\n${escapeHtml(ad.copy)}')" class="bg-white/10 hover:bg-white/20 text-white py-2 px-3 rounded-lg text-sm font-medium transition" title="Copy text">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -306,6 +312,61 @@ async function downloadAll() {
         await downloadImage(ad.image_url, `adstrong-ad-${i + 1}.png`);
         // Small delay between downloads
         await new Promise(resolve => setTimeout(resolve, 500));
+    }
+}
+
+// Regenerate single image
+async function regenerateImage(index) {
+    if (!window.currentResults || !window.currentResults.ads[index]) {
+        alert('No image to regenerate');
+        return;
+    }
+
+    const ad = window.currentResults.ads[index];
+    const btn = document.getElementById(`regen-btn-${index}`);
+    const card = btn.closest('.bg-white\\/5');
+    const img = card.querySelector('img');
+
+    // Show loading state
+    btn.disabled = true;
+    btn.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>';
+    img.style.opacity = '0.5';
+
+    try {
+        const response = await fetch('/api/ads/regenerate', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ prompt: ad.prompt_used })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Regeneration failed');
+        }
+
+        const result = await response.json();
+
+        // Update the image
+        img.src = result.image_url;
+        img.style.opacity = '1';
+
+        // Update stored results
+        window.currentResults.ads[index].image_url = result.image_url;
+
+        // Update download button
+        const downloadBtn = card.querySelector('button[onclick^="downloadImage"]');
+        downloadBtn.setAttribute('onclick', `downloadImage('${result.image_url}', 'adstrong-ad-${index + 1}.png')`);
+
+    } catch (error) {
+        console.error('Regeneration error:', error);
+        alert('Failed to regenerate. Please try again.');
+        img.style.opacity = '1';
+    } finally {
+        // Restore button
+        btn.disabled = false;
+        btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>';
     }
 }
 
