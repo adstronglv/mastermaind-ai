@@ -317,6 +317,10 @@ Generate a prompt for creating a professional advertising image. The prompt shou
 3. NOT include any text or logos in the image
 4. Be suitable for social media advertising
 5. Be 1-2 sentences, specific and detailed
+6. IMPORTANT: Avoid showing hands or fingers prominently - focus on products, objects, or wide shots of people
+7. If showing people, use distant shots, silhouettes, or focus on faces only
+
+End the prompt with: "professional photography, 8k, sharp focus"
 
 Respond with ONLY the image prompt, nothing else."""
 
