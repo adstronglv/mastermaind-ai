@@ -4,8 +4,69 @@
 
 // State
 let selectedStyle = 'modern';
+let currentLanguage = localStorage.getItem('adstrong_lang') || 'en';
 const DAILY_LIMIT = 3;
 const STORAGE_KEY = 'adstrong_usage';
+
+// Translations
+const translations = {
+    en: {
+        hero_title: "Create Ads with AI",
+        hero_subtitle: "Generate stunning ad creatives in seconds. Just describe your business and let AI do the rest.",
+        free_generations: "3 free generations/day",
+        no_signup: "No signup required",
+        step1_title: "Describe Your Business",
+        label_business: "Business Name",
+        label_product: "What do you sell?",
+        label_audience: "Target Audience",
+        label_usp: "Unique Selling Point",
+        placeholder_business: "e.g. TechFlow Solutions",
+        placeholder_product: "e.g. Project management software",
+        placeholder_audience: "e.g. Small business owners, Startups",
+        placeholder_usp: "e.g. 10x faster than competitors",
+        step2_title: "Choose Style",
+        step3_title: "Select Platforms",
+        step4_title: "Image Content",
+        include_people: "Include people in images",
+        include_people_note: "AI-generated people may occasionally have imperfections. Use Regenerate if needed.",
+        generate_btn: "Generate 3 Ad Variants",
+        generating_btn: "Generating...",
+        loading_title: "Creating Your Ads...",
+        loading_subtitle: "This usually takes 20-30 seconds",
+        warning_expire: "Download now! Image links expire in 1 hour.",
+        results_title: "Your Ad Creatives",
+        usage_remaining: "{n} generation{s} remaining today",
+        usage_limit: "Daily limit reached. Try again tomorrow!"
+    },
+    de: {
+        hero_title: "Werbung mit KI erstellen",
+        hero_subtitle: "Erstelle beeindruckende Werbeanzeigen in Sekunden. Beschreibe einfach dein Unternehmen und lass die KI den Rest erledigen.",
+        free_generations: "3 kostenlose Generierungen/Tag",
+        no_signup: "Keine Anmeldung erforderlich",
+        step1_title: "Beschreibe dein Unternehmen",
+        label_business: "Firmenname",
+        label_product: "Was verkaufst du?",
+        label_audience: "Zielgruppe",
+        label_usp: "Alleinstellungsmerkmal",
+        placeholder_business: "z.B. TechFlow Solutions",
+        placeholder_product: "z.B. Projektmanagement-Software",
+        placeholder_audience: "z.B. Kleinunternehmer, Startups",
+        placeholder_usp: "z.B. 10x schneller als die Konkurrenz",
+        step2_title: "Stil wählen",
+        step3_title: "Plattformen wählen",
+        step4_title: "Bildinhalt",
+        include_people: "Personen in Bildern einbeziehen",
+        include_people_note: "KI-generierte Personen können gelegentlich Unvollkommenheiten aufweisen. Nutze bei Bedarf Regenerieren.",
+        generate_btn: "3 Anzeigenvarianten generieren",
+        generating_btn: "Generiere...",
+        loading_title: "Deine Anzeigen werden erstellt...",
+        loading_subtitle: "Dies dauert normalerweise 20-30 Sekunden",
+        warning_expire: "Jetzt herunterladen! Bildlinks laufen in 1 Stunde ab.",
+        results_title: "Deine Werbeanzeigen",
+        usage_remaining: "{n} Generierung{s} heute übrig",
+        usage_limit: "Tageslimit erreicht. Versuche es morgen wieder!"
+    }
+};
 
 // Loading quotes from famous people
 const loadingQuotes = [
@@ -30,7 +91,46 @@ const loadingQuotes = [
 document.addEventListener('DOMContentLoaded', () => {
     updateUsageDisplay();
     setInterval(rotateLoadingQuote, 6000);  // Slower rotation - 6 seconds
+    applyLanguage(currentLanguage);  // Apply saved language
 });
+
+// Language functions
+function setLanguage(lang) {
+    currentLanguage = lang;
+    localStorage.setItem('adstrong_lang', lang);
+    applyLanguage(lang);
+
+    // Update button styles
+    document.getElementById('lang-en').classList.toggle('bg-pink-500', lang === 'en');
+    document.getElementById('lang-en').classList.toggle('text-white', lang === 'en');
+    document.getElementById('lang-en').classList.toggle('text-gray-400', lang !== 'en');
+    document.getElementById('lang-de').classList.toggle('bg-pink-500', lang === 'de');
+    document.getElementById('lang-de').classList.toggle('text-white', lang === 'de');
+    document.getElementById('lang-de').classList.toggle('text-gray-400', lang !== 'de');
+}
+
+function applyLanguage(lang) {
+    const t = translations[lang];
+
+    // Update all elements with data-i18n attribute
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+            el.textContent = t[key];
+        }
+    });
+
+    // Update placeholders
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) {
+            el.placeholder = t[key];
+        }
+    });
+
+    // Update usage display with correct language
+    updateUsageDisplay();
+}
 
 // Style selection
 function selectStyle(style) {
@@ -90,12 +190,14 @@ function incrementUsage() {
 function updateUsageDisplay() {
     const remaining = getRemainingGenerations();
     const usageInfo = document.getElementById('usage-info');
+    const t = translations[currentLanguage];
 
     if (remaining === 0) {
-        usageInfo.textContent = 'Daily limit reached. Try again tomorrow!';
+        usageInfo.textContent = t.usage_limit;
         usageInfo.classList.add('text-yellow-500');
     } else {
-        usageInfo.textContent = `${remaining} generation${remaining !== 1 ? 's' : ''} remaining today`;
+        const plural = remaining !== 1 ? (currentLanguage === 'de' ? 'en' : 's') : '';
+        usageInfo.textContent = t.usage_remaining.replace('{n}', remaining).replace('{s}', plural);
         usageInfo.classList.remove('text-yellow-500');
     }
 }

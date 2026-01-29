@@ -22,6 +22,11 @@
                 <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
                 <a href="/prompt" class="text-gray-300 hover:text-white transition">Prompt Engineer</a>
                 <span class="text-white font-medium">Ad Creator</span>
+                <!-- Language Switcher -->
+                <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white">EN</button>
+                    <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">DE</button>
+                </div>
             </nav>
         </div>
     </header>
@@ -31,10 +36,10 @@
         <div class="inline-block bg-gradient-to-r from-pink-500/20 to-orange-500/20 text-pink-300 px-3 py-1 rounded-full text-sm mb-4">
             Ad Creator
         </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4" data-i18n="hero_title">
             Create Ads with AI
         </h1>
-        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
+        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto" data-i18n="hero_subtitle">
             Generate stunning ad creatives in seconds. Just describe your business and let AI do the rest.
         </p>
         <div class="flex justify-center gap-4 text-sm text-gray-400">
@@ -42,13 +47,13 @@
                 <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                3 free generations/day
+                <span data-i18n="free_generations">3 free generations/day</span>
             </span>
             <span class="flex items-center gap-1">
                 <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                No signup required
+                <span data-i18n="no_signup">No signup required</span>
             </span>
         </div>
     </section>
@@ -60,25 +65,27 @@
             <div class="mb-6">
                 <div class="flex items-center gap-2 mb-4">
                     <div class="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold text-sm">1</div>
-                    <h2 class="text-lg font-semibold text-white">Describe Your Business</h2>
+                    <h2 class="text-lg font-semibold text-white" data-i18n="step1_title">Describe Your Business</h2>
                 </div>
 
                 <div class="grid md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-gray-300 text-sm mb-2">Business Name</label>
+                        <label class="block text-gray-300 text-sm mb-2" data-i18n="label_business">Business Name</label>
                         <input
                             type="text"
                             id="business-name"
                             class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500"
+                            data-i18n-placeholder="placeholder_business"
                             placeholder="e.g. TechFlow Solutions"
                         >
                     </div>
                     <div>
-                        <label class="block text-gray-300 text-sm mb-2">What do you sell?</label>
+                        <label class="block text-gray-300 text-sm mb-2" data-i18n="label_product">What do you sell?</label>
                         <input
                             type="text"
                             id="product"
                             class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500"
+                            data-i18n-placeholder="placeholder_product"
                             placeholder="e.g. Project management software"
                         >
                     </div>
@@ -86,20 +93,22 @@
 
                 <div class="grid md:grid-cols-2 gap-4 mt-4">
                     <div>
-                        <label class="block text-gray-300 text-sm mb-2">Target Audience</label>
+                        <label class="block text-gray-300 text-sm mb-2" data-i18n="label_audience">Target Audience</label>
                         <input
                             type="text"
                             id="audience"
                             class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500"
+                            data-i18n-placeholder="placeholder_audience"
                             placeholder="e.g. Small business owners, Startups"
                         >
                     </div>
                     <div>
-                        <label class="block text-gray-300 text-sm mb-2">Unique Selling Point</label>
+                        <label class="block text-gray-300 text-sm mb-2" data-i18n="label_usp">Unique Selling Point</label>
                         <input
                             type="text"
                             id="usp"
                             class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-pink-500"
+                            data-i18n-placeholder="placeholder_usp"
                             placeholder="e.g. 10x faster than competitors"
                         >
                     </div>
@@ -110,7 +119,7 @@
             <div class="mb-6">
                 <div class="flex items-center gap-2 mb-4">
                     <div class="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold text-sm">2</div>
-                    <h2 class="text-lg font-semibold text-white">Choose Style</h2>
+                    <h2 class="text-lg font-semibold text-white" data-i18n="step2_title">Choose Style</h2>
                 </div>
 
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -141,7 +150,7 @@
             <div class="mb-6">
                 <div class="flex items-center gap-2 mb-4">
                     <div class="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold text-sm">3</div>
-                    <h2 class="text-lg font-semibold text-white">Select Platforms</h2>
+                    <h2 class="text-lg font-semibold text-white" data-i18n="step3_title">Select Platforms</h2>
                 </div>
 
                 <div class="flex flex-wrap gap-3">
@@ -168,14 +177,14 @@
             <div class="mb-6">
                 <div class="flex items-center gap-2 mb-4">
                     <div class="w-8 h-8 bg-pink-500/20 rounded-full flex items-center justify-center text-pink-400 font-bold text-sm">4</div>
-                    <h2 class="text-lg font-semibold text-white">Image Content</h2>
+                    <h2 class="text-lg font-semibold text-white" data-i18n="step4_title">Image Content</h2>
                 </div>
 
                 <label class="flex items-center gap-3 px-4 py-3 rounded-lg border border-white/20 bg-white/5 cursor-pointer hover:border-pink-500/50 transition">
                     <input type="checkbox" id="include-people" checked class="accent-pink-500 w-5 h-5">
                     <div>
-                        <span class="text-white font-medium">Include people in images</span>
-                        <p class="text-gray-500 text-xs mt-1">AI-generated people may occasionally have imperfections. Use Regenerate if needed.</p>
+                        <span class="text-white font-medium" data-i18n="include_people">Include people in images</span>
+                        <p class="text-gray-500 text-xs mt-1" data-i18n="include_people_note">AI-generated people may occasionally have imperfections. Use Regenerate if needed.</p>
                     </div>
                 </label>
             </div>
@@ -186,7 +195,7 @@
                 id="generate-btn"
                 class="w-full bg-gradient-to-r from-pink-500 to-orange-500 text-white py-4 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2 text-lg"
             >
-                <span id="btn-text">Generate 3 Ad Variants</span>
+                <span id="btn-text" data-i18n="generate_btn">Generate 3 Ad Variants</span>
                 <svg id="btn-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
@@ -203,8 +212,8 @@
         <div id="loading-state" class="hidden mt-8">
             <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 text-center">
                 <div class="animate-spin w-16 h-16 border-4 border-pink-500 border-t-transparent rounded-full mx-auto mb-4"></div>
-                <h3 class="text-xl font-semibold text-white mb-2">Creating Your Ads...</h3>
-                <p class="text-gray-400 mb-4">This usually takes 20-30 seconds</p>
+                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="loading_title">Creating Your Ads...</h3>
+                <p class="text-gray-400 mb-4" data-i18n="loading_subtitle">This usually takes 20-30 seconds</p>
 
                 <!-- Progress Bar -->
                 <div class="max-w-md mx-auto mb-4">
@@ -232,12 +241,12 @@
                 <svg class="w-6 h-6 text-yellow-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
                 </svg>
-                <span class="text-yellow-200 text-sm">Download now! Image links expire in 1 hour.</span>
+                <span class="text-yellow-200 text-sm" data-i18n="warning_expire">Download now! Image links expire in 1 hour.</span>
             </div>
 
             <!-- Download All Button -->
             <div class="flex justify-between items-center mb-6">
-                <h2 class="text-2xl font-bold text-white">Your Ad Creatives</h2>
+                <h2 class="text-2xl font-bold text-white" data-i18n="results_title">Your Ad Creatives</h2>
                 <button onclick="downloadAll()" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg font-medium transition flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
