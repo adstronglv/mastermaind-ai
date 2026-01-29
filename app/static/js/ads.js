@@ -7,21 +7,29 @@ let selectedStyle = 'modern';
 const DAILY_LIMIT = 3;
 const STORAGE_KEY = 'adstrong_usage';
 
-// Loading tips
-const loadingTips = [
-    "High-quality images increase CTR by up to 40%",
-    "Ads with clear CTAs convert 2x better",
-    "Emotional headlines outperform logical ones",
-    "Using faces in ads increases engagement",
-    "Consistent branding builds trust",
-    "A/B testing can improve conversions by 300%",
-    "Mobile-first design is essential in 2026"
+// Loading quotes from famous people
+const loadingQuotes = [
+    { quote: "The best marketing doesn't feel like marketing.", author: "Tom Fishburne" },
+    { quote: "Content is fire, social media is gasoline.", author: "Jay Baer" },
+    { quote: "Make the customer the hero of your story.", author: "Ann Handley" },
+    { quote: "People don't buy what you do, they buy why you do it.", author: "Simon Sinek" },
+    { quote: "The aim of marketing is to know the customer so well the product sells itself.", author: "Peter Drucker" },
+    { quote: "Good advertising does not just circulate information. It penetrates the public mind with desires.", author: "Leo Burnett" },
+    { quote: "Creativity without strategy is called art. Creativity with strategy is called advertising.", author: "Jef Richards" },
+    { quote: "In advertising, not to be different is virtually suicidal.", author: "Bill Bernbach" },
+    { quote: "The best ideas come as jokes. Make your thinking as funny as possible.", author: "David Ogilvy" },
+    { quote: "Your brand is what people say about you when you're not in the room.", author: "Jeff Bezos" },
+    { quote: "Marketing is no longer about the stuff you make, but the stories you tell.", author: "Seth Godin" },
+    { quote: "Don't find customers for your products, find products for your customers.", author: "Seth Godin" },
+    { quote: "The consumer is not a moron. She is your wife.", author: "David Ogilvy" },
+    { quote: "Advertising is fundamentally persuasion.", author: "William Bernbach" },
+    { quote: "Great companies don't hire skilled people and motivate them, they hire already motivated people.", author: "Simon Sinek" }
 ];
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
     updateUsageDisplay();
-    setInterval(rotateLoadingTip, 3000);
+    setInterval(rotateLoadingQuote, 6000);  // Slower rotation - 6 seconds
 });
 
 // Style selection
@@ -92,12 +100,26 @@ function updateUsageDisplay() {
     }
 }
 
-// Rotate loading tips
-function rotateLoadingTip() {
-    const tipEl = document.getElementById('loading-tip');
-    if (tipEl && !tipEl.closest('#loading-state').classList.contains('hidden')) {
-        const randomTip = loadingTips[Math.floor(Math.random() * loadingTips.length)];
-        tipEl.textContent = `"${randomTip}"`;
+// Rotate loading quotes
+function rotateLoadingQuote() {
+    const quoteEl = document.getElementById('loading-quote');
+    const authorEl = document.getElementById('loading-author');
+    const loadingState = document.getElementById('loading-state');
+
+    if (quoteEl && authorEl && loadingState && !loadingState.classList.contains('hidden')) {
+        const randomQuote = loadingQuotes[Math.floor(Math.random() * loadingQuotes.length)];
+
+        // Fade out
+        quoteEl.style.opacity = '0';
+        authorEl.style.opacity = '0';
+
+        setTimeout(() => {
+            quoteEl.textContent = `"${randomQuote.quote}"`;
+            authorEl.textContent = `— ${randomQuote.author}`;
+            // Fade in
+            quoteEl.style.opacity = '1';
+            authorEl.style.opacity = '1';
+        }, 300);
     }
 }
 
