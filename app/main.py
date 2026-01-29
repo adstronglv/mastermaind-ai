@@ -375,6 +375,7 @@ async def generate_image_with_flux(prompt: str) -> str:
     fal_api_key = os.getenv("FAL_API_KEY")
     if not fal_api_key:
         raise HTTPException(status_code=500, detail="FAL API key not configured")
+    fal_api_key = fal_api_key.strip()  # Remove any whitespace/newlines
 
     async with httpx.AsyncClient(timeout=60.0) as client:
         # Submit the image generation request
