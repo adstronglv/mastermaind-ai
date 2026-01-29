@@ -376,70 +376,40 @@ Respond in JSON format:
     }
 
 
-async def generate_image_with_flux(prompt: str) -> str:
-    """Generate an image using FLUX Schnell via fal.ai (fast mode)."""
+def generate_image_with_flux_sync(prompt: str) -> str:
+    """Generate an image using FLUX Schnell via fal_client (synchronous)."""
+    import fal_client
+
     fal_api_key = os.getenv("FAL_API_KEY")
     if not fal_api_key:
         raise HTTPException(status_code=500, detail="FAL API key not configured")
-    fal_api_key = fal_api_key.strip()
 
-    async with httpx.AsyncClient(timeout=60.0) as client:
-        # FLUX Schnell via queue API
-        response = await client.post(
-            "https://queue.fal.run/fal-ai/flux/schnell",
-            headers={
-                "Authorization": f"Key {fal_api_key}",
-                "Content-Type": "application/json"
-            },
-            json={
+    os.environ["FAL_KEY"] = fal_api_key.strip()
+
+    try:
+        result = fal_client.subscribe(
+            "fal-ai/flux/schnell",
+            arguments={
                 "prompt": prompt,
                 "image_size": "square_hd",
                 "num_images": 1
             }
         )
 
-        if response.status_code != 200:
-            raise HTTPException(status_code=500, detail=f"Image generation failed: {response.text}")
-
-        result = response.json()
-
-        # Check if queued
-        if "request_id" in result:
-            request_id = result["request_id"]
-
-            # Poll for result (increased timeout for reliability)
-            for _ in range(30):
-                await asyncio.sleep(2)
-
-                status_response = await client.get(
-                    f"https://queue.fal.run/fal-ai/flux/schnell/requests/{request_id}/status",
-                    headers={"Authorization": f"Key {fal_api_key}"}
-                )
-
-                if status_response.status_code == 200:
-                    status_data = status_response.json()
-
-                    if status_data.get("status") == "COMPLETED":
-                        result_response = await client.get(
-                            f"https://queue.fal.run/fal-ai/flux/schnell/requests/{request_id}",
-                            headers={"Authorization": f"Key {fal_api_key}"}
-                        )
-
-                        if result_response.status_code == 200:
-                            final_result = result_response.json()
-                            if "images" in final_result and len(final_result["images"]) > 0:
-                                return final_result["images"][0]["url"]
-
-                    elif status_data.get("status") == "FAILED":
-                        raise HTTPException(status_code=500, detail="Image generation failed")
-
-            raise HTTPException(status_code=500, detail="Image generation timed out")
-
-        # Direct response
-        if "images" in result and len(result["images"]) > 0:
+        if result and "images" in result and len(result["images"]) > 0:
             return result["images"][0]["url"]
 
         raise HTTPException(status_code=500, detail="No image generated")
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Image generation failed: {str(e)}")
+
+
+async def generate_image_with_flux(prompt: str) -> str:
+    """Async wrapper for image generation."""
+    import asyncio
+    loop = asyncio.get_event_loop()
+    return await loop.run_in_executor(None, generate_image_with_flux_sync, prompt)
 
 
 @app.post("/api/ads/generate")
