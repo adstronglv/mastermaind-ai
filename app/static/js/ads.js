@@ -4,9 +4,126 @@
 
 // State
 let selectedStyle = 'modern';
+let selectedNiche = '';
 let currentLanguage = localStorage.getItem('adstrong_lang') || 'en';
 const DAILY_LIMIT = 3;
 const STORAGE_KEY = 'adstrong_usage';
+
+// Niche templates with pre-filled examples
+const nicheTemplates = {
+    fitness: {
+        en: {
+            business: "FitLife Studio",
+            product: "Personal training, group fitness classes, gym membership",
+            audience: "Health-conscious adults 25-45, people looking to get in shape",
+            usp: "Expert trainers, modern equipment, flexible schedules"
+        },
+        de: {
+            business: "FitLife Studio",
+            product: "Personal Training, Gruppenfitness, Mitgliedschaft",
+            audience: "Gesundheitsbewusste Erwachsene 25-45, Menschen die fit werden wollen",
+            usp: "Erfahrene Trainer, moderne Geräte, flexible Zeiten"
+        }
+    },
+    restaurant: {
+        en: {
+            business: "La Bella Italia",
+            product: "Authentic Italian cuisine, fresh pasta, wood-fired pizza",
+            audience: "Food lovers, families, couples looking for dining experience",
+            usp: "Family recipes, imported ingredients, cozy atmosphere"
+        },
+        de: {
+            business: "La Bella Italia",
+            product: "Authentische italienische Küche, frische Pasta, Holzofenpizza",
+            audience: "Feinschmecker, Familien, Paare für besonderes Dinner",
+            usp: "Familienrezepte, importierte Zutaten, gemütliche Atmosphäre"
+        }
+    },
+    beauty: {
+        en: {
+            business: "Glow Beauty Salon",
+            product: "Hair styling, manicure, skincare treatments, makeup",
+            audience: "Women 20-50, brides, professionals wanting to look their best",
+            usp: "Luxury products, experienced stylists, relaxing atmosphere"
+        },
+        de: {
+            business: "Glow Beauty Salon",
+            product: "Haarstyling, Maniküre, Hautpflege, Make-up",
+            audience: "Frauen 20-50, Bräute, Berufstätige die gut aussehen wollen",
+            usp: "Luxusprodukte, erfahrene Stylisten, entspannte Atmosphäre"
+        }
+    },
+    ecommerce: {
+        en: {
+            business: "StyleShop",
+            product: "Trendy clothing, accessories, fashion items online",
+            audience: "Fashion-conscious millennials, online shoppers",
+            usp: "Fast shipping, easy returns, exclusive designs"
+        },
+        de: {
+            business: "StyleShop",
+            product: "Trendige Kleidung, Accessoires, Mode-Artikel online",
+            audience: "Modebewusste Millennials, Online-Käufer",
+            usp: "Schneller Versand, einfache Rückgabe, exklusive Designs"
+        }
+    },
+    realestate: {
+        en: {
+            business: "Prime Properties",
+            product: "Luxury apartments, family homes, investment properties",
+            audience: "Home buyers, investors, relocating professionals",
+            usp: "Best locations, trusted agents, seamless process"
+        },
+        de: {
+            business: "Prime Properties",
+            product: "Luxuswohnungen, Familienhäuser, Anlageimmobilien",
+            audience: "Hauskäufer, Investoren, umziehende Berufstätige",
+            usp: "Beste Lagen, vertrauenswürdige Makler, reibungsloser Ablauf"
+        }
+    },
+    coaching: {
+        en: {
+            business: "Success Coaching",
+            product: "Life coaching, business mentoring, personal development",
+            audience: "Entrepreneurs, executives, people seeking growth",
+            usp: "Proven methods, personalized approach, real results"
+        },
+        de: {
+            business: "Success Coaching",
+            product: "Life Coaching, Business Mentoring, Persönlichkeitsentwicklung",
+            audience: "Unternehmer, Führungskräfte, Menschen die wachsen wollen",
+            usp: "Bewährte Methoden, persönlicher Ansatz, echte Ergebnisse"
+        }
+    },
+    tech: {
+        en: {
+            business: "TechFlow Solutions",
+            product: "Project management software, productivity tools, SaaS platform",
+            audience: "Small businesses, startups, remote teams",
+            usp: "Easy to use, saves time, excellent support"
+        },
+        de: {
+            business: "TechFlow Solutions",
+            product: "Projektmanagement-Software, Produktivitäts-Tools, SaaS-Plattform",
+            audience: "Kleine Unternehmen, Startups, Remote-Teams",
+            usp: "Einfach zu bedienen, spart Zeit, exzellenter Support"
+        }
+    },
+    other: {
+        en: {
+            business: "",
+            product: "",
+            audience: "",
+            usp: ""
+        },
+        de: {
+            business: "",
+            product: "",
+            audience: "",
+            usp: ""
+        }
+    }
+};
 
 // Translations
 const translations = {
@@ -15,6 +132,16 @@ const translations = {
         hero_subtitle: "Generate stunning ad creatives in seconds. Just describe your business and let AI do the rest.",
         free_generations: "3 free generations/day",
         no_signup: "No signup required",
+        niche_title: "Choose Your Industry",
+        niche_badge: "Quick Start",
+        niche_fitness: "Fitness",
+        niche_restaurant: "Restaurant",
+        niche_beauty: "Beauty Salon",
+        niche_ecommerce: "E-commerce",
+        niche_realestate: "Real Estate",
+        niche_coaching: "Coaching",
+        niche_tech: "Tech/SaaS",
+        niche_other: "Other",
         step1_title: "Describe Your Business",
         label_business: "Business Name",
         label_product: "What do you sell?",
@@ -43,6 +170,16 @@ const translations = {
         hero_subtitle: "Erstelle beeindruckende Werbeanzeigen in Sekunden. Beschreibe einfach dein Unternehmen und lass die KI den Rest erledigen.",
         free_generations: "3 kostenlose Generierungen/Tag",
         no_signup: "Keine Anmeldung erforderlich",
+        niche_title: "Wähle deine Branche",
+        niche_badge: "Schnellstart",
+        niche_fitness: "Fitness",
+        niche_restaurant: "Restaurant",
+        niche_beauty: "Kosmetik",
+        niche_ecommerce: "E-Commerce",
+        niche_realestate: "Immobilien",
+        niche_coaching: "Coaching",
+        niche_tech: "Tech/SaaS",
+        niche_other: "Andere",
         step1_title: "Beschreibe dein Unternehmen",
         label_business: "Firmenname",
         label_product: "Was verkaufst du?",
@@ -130,6 +267,38 @@ function applyLanguage(lang) {
 
     // Update usage display with correct language
     updateUsageDisplay();
+}
+
+// Niche selection
+function selectNiche(niche) {
+    selectedNiche = niche;
+
+    // Update button styles
+    document.querySelectorAll('.niche-btn').forEach(btn => {
+        btn.classList.remove('border-pink-500', 'bg-pink-500/10');
+        btn.classList.add('border-white/20', 'bg-white/5');
+    });
+
+    const activeBtn = document.querySelector(`[data-niche="${niche}"]`);
+    if (activeBtn) {
+        activeBtn.classList.remove('border-white/20', 'bg-white/5');
+        activeBtn.classList.add('border-pink-500', 'bg-pink-500/10');
+    }
+
+    // Pre-fill form with template data
+    if (nicheTemplates[niche]) {
+        const template = nicheTemplates[niche][currentLanguage] || nicheTemplates[niche].en;
+
+        document.getElementById('business-name').value = template.business;
+        document.getElementById('product').value = template.product;
+        document.getElementById('audience').value = template.audience;
+        document.getElementById('usp').value = template.usp;
+
+        // Smooth scroll to form if template has content
+        if (template.business) {
+            document.getElementById('business-name').focus();
+        }
+    }
 }
 
 // Style selection
@@ -279,6 +448,7 @@ async function generateAds() {
         audience: document.getElementById('audience').value.trim(),
         usp: document.getElementById('usp').value.trim() || '',
         style: selectedStyle,
+        niche: selectedNiche || 'other',
         platforms: getSelectedPlatforms(),
         include_people: document.getElementById('include-people').checked
     };

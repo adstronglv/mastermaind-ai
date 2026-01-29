@@ -61,6 +61,50 @@
     <!-- Main Tool -->
     <section class="max-w-4xl mx-auto px-4 pb-16">
         <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
+            <!-- Niche Selector -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-8 h-8 bg-gradient-to-r from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">★</div>
+                    <h2 class="text-lg font-semibold text-white" data-i18n="niche_title">Choose Your Industry</h2>
+                    <span class="text-xs text-pink-400 bg-pink-500/20 px-2 py-0.5 rounded-full" data-i18n="niche_badge">Quick Start</span>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-3" id="niche-grid">
+                    <button onclick="selectNiche('fitness')" data-niche="fitness" class="niche-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">💪</div>
+                        <div class="text-white text-sm font-medium" data-i18n="niche_fitness">Fitness</div>
+                    </button>
+                    <button onclick="selectNiche('restaurant')" data-niche="restaurant" class="niche-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">🍽️</div>
+                        <div class="text-white text-sm font-medium" data-i18n="niche_restaurant">Restaurant</div>
+                    </button>
+                    <button onclick="selectNiche('beauty')" data-niche="beauty" class="niche-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">💅</div>
+                        <div class="text-white text-sm font-medium" data-i18n="niche_beauty">Beauty Salon</div>
+                    </button>
+                    <button onclick="selectNiche('ecommerce')" data-niche="ecommerce" class="niche-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">🛒</div>
+                        <div class="text-white text-sm font-medium" data-i18n="niche_ecommerce">E-commerce</div>
+                    </button>
+                    <button onclick="selectNiche('realestate')" data-niche="realestate" class="niche-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">🏠</div>
+                        <div class="text-white text-sm font-medium" data-i18n="niche_realestate">Real Estate</div>
+                    </button>
+                    <button onclick="selectNiche('coaching')" data-niche="coaching" class="niche-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">🎯</div>
+                        <div class="text-white text-sm font-medium" data-i18n="niche_coaching">Coaching</div>
+                    </button>
+                    <button onclick="selectNiche('tech')" data-niche="tech" class="niche-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">💻</div>
+                        <div class="text-white text-sm font-medium" data-i18n="niche_tech">Tech/SaaS</div>
+                    </button>
+                    <button onclick="selectNiche('other')" data-niche="other" class="niche-btn p-4 rounded-lg border border-white/20 bg-white/5 hover:border-pink-500/50 transition text-center">
+                        <div class="text-2xl mb-1">✨</div>
+                        <div class="text-white text-sm font-medium" data-i18n="niche_other">Other</div>
+                    </button>
+                </div>
+            </div>
+
             <!-- Step 1: Business Info -->
             <div class="mb-6">
                 <div class="flex items-center gap-2 mb-4">

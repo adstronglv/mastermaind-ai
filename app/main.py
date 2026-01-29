@@ -65,6 +65,7 @@ class AdRequest(BaseModel):
     audience: str
     usp: str = ""
     style: str = "modern"
+    niche: str = "other"
     platforms: list[str] = ["instagram"]
     include_people: bool = True
 
@@ -295,7 +296,7 @@ async def health():
 
 
 # Ad Creator API
-async def generate_image_prompt(business_name: str, product: str, audience: str, usp: str, style: str, include_people: bool = True) -> str:
+async def generate_image_prompt(business_name: str, product: str, audience: str, usp: str, style: str, niche: str = "other", include_people: bool = True) -> str:
     """Use Claude to generate an image prompt for FLUX Pro."""
     client = get_anthropic_client()
 
@@ -306,7 +307,20 @@ async def generate_image_prompt(business_name: str, product: str, audience: str,
         "playful": "fun, colorful, dynamic, energetic, playful elements"
     }
 
+    # Niche-specific guidance for better image generation
+    niche_guidance = {
+        "fitness": "gym equipment, workout environment, athletic atmosphere, energy and motivation, modern fitness studio",
+        "restaurant": "delicious food presentation, elegant table setting, warm restaurant ambiance, appetizing dishes, culinary excellence",
+        "beauty": "luxurious spa atmosphere, beauty products, elegant salon interior, skincare and wellness, premium aesthetic",
+        "ecommerce": "product showcase, clean product photography, lifestyle context, shopping appeal, premium packaging",
+        "realestate": "stunning property exterior/interior, luxury living space, architectural beauty, dream home atmosphere",
+        "coaching": "professional setting, success imagery, motivational atmosphere, achievement and growth, executive style",
+        "tech": "modern technology, sleek devices, digital innovation, futuristic workspace, cutting-edge design",
+        "other": "professional business setting, high-quality commercial photography"
+    }
+
     style_desc = style_descriptions.get(style, style_descriptions["modern"])
+    niche_desc = niche_guidance.get(niche, niche_guidance["other"])
 
     if include_people:
         people_rules = """CRITICAL RULES FOR PHOTOREALISM WITH PEOPLE:
@@ -327,17 +341,20 @@ async def generate_image_prompt(business_name: str, product: str, audience: str,
     prompt = f"""Create a detailed image generation prompt for an advertisement.
 
 Business: {business_name}
+Industry: {niche}
 Product/Service: {product}
 Target Audience: {audience}
 Unique Selling Point: {usp if usp else 'Not specified'}
 Visual Style: {style_desc}
+Industry-specific elements: {niche_desc}
 
 Generate a prompt for creating a professional advertising image. The prompt should:
 1. Describe a visually appealing scene that represents the product/service
-2. Include the visual style elements
-3. NOT include any text or logos in the image
-4. Be suitable for social media advertising
-5. Be 2-3 sentences, specific and detailed
+2. Include industry-specific visual elements relevant to {niche}
+3. Include the visual style elements
+4. NOT include any text or logos in the image
+5. Be suitable for social media advertising
+6. Be 2-3 sentences, specific and detailed
 
 {people_rules}
 
@@ -456,6 +473,7 @@ async def generate_ads(req: AdRequest):
                 req.audience,
                 req.usp,
                 req.style,
+                req.niche,
                 req.include_people
             )
             image_prompt += variation_suffix
