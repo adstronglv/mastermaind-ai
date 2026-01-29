@@ -317,13 +317,15 @@ Generate a prompt for creating a professional advertising image. The prompt shou
 3. NOT include any text or logos in the image
 4. Be suitable for social media advertising
 5. Be 2-3 sentences, specific and detailed
-6. IMPORTANT: Avoid showing hands or fingers prominently
-7. Include CONTEXT and ENVIRONMENT - show relevant settings, equipment, tools, or props
-8. PREFER: Product shots, close-ups of equipment, or single person in simple natural pose
-9. AVOID: Multiple people interacting, complex group poses, or dynamic action shots
-10. If showing a person: natural relaxed pose, candid moment, or back/side view
 
-End the prompt with: "professional product photography, natural pose, 8k, sharp focus"
+CRITICAL RULES FOR PHOTOREALISM:
+- NEVER show hands, fingers, or feet in detail
+- PREFER: Product-only shots, equipment close-ups, or environmental shots WITHOUT people
+- If people are needed: show ONLY back view, silhouette, or distant figure (no faces, no hands visible)
+- Focus on OBJECTS: products, equipment, interiors, landscapes, food, items
+- AVOID: Full body shots, portraits, group photos, action poses
+
+End the prompt with: "ultra photorealistic, shot on Canon EOS R5, natural lighting, no distortions, magazine quality"
 
 Respond with ONLY the image prompt, nothing else."""
 
