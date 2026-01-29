@@ -377,10 +377,10 @@ async def generate_image_with_flux(prompt: str) -> str:
         raise HTTPException(status_code=500, detail="FAL API key not configured")
     fal_api_key = fal_api_key.strip()
 
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        # FLUX Schnell - synchronous, fast (1-3 seconds)
+    async with httpx.AsyncClient(timeout=60.0) as client:
+        # FLUX Schnell via queue API
         response = await client.post(
-            "https://fal.run/fal-ai/flux/schnell",
+            "https://queue.fal.run/fal-ai/flux/schnell",
             headers={
                 "Authorization": f"Key {fal_api_key}",
                 "Content-Type": "application/json"
@@ -388,8 +388,7 @@ async def generate_image_with_flux(prompt: str) -> str:
             json={
                 "prompt": prompt,
                 "image_size": "square_hd",
-                "num_images": 1,
-                "enable_safety_checker": True
+                "num_images": 1
             }
         )
 
@@ -398,6 +397,39 @@ async def generate_image_with_flux(prompt: str) -> str:
 
         result = response.json()
 
+        # Check if queued
+        if "request_id" in result:
+            request_id = result["request_id"]
+
+            # Poll for result (Schnell is fast, should complete in 5-10 sec)
+            for _ in range(15):
+                await asyncio.sleep(1)
+
+                status_response = await client.get(
+                    f"https://queue.fal.run/fal-ai/flux/schnell/requests/{request_id}/status",
+                    headers={"Authorization": f"Key {fal_api_key}"}
+                )
+
+                if status_response.status_code == 200:
+                    status_data = status_response.json()
+
+                    if status_data.get("status") == "COMPLETED":
+                        result_response = await client.get(
+                            f"https://queue.fal.run/fal-ai/flux/schnell/requests/{request_id}",
+                            headers={"Authorization": f"Key {fal_api_key}"}
+                        )
+
+                        if result_response.status_code == 200:
+                            final_result = result_response.json()
+                            if "images" in final_result and len(final_result["images"]) > 0:
+                                return final_result["images"][0]["url"]
+
+                    elif status_data.get("status") == "FAILED":
+                        raise HTTPException(status_code=500, detail="Image generation failed")
+
+            raise HTTPException(status_code=500, detail="Image generation timed out")
+
+        # Direct response
         if "images" in result and len(result["images"]) > 0:
             return result["images"][0]["url"]
 
