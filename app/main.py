@@ -319,13 +319,15 @@ Generate a prompt for creating a professional advertising image. The prompt shou
 5. Be 2-3 sentences, specific and detailed
 
 CRITICAL RULES FOR PHOTOREALISM:
-- NEVER show hands, fingers, or feet in detail
-- PREFER: Product-only shots, equipment close-ups, or environmental shots WITHOUT people
-- If people are needed: show ONLY back view, silhouette, or distant figure (no faces, no hands visible)
-- Focus on OBJECTS: products, equipment, interiors, landscapes, food, items
-- AVOID: Full body shots, portraits, group photos, action poses
+- People should be shown in NATURAL, RELAXED poses (standing, sitting, walking naturally)
+- Faces must look real: natural expressions, proper symmetry, realistic skin texture
+- Hands must have exactly 5 fingers with normal proportions, natural nail shapes
+- Bodies must have correct anatomy and proportions
+- AVOID: twisted poses, unnatural angles, contorted limbs, exaggerated expressions
+- AVOID: multiple people interacting (keep it simple - 1 person max, or product-only)
+- Lighting should be soft and natural, no harsh shadows on faces
 
-End the prompt with: "ultra photorealistic, shot on Canon EOS R5, natural lighting, no distortions, magazine quality"
+End the prompt with: "ultra photorealistic, 8K detail, shot on Canon EOS R5 with 85mm f/1.4 lens, natural soft lighting, anatomically correct, magazine quality advertisement"
 
 Respond with ONLY the image prompt, nothing else."""
 
