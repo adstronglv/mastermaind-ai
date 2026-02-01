@@ -9,17 +9,24 @@ import asyncio
 import httpx
 from datetime import datetime
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 
 from dotenv import load_dotenv
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, HTTPException, Request, Depends
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
 
 load_dotenv()
+
+# Import new modules
+from app.config import get_settings
+from app.database import get_supabase
+from app.auth import get_current_user, require_user
+from app.limiter import limiter
+from app.payments import router as payments_router
 
 # Initialize FastAPI
 app = FastAPI(
@@ -41,6 +48,9 @@ app.add_middleware(
 BASE_DIR = Path(__file__).parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
+
+# Include payments router
+app.include_router(payments_router)
 
 
 # Models
@@ -72,11 +82,6 @@ class AdRequest(BaseModel):
 
 class RegenerateRequest(BaseModel):
     prompt: str
-
-
-# In-memory usage tracking (replace with DB in production)
-usage_tracker: dict[str, int] = {}
-FREE_LIMIT = 10  # prompts per day
 
 
 def get_anthropic_client():
@@ -199,8 +204,38 @@ async def datenschutz(request: Request):
     return templates.TemplateResponse("datenschutz.html", {"request": request})
 
 
+@app.get("/terms", response_class=HTMLResponse)
+async def terms(request: Request):
+    """Render terms of service page."""
+    return templates.TemplateResponse("terms.html", {"request": request})
+
+
+@app.get("/login", response_class=HTMLResponse)
+async def login(request: Request):
+    """Render login page."""
+    return templates.TemplateResponse("login.html", {"request": request})
+
+
+@app.get("/signup", response_class=HTMLResponse)
+async def signup(request: Request):
+    """Render signup page."""
+    return templates.TemplateResponse("signup.html", {"request": request})
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard(request: Request):
+    """Render dashboard page (auth checked client-side)."""
+    # Don't check auth server-side - let client-side JS handle it
+    # This avoids redirect loop since token is in localStorage, not cookies
+    return templates.TemplateResponse("dashboard.html", {"request": request})
+
+
 @app.post("/api/optimize")
-async def api_optimize(req: PromptRequest):
+async def api_optimize(
+    req: PromptRequest,
+    request: Request,
+    user: Optional[dict] = Depends(get_current_user)
+):
     """Optimize a prompt."""
     if not req.prompt or len(req.prompt) < 10:
         raise HTTPException(status_code=400, detail="Prompt too short (min 10 chars)")
@@ -208,11 +243,30 @@ async def api_optimize(req: PromptRequest):
     if len(req.prompt) > 5000:
         raise HTTPException(status_code=400, detail="Prompt too long (max 5000 chars)")
 
+    # Check usage limits
+    user_id = str(user["id"]) if user else None
+    anon_id = limiter.get_anonymous_id(request) if not user else None
+    plan = user.get("plan", "free") if user else "free"
+
+    allowed, used, limit = await limiter.check_and_increment(
+        action="prompt",
+        plan=plan,
+        user_id=user_id,
+        anon_id=anon_id
+    )
+
+    if not allowed:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Daily limit reached ({used}/{limit} prompts). Upgrade to Pro for more."
+        )
+
     result = await optimize_prompt(req.prompt, req.task_type)
 
     return {
         "status": "success",
         "original": req.prompt,
+        "usage": {"used": used, "limit": limit},
         **result,
     }
 
@@ -291,8 +345,72 @@ async def get_tips():
 
 @app.get("/health")
 async def health():
-    """Health check endpoint."""
-    return {"status": "healthy", "timestamp": datetime.utcnow().isoformat()}
+    """Health check endpoint - also keeps Supabase alive."""
+    try:
+        supabase = get_supabase()
+        supabase.table("users").select("id").limit(1).execute()
+        db_status = "connected"
+    except Exception:
+        db_status = "error"
+
+    return {
+        "status": "healthy",
+        "database": db_status,
+        "timestamp": datetime.utcnow().isoformat()
+    }
+
+
+@app.get("/api/config")
+async def get_config():
+    """Get public configuration for frontend."""
+    settings = get_settings()
+    return {
+        "supabase_url": settings.supabase_url,
+        "supabase_anon_key": settings.supabase_anon_key
+    }
+
+
+@app.get("/api/user")
+async def get_user(user: dict = Depends(require_user)):
+    """Get current user data."""
+    # Get subscription status
+    supabase = get_supabase()
+    sub_result = supabase.table("subscriptions").select("status").eq(
+        "user_id", user["id"]
+    ).order("created_at", desc=True).limit(1).execute()
+
+    subscription_status = sub_result.data[0]["status"] if sub_result.data else None
+
+    return {
+        "id": user["id"],
+        "email": user["email"],
+        "name": user.get("name"),
+        "plan": user.get("plan", "free"),
+        "created_at": user.get("created_at"),
+        "subscription_status": subscription_status
+    }
+
+
+@app.get("/api/usage")
+async def get_usage(
+    request: Request,
+    user: Optional[dict] = Depends(get_current_user)
+):
+    """Get usage statistics for current user or anonymous session."""
+    user_id = str(user["id"]) if user else None
+    anon_id = limiter.get_anonymous_id(request) if not user else None
+    plan = user.get("plan", "free") if user else "free"
+
+    usage = await limiter.get_usage(
+        plan=plan,
+        user_id=user_id,
+        anon_id=anon_id
+    )
+
+    return {
+        "plan": plan,
+        "usage": usage
+    }
 
 
 # Ad Creator API
@@ -449,7 +567,11 @@ async def generate_image_with_flux(prompt: str) -> str:
 
 
 @app.post("/api/ads/generate")
-async def generate_ads(req: AdRequest):
+async def generate_ads(
+    req: AdRequest,
+    request: Request,
+    user: Optional[dict] = Depends(get_current_user)
+):
     """Generate ad creatives using AI."""
     if not req.business_name or len(req.business_name) < 2:
         raise HTTPException(status_code=400, detail="Business name too short")
@@ -459,6 +581,25 @@ async def generate_ads(req: AdRequest):
 
     if not req.audience or len(req.audience) < 3:
         raise HTTPException(status_code=400, detail="Audience description too short")
+
+    # Check usage limits
+    user_id = str(user["id"]) if user else None
+    anon_id = limiter.get_anonymous_id(request) if not user else None
+    plan = user.get("plan", "free") if user else "free"
+
+    allowed, used, limit = await limiter.check_and_increment(
+        action="ad",
+        plan=plan,
+        user_id=user_id,
+        anon_id=anon_id
+    )
+
+    if not allowed:
+        period = "month" if plan == "pro" else "day"
+        raise HTTPException(
+            status_code=429,
+            detail=f"Ad creation limit reached ({used}/{limit} per {period}). Upgrade to Pro for more."
+        )
 
     try:
         ads = []
@@ -509,16 +650,39 @@ async def generate_ads(req: AdRequest):
 
 
 @app.post("/api/ads/regenerate")
-async def regenerate_ad(req: RegenerateRequest):
+async def regenerate_ad(
+    req: RegenerateRequest,
+    request: Request,
+    user: Optional[dict] = Depends(get_current_user)
+):
     """Regenerate a single ad image using the same prompt."""
     if not req.prompt or len(req.prompt) < 10:
         raise HTTPException(status_code=400, detail="Invalid prompt")
+
+    # Check regeneration limits
+    user_id = str(user["id"]) if user else None
+    anon_id = limiter.get_anonymous_id(request) if not user else None
+    plan = user.get("plan", "free") if user else "free"
+
+    allowed, used, limit = await limiter.check_and_increment(
+        action="regenerate",
+        plan=plan,
+        user_id=user_id,
+        anon_id=anon_id
+    )
+
+    if not allowed:
+        raise HTTPException(
+            status_code=429,
+            detail=f"Regeneration limit reached ({used}/{limit}). Upgrade to Pro for more."
+        )
 
     try:
         image_url = await generate_image_with_flux(req.prompt)
         return {
             "status": "success",
-            "image_url": image_url
+            "image_url": image_url,
+            "usage": {"used": used, "limit": limit}
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Regeneration failed: {str(e)}")

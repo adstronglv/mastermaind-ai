@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Preise - PromptEngineer</title>
+    <title>Pricing - AdStrong</title>
+    <meta name="description" content="AdStrong pricing plans">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
@@ -13,113 +15,235 @@
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <a href="/" class="flex items-center gap-2">
                 <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                    <span class="text-white font-bold text-xl">P</span>
+                    <span class="text-white font-bold text-xl">A</span>
                 </div>
-                <span class="text-white font-bold text-xl">PromptEngineer</span>
+                <span class="text-white font-bold text-xl">AdStrong</span>
             </a>
+            <nav class="flex items-center gap-4">
+                <a href="/" class="text-gray-300 hover:text-white transition" data-i18n="nav_home">Home</a>
+                <span id="auth-buttons">
+                    <a href="/login" class="text-gray-300 hover:text-white transition" data-i18n="login_link">Log In</a>
+                </span>
+                <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white">EN</button>
+                    <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">DE</button>
+                </div>
+            </nav>
         </div>
     </header>
 
     <!-- Pricing Section -->
-    <section class="max-w-3xl mx-auto px-4 py-16">
+    <section class="max-w-5xl mx-auto px-4 py-16">
         <div class="text-center mb-12">
-            <h1 class="text-4xl font-bold text-white mb-4">Aktuell kostenlos!</h1>
-            <p class="text-xl text-gray-300 mb-6">Wir befinden uns in der Beta-Phase. Nutze alle Features gratis.</p>
-            <div class="inline-block bg-green-500/20 text-green-400 px-6 py-3 rounded-lg text-lg font-medium">
-                Unbegrenzte Prompt-Optimierungen - kostenlos
+            <h1 class="text-4xl font-bold text-white mb-4" data-i18n="pricing_title">Simple, Transparent Pricing</h1>
+            <p class="text-xl text-gray-300" data-i18n="pricing_subtitle">Choose the plan that fits your needs</p>
+        </div>
+
+        <!-- Payment Status Messages -->
+        <div id="payment-success" class="hidden max-w-2xl mx-auto mb-8 bg-green-500/20 border border-green-500/50 text-green-300 px-6 py-4 rounded-lg text-center">
+            <span data-i18n="payment_success">Payment successful! Your Pro subscription is now active.</span>
+        </div>
+        <div id="payment-cancelled" class="hidden max-w-2xl mx-auto mb-8 bg-yellow-500/20 border border-yellow-500/50 text-yellow-300 px-6 py-4 rounded-lg text-center">
+            <span data-i18n="payment_cancelled">Payment was cancelled. You can try again anytime.</span>
+        </div>
+
+        <!-- Pricing Cards -->
+        <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            <!-- Free Plan -->
+            <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8">
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-white mb-2" data-i18n="plan_free">Free</h3>
+                    <p class="text-gray-400" data-i18n="plan_free_desc">Get started with AI marketing</p>
+                </div>
+                <div class="mb-6">
+                    <span class="text-5xl font-bold text-white">0</span>
+                    <span class="text-gray-400">EUR</span>
+                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_prompts_free">10 prompts per day</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_ads_free">3 ad creations per day</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_regen_free">5 regenerations per day</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_templates">All prompt templates</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_niches">8 niche templates</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-500">
+                        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                        <span data-i18n="feature_quality_standard">Standard quality</span>
+                    </li>
+                </ul>
+                <a href="/signup" id="free-btn" class="block w-full text-center bg-white/10 text-white py-3 rounded-lg font-semibold hover:bg-white/20 transition" data-i18n="btn_start_free">
+                    Get Started Free
+                </a>
+            </div>
+
+            <!-- Pro Plan -->
+            <div class="bg-white/5 backdrop-blur-lg rounded-2xl border-2 border-purple-500 p-8 relative">
+                <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                    <span class="bg-gradient-to-r from-purple-500 to-pink-500 text-white text-sm font-semibold px-4 py-1 rounded-full" data-i18n="badge_popular">Most Popular</span>
+                </div>
+                <div class="mb-6">
+                    <h3 class="text-2xl font-bold text-white mb-2" data-i18n="plan_pro">Pro</h3>
+                    <p class="text-gray-400" data-i18n="plan_pro_desc">For serious marketers</p>
+                </div>
+                <div class="mb-6">
+                    <span class="text-5xl font-bold text-white">9</span>
+                    <span class="text-gray-400">EUR / <span data-i18n="per_month">month</span></span>
+                </div>
+                <ul class="space-y-4 mb-8">
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_prompts_pro">50 prompts per day</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_ads_pro">50 ad creations per month</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_regen_pro">100 regenerations per month</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_templates">All prompt templates</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-gray-300">
+                        <svg class="w-5 h-5 text-green-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_niches">8 niche templates</span>
+                    </li>
+                    <li class="flex items-center gap-3 text-purple-300">
+                        <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span data-i18n="feature_quality_pro">Pro quality (3-step refinement)</span>
+                    </li>
+                </ul>
+                <button id="pro-btn" onclick="upgradeToPro()" class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition disabled:opacity-50 disabled:cursor-not-allowed">
+                    <span id="pro-btn-text" data-i18n="btn_upgrade">Upgrade to Pro</span>
+                    <span id="pro-btn-loading" class="hidden">
+                        <svg class="animate-spin h-5 w-5 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </span>
+                </button>
+                <p class="text-center text-gray-500 text-sm mt-4" data-i18n="cancel_anytime">Cancel anytime. No hidden fees.</p>
             </div>
         </div>
 
-        <!-- Current Free Features -->
-        <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-green-500/30 p-8 mb-8">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-3xl">🎁</span>
-                <div>
-                    <h3 class="text-xl font-bold text-white">Beta-Zugang</h3>
-                    <p class="text-green-400">Kostenlos - Kein Account erforderlich</p>
-                </div>
-            </div>
-            <ul class="space-y-3">
-                <li class="flex items-center gap-2 text-gray-300">
-                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    Unbegrenzte Prompt-Optimierungen
-                </li>
-                <li class="flex items-center gap-2 text-gray-300">
-                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    Alle Kategorien (Allgemein, Coding, Kreativ, Marketing)
-                </li>
-                <li class="flex items-center gap-2 text-gray-300">
-                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    Prompt-Vorlagen
-                </li>
-                <li class="flex items-center gap-2 text-gray-300">
-                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    Verbesserungsvorschläge & Tipps
-                </li>
-                <li class="flex items-center gap-2 text-gray-300">
-                    <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                    </svg>
-                    Deutsch & Englisch
-                </li>
-            </ul>
-            <a href="/" class="mt-6 block w-full text-center bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition">
-                Jetzt kostenlos starten
-            </a>
+        <!-- VAT Notice -->
+        <div class="max-w-4xl mx-auto mt-8 text-center">
+            <p class="text-gray-500 text-sm" data-i18n="vat_notice">
+                Prices shown are final. No VAT charged (Kleinunternehmerregelung 19 UStG).
+            </p>
         </div>
 
-        <!-- Coming Soon -->
-        <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 opacity-60">
-            <div class="flex items-center gap-3 mb-6">
-                <span class="text-3xl">🚀</span>
-                <div>
-                    <h3 class="text-xl font-bold text-white">Pro Features</h3>
-                    <p class="text-yellow-400">Coming Soon</p>
+        <!-- Comparison Table -->
+        <div class="max-w-4xl mx-auto mt-16">
+            <h2 class="text-2xl font-bold text-white text-center mb-8" data-i18n="comparison_title">Plan Comparison</h2>
+            <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 overflow-hidden">
+                <table class="w-full">
+                    <thead class="border-b border-white/10">
+                        <tr>
+                            <th class="text-left text-gray-300 py-4 px-6" data-i18n="col_feature">Feature</th>
+                            <th class="text-center text-gray-300 py-4 px-6" data-i18n="plan_free">Free</th>
+                            <th class="text-center text-purple-300 py-4 px-6" data-i18n="plan_pro">Pro</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/10">
+                        <tr>
+                            <td class="py-4 px-6 text-gray-300" data-i18n="row_prompts">Prompts</td>
+                            <td class="py-4 px-6 text-center text-gray-400">10 / <span data-i18n="day">day</span></td>
+                            <td class="py-4 px-6 text-center text-white font-medium">50 / <span data-i18n="day">day</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-300" data-i18n="row_ads">Ad Creations</td>
+                            <td class="py-4 px-6 text-center text-gray-400">3 / <span data-i18n="day">day</span></td>
+                            <td class="py-4 px-6 text-center text-white font-medium">50 / <span data-i18n="month">month</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-300" data-i18n="row_regen">Regenerations</td>
+                            <td class="py-4 px-6 text-center text-gray-400">5 / <span data-i18n="day">day</span></td>
+                            <td class="py-4 px-6 text-center text-white font-medium">100 / <span data-i18n="month">month</span></td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-300" data-i18n="row_quality">Output Quality</td>
+                            <td class="py-4 px-6 text-center text-gray-400" data-i18n="quality_standard">Standard</td>
+                            <td class="py-4 px-6 text-center text-purple-300 font-medium" data-i18n="quality_pro">Pro (3-step)</td>
+                        </tr>
+                        <tr>
+                            <td class="py-4 px-6 text-gray-300" data-i18n="row_support">Support</td>
+                            <td class="py-4 px-6 text-center text-gray-400" data-i18n="support_email">Email</td>
+                            <td class="py-4 px-6 text-center text-white font-medium" data-i18n="support_priority">Priority Email</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="max-w-3xl mx-auto mt-16">
+            <h2 class="text-2xl font-bold text-white text-center mb-8" data-i18n="faq_title">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <div class="bg-white/5 backdrop-blur-lg rounded-lg p-6">
+                    <h3 class="text-white font-semibold mb-2" data-i18n="faq_cancel_q">Can I cancel anytime?</h3>
+                    <p class="text-gray-400" data-i18n="faq_cancel_a">Yes! You can cancel your subscription at any time from your dashboard. You'll keep Pro access until the end of your billing period.</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-lg rounded-lg p-6">
+                    <h3 class="text-white font-semibold mb-2" data-i18n="faq_refund_q">What's your refund policy?</h3>
+                    <p class="text-gray-400" data-i18n="faq_refund_a">We offer a 14-day money-back guarantee in accordance with EU consumer protection law. Contact us at adstronglv@gmail.com for refund requests.</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-lg rounded-lg p-6">
+                    <h3 class="text-white font-semibold mb-2" data-i18n="faq_payment_q">What payment methods do you accept?</h3>
+                    <p class="text-gray-400" data-i18n="faq_payment_a">We accept PayPal and all major credit cards through PayPal's secure payment system.</p>
+                </div>
+                <div class="bg-white/5 backdrop-blur-lg rounded-lg p-6">
+                    <h3 class="text-white font-semibold mb-2" data-i18n="faq_quality_q">What is "Pro quality" refinement?</h3>
+                    <p class="text-gray-400" data-i18n="faq_quality_a">Pro users get a 3-step AI process: generation, critical review, and final refinement. This produces higher quality results compared to the standard single-step generation.</p>
                 </div>
             </div>
-            <ul class="space-y-3 text-gray-400">
-                <li class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-                    </svg>
-                    Prompt-History & Favoriten
-                </li>
-                <li class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-                    </svg>
-                    Export (PDF, Markdown)
-                </li>
-                <li class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-                    </svg>
-                    API-Zugang
-                </li>
-                <li class="flex items-center gap-2">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"/>
-                    </svg>
-                    Team-Features
-                </li>
-            </ul>
-            <button disabled class="mt-6 w-full bg-white/10 text-gray-500 py-3 rounded-lg font-semibold cursor-not-allowed">
-                Coming Soon
-            </button>
         </div>
 
         <!-- Contact -->
         <div class="mt-12 text-center">
             <p class="text-gray-400">
-                Fragen? Schreib uns: <a href="mailto:support@adstronglv.com" class="text-purple-400 hover:text-purple-300">support@adstronglv.com</a>
+                <span data-i18n="questions">Questions?</span>
+                <a href="mailto:adstronglv@gmail.com" class="text-purple-400 hover:text-purple-300">adstronglv@gmail.com</a>
             </p>
         </div>
     </section>
@@ -130,9 +254,252 @@
             <div class="flex justify-center gap-6 mb-4">
                 <a href="/impressum" class="hover:text-gray-300 transition">Impressum</a>
                 <a href="/datenschutz" class="hover:text-gray-300 transition">Datenschutz</a>
+                <a href="/terms" class="hover:text-gray-300 transition">Terms</a>
             </div>
-            <p>&copy; 2026 PromptEngineer. Powered by Claude AI.</p>
+            <p>&copy; 2026 AdStrong. Powered by Claude AI.</p>
         </div>
     </footer>
+
+    <script src="/static/js/auth.js"></script>
+    <script>
+        let currentLanguage = localStorage.getItem('adstrong_lang') || 'en';
+        let currentUser = null;
+
+        const translations = {
+            en: {
+                pricing_title: "Simple, Transparent Pricing",
+                pricing_subtitle: "Choose the plan that fits your needs",
+                payment_success: "Payment successful! Your Pro subscription is now active.",
+                payment_cancelled: "Payment was cancelled. You can try again anytime.",
+                plan_free: "Free",
+                plan_free_desc: "Get started with AI marketing",
+                plan_pro: "Pro",
+                plan_pro_desc: "For serious marketers",
+                badge_popular: "Most Popular",
+                per_month: "month",
+                feature_prompts_free: "10 prompts per day",
+                feature_ads_free: "3 ad creations per day",
+                feature_regen_free: "5 regenerations per day",
+                feature_prompts_pro: "50 prompts per day",
+                feature_ads_pro: "50 ad creations per month",
+                feature_regen_pro: "100 regenerations per month",
+                feature_templates: "All prompt templates",
+                feature_niches: "8 niche templates",
+                feature_quality_standard: "Standard quality",
+                feature_quality_pro: "Pro quality (3-step refinement)",
+                btn_start_free: "Get Started Free",
+                btn_upgrade: "Upgrade to Pro",
+                btn_current: "Current Plan",
+                cancel_anytime: "Cancel anytime. No hidden fees.",
+                vat_notice: "Prices shown are final. No VAT charged (Kleinunternehmerregelung 19 UStG).",
+                comparison_title: "Plan Comparison",
+                col_feature: "Feature",
+                row_prompts: "Prompts",
+                row_ads: "Ad Creations",
+                row_regen: "Regenerations",
+                row_quality: "Output Quality",
+                row_support: "Support",
+                day: "day",
+                month: "month",
+                quality_standard: "Standard",
+                quality_pro: "Pro (3-step)",
+                support_email: "Email",
+                support_priority: "Priority Email",
+                faq_title: "Frequently Asked Questions",
+                faq_cancel_q: "Can I cancel anytime?",
+                faq_cancel_a: "Yes! You can cancel your subscription at any time from your dashboard. You'll keep Pro access until the end of your billing period.",
+                faq_refund_q: "What's your refund policy?",
+                faq_refund_a: "We offer a 14-day money-back guarantee in accordance with EU consumer protection law. Contact us at adstronglv@gmail.com for refund requests.",
+                faq_payment_q: "What payment methods do you accept?",
+                faq_payment_a: "We accept PayPal and all major credit cards through PayPal's secure payment system.",
+                faq_quality_q: "What is \"Pro quality\" refinement?",
+                faq_quality_a: "Pro users get a 3-step AI process: generation, critical review, and final refinement. This produces higher quality results compared to the standard single-step generation.",
+                questions: "Questions?",
+                nav_home: "Home",
+                login_link: "Log In",
+                dashboard_link: "Dashboard",
+                login_required: "Please log in first to upgrade to Pro."
+            },
+            de: {
+                pricing_title: "Einfache, transparente Preise",
+                pricing_subtitle: "Wahle den Plan, der zu dir passt",
+                payment_success: "Zahlung erfolgreich! Dein Pro-Abo ist jetzt aktiv.",
+                payment_cancelled: "Zahlung abgebrochen. Du kannst es jederzeit erneut versuchen.",
+                plan_free: "Kostenlos",
+                plan_free_desc: "Starte mit AI-Marketing",
+                plan_pro: "Pro",
+                plan_pro_desc: "Fur ernsthafte Marketer",
+                badge_popular: "Am beliebtesten",
+                per_month: "Monat",
+                feature_prompts_free: "10 Prompts pro Tag",
+                feature_ads_free: "3 Anzeigen pro Tag",
+                feature_regen_free: "5 Regenerierungen pro Tag",
+                feature_prompts_pro: "50 Prompts pro Tag",
+                feature_ads_pro: "50 Anzeigen pro Monat",
+                feature_regen_pro: "100 Regenerierungen pro Monat",
+                feature_templates: "Alle Prompt-Vorlagen",
+                feature_niches: "8 Nischen-Vorlagen",
+                feature_quality_standard: "Standardqualitat",
+                feature_quality_pro: "Pro-Qualitat (3-Stufen-Verfeinerung)",
+                btn_start_free: "Kostenlos starten",
+                btn_upgrade: "Auf Pro upgraden",
+                btn_current: "Aktueller Plan",
+                cancel_anytime: "Jederzeit kundbar. Keine versteckten Gebuhren.",
+                vat_notice: "Angezeigte Preise sind Endpreise. Keine MwSt. (Kleinunternehmerregelung 19 UStG).",
+                comparison_title: "Plan-Vergleich",
+                col_feature: "Feature",
+                row_prompts: "Prompts",
+                row_ads: "Anzeigen",
+                row_regen: "Regenerierungen",
+                row_quality: "Ausgabequalitat",
+                row_support: "Support",
+                day: "Tag",
+                month: "Monat",
+                quality_standard: "Standard",
+                quality_pro: "Pro (3-Stufen)",
+                support_email: "E-Mail",
+                support_priority: "Prioritats-E-Mail",
+                faq_title: "Haufig gestellte Fragen",
+                faq_cancel_q: "Kann ich jederzeit kundigen?",
+                faq_cancel_a: "Ja! Du kannst dein Abo jederzeit in deinem Dashboard kundigen. Du behaltst Pro-Zugang bis zum Ende deiner Abrechnungsperiode.",
+                faq_refund_q: "Wie ist eure Ruckerstattungspolitik?",
+                faq_refund_a: "Wir bieten eine 14-tagige Geld-zuruck-Garantie gemaß EU-Verbraucherschutzrecht. Kontaktiere uns unter adstronglv@gmail.com fur Ruckerstattungsanfragen.",
+                faq_payment_q: "Welche Zahlungsmethoden akzeptiert ihr?",
+                faq_payment_a: "Wir akzeptieren PayPal und alle gangigen Kreditkarten uber PayPals sicheres Zahlungssystem.",
+                faq_quality_q: "Was ist \"Pro-Qualitat\" Verfeinerung?",
+                faq_quality_a: "Pro-Nutzer erhalten einen 3-Stufen-KI-Prozess: Generierung, kritische Prufung und finale Verfeinerung. Dies liefert hoherwertige Ergebnisse im Vergleich zur einstufigen Standardgenerierung.",
+                questions: "Fragen?",
+                nav_home: "Startseite",
+                login_link: "Anmelden",
+                dashboard_link: "Dashboard",
+                login_required: "Bitte melde dich zuerst an, um auf Pro zu upgraden."
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            localStorage.setItem('adstrong_lang', lang);
+            applyLanguage(lang);
+
+            const enBtn = document.getElementById('lang-en');
+            const deBtn = document.getElementById('lang-de');
+            if (lang === 'en') {
+                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
+                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
+            } else {
+                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
+                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
+            }
+        }
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    el.textContent = t[key];
+                }
+            });
+        }
+
+        async function checkPaymentStatus() {
+            const params = new URLSearchParams(window.location.search);
+            if (params.get('payment') === 'success') {
+                document.getElementById('payment-success').classList.remove('hidden');
+                // Clean URL
+                window.history.replaceState({}, document.title, '/pricing');
+            } else if (params.get('payment') === 'cancelled') {
+                document.getElementById('payment-cancelled').classList.remove('hidden');
+                window.history.replaceState({}, document.title, '/pricing');
+            }
+        }
+
+        async function updateUIForUser() {
+            const t = translations[currentLanguage];
+            const authButtons = document.getElementById('auth-buttons');
+            const proBtn = document.getElementById('pro-btn');
+            const proBtnText = document.getElementById('pro-btn-text');
+            const freeBtn = document.getElementById('free-btn');
+
+            if (window.auth && window.auth.isLoggedIn()) {
+                try {
+                    const token = window.auth.getToken();
+                    const response = await fetch('/api/user', {
+                        headers: { 'Authorization': `Bearer ${token}` }
+                    });
+
+                    if (response.ok) {
+                        currentUser = await response.json();
+
+                        // Update header
+                        authButtons.innerHTML = `<a href="/dashboard" class="text-gray-300 hover:text-white transition" data-i18n="dashboard_link">${t.dashboard_link}</a>`;
+
+                        // Update buttons based on plan
+                        if (currentUser.plan === 'pro') {
+                            proBtnText.textContent = t.btn_current;
+                            proBtn.disabled = true;
+                            proBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                            freeBtn.textContent = t.btn_current;
+                        }
+                    }
+                } catch (error) {
+                    console.error('Error fetching user:', error);
+                }
+            }
+        }
+
+        async function upgradeToPro() {
+            const t = translations[currentLanguage];
+
+            if (!window.auth || !window.auth.isLoggedIn()) {
+                alert(t.login_required);
+                window.location.href = '/login?redirect=/pricing';
+                return;
+            }
+
+            const proBtn = document.getElementById('pro-btn');
+            const proBtnText = document.getElementById('pro-btn-text');
+            const proBtnLoading = document.getElementById('pro-btn-loading');
+
+            proBtn.disabled = true;
+            proBtnText.classList.add('hidden');
+            proBtnLoading.classList.remove('hidden');
+
+            try {
+                const token = window.auth.getToken();
+                const response = await fetch('/api/payments/create-subscription', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.url) {
+                        window.location.href = data.url;
+                    }
+                } else {
+                    const error = await response.json();
+                    alert(error.detail || 'Could not create subscription');
+                }
+            } catch (error) {
+                console.error('Upgrade error:', error);
+                alert('An error occurred. Please try again.');
+            } finally {
+                proBtn.disabled = false;
+                proBtnText.classList.remove('hidden');
+                proBtnLoading.classList.add('hidden');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            setLanguage(currentLanguage);
+            checkPaymentStatus();
+
+            // Wait for auth to initialize
+            setTimeout(updateUIForUser, 500);
+        });
+    </script>
 </body>
 </html>

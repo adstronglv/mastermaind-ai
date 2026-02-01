@@ -3,8 +3,11 @@ uvicorn[standard]
 python-dotenv
 anthropic
 pydantic
+pydantic-settings
 jinja2
 python-multipart
 aiofiles
 fal-client
 httpx
+supabase
+python-jose[cryptography]
