@@ -1,93 +1,111 @@
 // PromptEngineer - Frontend JavaScript
 
 let currentTaskType = 'general';
-let currentLang = 'de';
+let currentLang = localStorage.getItem('adstrong_lang') || 'en';
 
 // Translations
 const translations = {
+    en: {
+        // Navigation
+        nav_demo: "Demo",
+        nav_templates: "Templates",
+        // Hero
+        hero_title: "Optimize Your AI Prompts",
+        hero_subtitle: "Get better results from ChatGPT, Claude, and other AI models. Our AI analyzes and improves your prompts instantly.",
+        free_optimizations: "10 free optimizations/day",
+        no_signup: "No signup required",
+        // Demo
+        demo_title: "See the Difference",
+        before: "Before",
+        after: "After",
+        demo_before: '"Write me a text about AI"',
+        demo_after: '"Write a 500-word blog post about artificial intelligence for beginners. Explain 3 practical applications in everyday life. Use a friendly, easy-to-understand tone. Structure the text with subheadings."',
+        ex_marketing: "Marketing",
+        ex_marketing_desc: '"Write advertising for my product"',
+        ex_coding: "Programming",
+        ex_coding_desc: '"Write a function that does X"',
+        ex_email: "Email",
+        ex_email_desc: '"Write a professional email"',
+        // Categories
+        cat_general: "General",
+        cat_coding: "Coding",
+        cat_creative: "Creative",
+        cat_marketing: "Marketing",
+        // Form
+        your_prompt: "Your Prompt",
+        prompt_placeholder: "Enter your prompt here... (e.g. 'Write a blog post about AI')",
+        min_chars: "Min 10 characters",
+        optimize_btn: "Optimize Prompt",
+        optimizing: "Optimizing...",
+        // Results
+        optimized_prompt: "Optimized Prompt",
+        copy: "Copy",
+        copied: "Copied!",
+        improvements: "Improvements Made",
+        pro_tips: "Pro Tips",
+        // Templates & CTA
+        templates_title: "Prompt Templates",
+        cta_title: "Ready for Better Prompts?",
+        cta_subtitle: "Start for free - no credit card required.",
+        cta_button: "Try It Now",
+        // Footer
+        privacy: "Privacy Policy",
+        terms: "Terms",
+        // Errors
+        error_min_chars: "Please enter at least 10 characters",
+        error_max_chars: "Prompt too long (max 5000 characters)",
+        error_generic: "Error: "
+    },
     de: {
-        heroTitle: "Optimiere deine KI-Prompts",
-        heroSubtitle: "Bessere Ergebnisse von ChatGPT, Claude und anderen KI-Modellen. Unsere KI analysiert und verbessert deine Prompts sofort.",
-        freeOptimizations: "10 kostenlose Optimierungen/Tag",
-        noSignup: "Keine Registrierung nötig",
-        demoTitle: "✨ Sieh den Unterschied",
+        // Navigation
+        nav_demo: "Demo",
+        nav_templates: "Vorlagen",
+        // Hero
+        hero_title: "Optimiere deine KI-Prompts",
+        hero_subtitle: "Bessere Ergebnisse von ChatGPT, Claude und anderen KI-Modellen. Unsere KI analysiert und verbessert deine Prompts sofort.",
+        free_optimizations: "10 kostenlose Optimierungen/Tag",
+        no_signup: "Keine Registrierung nötig",
+        // Demo
+        demo_title: "Sieh den Unterschied",
         before: "Vorher",
         after: "Nachher",
-        demoBefore: '"Schreib mir einen Text über KI"',
-        demoAfter: '"Schreibe einen 500-Wort Blogbeitrag über künstliche Intelligenz für Einsteiger. Erkläre 3 praktische Anwendungen im Alltag. Nutze einen freundlichen, leicht verständlichen Ton. Strukturiere den Text mit Zwischenüberschriften."',
-        exMarketing: "Marketing",
-        exMarketingDesc: '"Schreib Werbung für mein Produkt"',
-        exCoding: "Programmierung",
-        exCodingDesc: '"Schreib eine Funktion die X macht"',
-        exEmail: "E-Mail",
-        exEmailDesc: '"Schreib eine professionelle E-Mail"',
-        catGeneral: "Allgemein",
-        catCoding: "Coding",
-        catCreative: "Kreativ",
-        catMarketing: "Marketing",
-        yourPrompt: "Dein Prompt",
-        promptPlaceholder: "Gib deinen Prompt hier ein... (z.B. 'Schreib einen Blogbeitrag über KI')",
-        minChars: "Min 10 Zeichen",
-        optimizeBtn: "🚀 Prompt Optimieren",
+        demo_before: '"Schreib mir einen Text über KI"',
+        demo_after: '"Schreibe einen 500-Wort Blogbeitrag über künstliche Intelligenz für Einsteiger. Erkläre 3 praktische Anwendungen im Alltag. Nutze einen freundlichen, leicht verständlichen Ton. Strukturiere den Text mit Zwischenüberschriften."',
+        ex_marketing: "Marketing",
+        ex_marketing_desc: '"Schreib Werbung für mein Produkt"',
+        ex_coding: "Programmierung",
+        ex_coding_desc: '"Schreib eine Funktion die X macht"',
+        ex_email: "E-Mail",
+        ex_email_desc: '"Schreib eine professionelle E-Mail"',
+        // Categories
+        cat_general: "Allgemein",
+        cat_coding: "Coding",
+        cat_creative: "Kreativ",
+        cat_marketing: "Marketing",
+        // Form
+        your_prompt: "Dein Prompt",
+        prompt_placeholder: "Gib deinen Prompt hier ein... (z.B. 'Schreib einen Blogbeitrag über KI')",
+        min_chars: "Min 10 Zeichen",
+        optimize_btn: "Prompt Optimieren",
         optimizing: "Optimiere...",
-        optimizedPrompt: "Optimierter Prompt",
+        // Results
+        optimized_prompt: "Optimierter Prompt",
         copy: "Kopieren",
         copied: "Kopiert!",
         improvements: "Verbesserungen",
-        proTips: "Profi-Tipps",
-        statsOptimized: "Prompts optimiert",
-        statsBetter: "Bessere Ergebnisse",
-        statsRating: "Nutzerbewertung",
-        templatesTitle: "Prompt-Vorlagen",
-        ctaTitle: "Bereit für bessere Prompts?",
-        ctaSubtitle: "Starte jetzt kostenlos - keine Kreditkarte erforderlich.",
-        ctaButton: "Jetzt ausprobieren",
-        goPro: "Pro Version",
-        errorMinChars: "Bitte mindestens 10 Zeichen eingeben",
-        errorMaxChars: "Prompt zu lang (max 5000 Zeichen)",
-        errorGeneric: "Fehler: "
-    },
-    en: {
-        heroTitle: "Optimize Your AI Prompts",
-        heroSubtitle: "Get better results from ChatGPT, Claude, and other AI models. Our AI analyzes and improves your prompts instantly.",
-        freeOptimizations: "10 free optimizations/day",
-        noSignup: "No signup required",
-        demoTitle: "✨ See the Difference",
-        before: "Before",
-        after: "After",
-        demoBefore: '"Write me a text about AI"',
-        demoAfter: '"Write a 500-word blog post about artificial intelligence for beginners. Explain 3 practical applications in everyday life. Use a friendly, easy-to-understand tone. Structure the text with subheadings."',
-        exMarketing: "Marketing",
-        exMarketingDesc: '"Write an ad for my product"',
-        exCoding: "Programming",
-        exCodingDesc: '"Write a function that does X"',
-        exEmail: "Email",
-        exEmailDesc: '"Write a professional email"',
-        catGeneral: "General",
-        catCoding: "Coding",
-        catCreative: "Creative",
-        catMarketing: "Marketing",
-        yourPrompt: "Your Prompt",
-        promptPlaceholder: "Enter your prompt here... (e.g., 'Write a blog post about AI')",
-        minChars: "Min 10 characters",
-        optimizeBtn: "🚀 Optimize Prompt",
-        optimizing: "Optimizing...",
-        optimizedPrompt: "Optimized Prompt",
-        copy: "Copy",
-        copied: "Copied!",
-        improvements: "Improvements",
-        proTips: "Pro Tips",
-        statsOptimized: "Prompts optimized",
-        statsBetter: "Better results",
-        statsRating: "User rating",
-        templatesTitle: "Prompt Templates",
-        ctaTitle: "Ready for better prompts?",
-        ctaSubtitle: "Start for free - no credit card required.",
-        ctaButton: "Try it now",
-        goPro: "Go Pro",
-        errorMinChars: "Please enter at least 10 characters",
-        errorMaxChars: "Prompt too long (max 5000 characters)",
-        errorGeneric: "Error: "
+        pro_tips: "Profi-Tipps",
+        // Templates & CTA
+        templates_title: "Prompt-Vorlagen",
+        cta_title: "Bereit für bessere Prompts?",
+        cta_subtitle: "Starte jetzt kostenlos - keine Kreditkarte erforderlich.",
+        cta_button: "Jetzt ausprobieren",
+        // Footer
+        privacy: "Datenschutz",
+        terms: "AGB",
+        // Errors
+        error_min_chars: "Bitte mindestens 10 Zeichen eingeben",
+        error_max_chars: "Prompt zu lang (max 5000 Zeichen)",
+        error_generic: "Fehler: "
     }
 };
 
@@ -109,32 +127,39 @@ const examples = {
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
-    // Check saved language
-    const savedLang = localStorage.getItem('lang') || 'de';
-    currentLang = savedLang;
+    // Check saved language (use same key as ads.js and index.html)
+    currentLang = localStorage.getItem('adstrong_lang') || 'en';
     updateLanguageUI();
+    applyTranslations();
 
     loadTemplates();
     setupCharCounter();
 });
 
-// Toggle language
-function toggleLanguage() {
-    currentLang = currentLang === 'de' ? 'en' : 'de';
-    localStorage.setItem('lang', currentLang);
+// Set language (called by language switcher buttons)
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('adstrong_lang', lang);
     updateLanguageUI();
     applyTranslations();
 }
 
-// Update language toggle button
+// Update language toggle button styles
 function updateLanguageUI() {
-    const flag = document.getElementById('lang-flag');
-    const code = document.getElementById('lang-code');
-    if (flag && code) {
-        flag.textContent = currentLang === 'de' ? '🇩🇪' : '🇬🇧';
-        code.textContent = currentLang === 'de' ? 'Deutsch' : 'English';
+    const langEn = document.getElementById('lang-en');
+    const langDe = document.getElementById('lang-de');
+
+    if (langEn && langDe) {
+        // EN button
+        langEn.classList.toggle('bg-purple-500', currentLang === 'en');
+        langEn.classList.toggle('text-white', currentLang === 'en');
+        langEn.classList.toggle('text-gray-400', currentLang !== 'en');
+
+        // DE button
+        langDe.classList.toggle('bg-purple-500', currentLang === 'de');
+        langDe.classList.toggle('text-white', currentLang === 'de');
+        langDe.classList.toggle('text-gray-400', currentLang !== 'de');
     }
-    applyTranslations();
 }
 
 // Apply translations
@@ -211,12 +236,12 @@ async function optimizePrompt() {
     const prompt = document.getElementById('input-prompt').value.trim();
 
     if (prompt.length < 10) {
-        showNotification(t.errorMinChars, 'error');
+        showNotification(t.error_min_chars, 'error');
         return;
     }
 
     if (prompt.length > 5000) {
-        showNotification(t.errorMaxChars, 'error');
+        showNotification(t.error_max_chars, 'error');
         return;
     }
 
@@ -249,11 +274,11 @@ async function optimizePrompt() {
         displayResults(data);
 
     } catch (error) {
-        showNotification(t.errorGeneric + error.message, 'error');
+        showNotification(t.error_generic + error.message, 'error');
     } finally {
         btn.classList.remove('loading');
         btn.disabled = false;
-        btnText.textContent = t.optimizeBtn;
+        btnText.textContent = t.optimize_btn;
         spinner.classList.add('hidden');
     }
 }
@@ -366,7 +391,7 @@ function copyOptimized() {
     const t = translations[currentLang];
     const text = document.getElementById('optimized-prompt').textContent;
     navigator.clipboard.writeText(text).then(() => {
-        showNotification(t.copied, 'success');
+        showNotification(t.copied || 'Copied!', 'success');
     });
 }
 

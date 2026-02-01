@@ -21,8 +21,13 @@
             <nav class="flex items-center gap-4">
                 <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
                 <a href="/ads" class="text-gray-300 hover:text-white transition">Ad Creator</a>
-                <a href="#demo" class="text-gray-300 hover:text-white transition">Demo</a>
-                <a href="#templates" class="text-gray-300 hover:text-white transition">Templates</a>
+                <a href="#demo" class="text-gray-300 hover:text-white transition" data-i18n="nav_demo">Demo</a>
+                <a href="#templates" class="text-gray-300 hover:text-white transition" data-i18n="nav_templates">Templates</a>
+                <!-- Language Switcher -->
+                <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">EN</button>
+                    <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition bg-purple-500 text-white">DE</button>
+                </div>
             </nav>
         </div>
     </header>
@@ -32,10 +37,10 @@
         <div class="inline-block bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm mb-4">
             Prompt Engineer
         </div>
-        <h1 class="text-5xl font-bold text-white mb-4">
+        <h1 class="text-5xl font-bold text-white mb-4" data-i18n="hero_title">
             Optimize Your AI Prompts
         </h1>
-        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
+        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto" data-i18n="hero_subtitle">
             Get better results from ChatGPT, Claude and other AI models.
             Our AI analyzes and improves your prompts instantly.
         </p>
@@ -44,20 +49,20 @@
                 <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                10 free optimizations/day
+                <span data-i18n="free_optimizations">10 free optimizations/day</span>
             </span>
             <span class="flex items-center gap-1">
                 <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
                 </svg>
-                No signup required
+                <span data-i18n="no_signup">No signup required</span>
             </span>
         </div>
     </section>
 
     <!-- LIVE DEMO - Before/After Section -->
     <section id="demo" class="max-w-5xl mx-auto px-4 pb-12">
-        <h2 class="text-2xl font-bold text-white text-center mb-6">
+        <h2 class="text-2xl font-bold text-white text-center mb-6" data-i18n="demo_title">
             See the Difference
         </h2>
         <div class="grid md:grid-cols-2 gap-4 mb-8">
@@ -65,10 +70,10 @@
             <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-5">
                 <div class="flex items-center gap-2 mb-3">
                     <span class="text-red-400 text-xl">&#10060;</span>
-                    <span class="text-red-400 font-semibold">Before</span>
+                    <span class="text-red-400 font-semibold" data-i18n="before">Before</span>
                     <span class="ml-auto bg-red-500/20 text-red-400 text-xs px-2 py-1 rounded">Score: 3/10</span>
                 </div>
-                <p class="text-gray-300 text-sm">
+                <p class="text-gray-300 text-sm" data-i18n="demo_before">
                     "Write me a text about AI"
                 </p>
             </div>
@@ -76,10 +81,10 @@
             <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-5">
                 <div class="flex items-center gap-2 mb-3">
                     <span class="text-green-400 text-xl">&#10004;</span>
-                    <span class="text-green-400 font-semibold">After</span>
+                    <span class="text-green-400 font-semibold" data-i18n="after">After</span>
                     <span class="ml-auto bg-green-500/20 text-green-400 text-xs px-2 py-1 rounded">Score: 9/10</span>
                 </div>
-                <p class="text-gray-300 text-sm">
+                <p class="text-gray-300 text-sm" data-i18n="demo_after">
                     "Write a 500-word blog post about artificial intelligence for beginners. Explain 3 practical applications in everyday life. Use a friendly, easy-to-understand tone. Structure the text with subheadings."
                 </p>
             </div>
@@ -89,18 +94,18 @@
         <div class="grid md:grid-cols-3 gap-4 mb-8">
             <div class="bg-white/5 border border-white/10 rounded-lg p-4 cursor-pointer hover:border-purple-500/50 transition" onclick="loadExample('marketing')">
                 <div class="text-2xl mb-2">&#128226;</div>
-                <h3 class="text-white font-medium mb-1">Marketing</h3>
-                <p class="text-gray-400 text-xs">"Write advertising for my product"</p>
+                <h3 class="text-white font-medium mb-1" data-i18n="ex_marketing">Marketing</h3>
+                <p class="text-gray-400 text-xs" data-i18n="ex_marketing_desc">"Write advertising for my product"</p>
             </div>
             <div class="bg-white/5 border border-white/10 rounded-lg p-4 cursor-pointer hover:border-purple-500/50 transition" onclick="loadExample('coding')">
                 <div class="text-2xl mb-2">&#128187;</div>
-                <h3 class="text-white font-medium mb-1">Programming</h3>
-                <p class="text-gray-400 text-xs">"Write a function that does X"</p>
+                <h3 class="text-white font-medium mb-1" data-i18n="ex_coding">Programming</h3>
+                <p class="text-gray-400 text-xs" data-i18n="ex_coding_desc">"Write a function that does X"</p>
             </div>
             <div class="bg-white/5 border border-white/10 rounded-lg p-4 cursor-pointer hover:border-purple-500/50 transition" onclick="loadExample('email')">
                 <div class="text-2xl mb-2">&#9993;</div>
-                <h3 class="text-white font-medium mb-1">Email</h3>
-                <p class="text-gray-400 text-xs">"Write a professional email"</p>
+                <h3 class="text-white font-medium mb-1" data-i18n="ex_email">Email</h3>
+                <p class="text-gray-400 text-xs" data-i18n="ex_email_desc">"Write a professional email"</p>
             </div>
         </div>
     </section>
@@ -110,32 +115,33 @@
         <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
             <!-- Task Type Selection -->
             <div class="flex flex-wrap gap-2 mb-4">
-                <button onclick="setTaskType('general')" id="btn-general" class="task-btn active px-4 py-2 rounded-lg text-sm font-medium transition">
+                <button onclick="setTaskType('general')" id="btn-general" class="task-btn active px-4 py-2 rounded-lg text-sm font-medium transition" data-i18n="cat_general">
                     General
                 </button>
-                <button onclick="setTaskType('coding')" id="btn-coding" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition">
+                <button onclick="setTaskType('coding')" id="btn-coding" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition" data-i18n="cat_coding">
                     Coding
                 </button>
-                <button onclick="setTaskType('creative')" id="btn-creative" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition">
+                <button onclick="setTaskType('creative')" id="btn-creative" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition" data-i18n="cat_creative">
                     Creative
                 </button>
-                <button onclick="setTaskType('marketing')" id="btn-marketing" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition">
+                <button onclick="setTaskType('marketing')" id="btn-marketing" class="task-btn px-4 py-2 rounded-lg text-sm font-medium transition" data-i18n="cat_marketing">
                     Marketing
                 </button>
             </div>
 
             <!-- Input -->
             <div class="mb-4">
-                <label class="block text-gray-300 text-sm mb-2">Your Prompt</label>
+                <label class="block text-gray-300 text-sm mb-2" data-i18n="your_prompt">Your Prompt</label>
                 <textarea
                     id="input-prompt"
                     rows="5"
                     class="w-full bg-white/5 border border-white/20 rounded-lg p-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 resize-none"
+                    data-i18n-placeholder="prompt_placeholder"
                     placeholder="Enter your prompt here... (e.g. 'Write a blog post about AI')"
                 ></textarea>
                 <div class="flex justify-between text-xs text-gray-500 mt-1">
                     <span id="char-count">0 / 5000</span>
-                    <span>Min 10 characters</span>
+                    <span data-i18n="min_chars">Min 10 characters</span>
                 </div>
             </div>
 
@@ -145,7 +151,7 @@
                 id="optimize-btn"
                 class="w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white py-3 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
             >
-                <span id="btn-text">Optimize Prompt</span>
+                <span id="btn-text" data-i18n="optimize_btn">Optimize Prompt</span>
                 <svg id="btn-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
@@ -159,26 +165,26 @@
                     <div class="flex items-center gap-4 mb-6">
                         <div class="text-center">
                             <div class="text-3xl font-bold text-red-400" id="score-before">-</div>
-                            <div class="text-xs text-gray-500">Before</div>
+                            <div class="text-xs text-gray-500" data-i18n="before">Before</div>
                         </div>
                         <div class="flex-1 h-3 bg-white/10 rounded-full overflow-hidden">
                             <div id="score-bar" class="h-full bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 transition-all duration-1000" style="width: 0%"></div>
                         </div>
                         <div class="text-center">
                             <div class="text-3xl font-bold text-green-400" id="score-after">-</div>
-                            <div class="text-xs text-gray-500">After</div>
+                            <div class="text-xs text-gray-500" data-i18n="after">After</div>
                         </div>
                     </div>
 
                     <!-- Optimized Prompt -->
                     <div class="mb-6">
                         <label class="block text-gray-300 text-sm mb-2 flex items-center justify-between">
-                            <span>Optimized Prompt</span>
+                            <span data-i18n="optimized_prompt">Optimized Prompt</span>
                             <button onclick="copyOptimized()" class="text-purple-400 hover:text-purple-300 text-xs flex items-center gap-1">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                                 </svg>
-                                Copy
+                                <span data-i18n="copy">Copy</span>
                             </button>
                         </label>
                         <div id="optimized-prompt" class="bg-green-500/10 border border-green-500/30 rounded-lg p-4 text-green-200 whitespace-pre-wrap"></div>
@@ -186,13 +192,13 @@
 
                     <!-- Improvements -->
                     <div class="mb-6">
-                        <label class="block text-gray-300 text-sm mb-2">Improvements Made</label>
+                        <label class="block text-gray-300 text-sm mb-2" data-i18n="improvements">Improvements Made</label>
                         <ul id="improvements-list" class="space-y-2"></ul>
                     </div>
 
                     <!-- Tips -->
                     <div>
-                        <label class="block text-gray-300 text-sm mb-2">Pro Tips</label>
+                        <label class="block text-gray-300 text-sm mb-2" data-i18n="pro_tips">Pro Tips</label>
                         <ul id="tips-list" class="space-y-2"></ul>
                     </div>
                 </div>
@@ -202,7 +208,7 @@
 
     <!-- Templates Section -->
     <section id="templates" class="max-w-6xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-white text-center mb-8">Prompt Templates</h2>
+        <h2 class="text-3xl font-bold text-white text-center mb-8" data-i18n="templates_title">Prompt Templates</h2>
         <div id="templates-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
             <!-- Templates loaded via JS -->
         </div>
@@ -211,9 +217,9 @@
     <!-- CTA Section -->
     <section class="max-w-4xl mx-auto px-4 py-16 text-center">
         <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-8">
-            <h2 class="text-3xl font-bold text-white mb-4">Ready for Better Prompts?</h2>
-            <p class="text-gray-300 mb-6">Start for free - no credit card required.</p>
-            <a href="#demo" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition">
+            <h2 class="text-3xl font-bold text-white mb-4" data-i18n="cta_title">Ready for Better Prompts?</h2>
+            <p class="text-gray-300 mb-6" data-i18n="cta_subtitle">Start for free - no credit card required.</p>
+            <a href="#demo" class="inline-block bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition" data-i18n="cta_button">
                 Try It Now
             </a>
         </div>
@@ -224,7 +230,8 @@
         <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
             <div class="flex justify-center gap-6 mb-4">
                 <a href="/impressum" class="hover:text-gray-300 transition">Impressum</a>
-                <a href="/datenschutz" class="hover:text-gray-300 transition">Privacy Policy</a>
+                <a href="/datenschutz" class="hover:text-gray-300 transition" data-i18n="privacy">Privacy Policy</a>
+                <a href="/terms" class="hover:text-gray-300 transition" data-i18n="terms">Terms</a>
             </div>
             <p>&copy; 2026 AdStrong. Powered by Claude AI.</p>
         </div>
