@@ -54,7 +54,12 @@ const translations = {
         // Errors
         error_min_chars: "Please enter at least 10 characters",
         error_max_chars: "Prompt too long (max 5000 characters)",
-        error_generic: "Error: "
+        error_generic: "Error: ",
+        // Action buttons
+        regenerate_btn: "Regenerate",
+        further_optimize_btn: "Further Optimize",
+        regenerating: "Regenerating...",
+        further_optimizing: "Optimizing further..."
     },
     de: {
         // Navigation
@@ -105,7 +110,12 @@ const translations = {
         // Errors
         error_min_chars: "Bitte mindestens 10 Zeichen eingeben",
         error_max_chars: "Prompt zu lang (max 5000 Zeichen)",
-        error_generic: "Fehler: "
+        error_generic: "Fehler: ",
+        // Action buttons
+        regenerate_btn: "Neu generieren",
+        further_optimize_btn: "Weiter optimieren",
+        regenerating: "Generiere neu...",
+        further_optimizing: "Optimiere weiter..."
     }
 };
 
@@ -428,4 +438,59 @@ function useTemplate(template) {
     document.getElementById('input-prompt').value = template;
     document.getElementById('input-prompt').dispatchEvent(new Event('input'));
     document.getElementById('input-prompt').scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+// Store last result for further optimization
+let lastOptimizedPrompt = '';
+
+// Regenerate - create completely new optimization from original input
+function regeneratePrompt() {
+    // Just call optimize again with the original input
+    optimizePrompt();
+}
+
+// Further optimize - take current result and optimize it again
+async function furtherOptimize() {
+    const t = translations[currentLang];
+    const currentOptimized = document.getElementById('optimized-prompt').textContent.trim();
+
+    if (!currentOptimized) {
+        showNotification(t.error_min_chars, 'error');
+        return;
+    }
+
+    // Show loading state on the button
+    const btn = document.querySelector('[onclick="furtherOptimize()"]');
+    const btnSpan = btn.querySelector('span');
+    const originalText = btnSpan.textContent;
+    btn.disabled = true;
+    btn.classList.add('opacity-50');
+    btnSpan.textContent = t.further_optimizing;
+
+    try {
+        const response = await fetch('/api/optimize', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                prompt: currentOptimized,
+                task_type: currentTaskType,
+                is_further_optimization: true
+            }),
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Optimization failed');
+        }
+
+        const data = await response.json();
+        displayResults(data);
+
+    } catch (error) {
+        showNotification(t.error_generic + error.message, 'error');
+    } finally {
+        btn.disabled = false;
+        btn.classList.remove('opacity-50');
+        btnSpan.textContent = originalText;
+    }
 }

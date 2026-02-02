@@ -201,6 +201,28 @@
                         <label class="block text-gray-300 text-sm mb-2" data-i18n="pro_tips">Pro Tips</label>
                         <ul id="tips-list" class="space-y-2"></ul>
                     </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex gap-3 mt-6 pt-6 border-t border-white/10">
+                        <button
+                            onclick="regeneratePrompt()"
+                            class="flex-1 bg-white/10 hover:bg-white/20 text-white py-3 rounded-lg font-medium transition flex items-center justify-center gap-2"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            <span data-i18n="regenerate_btn">Regenerate</span>
+                        </button>
+                        <button
+                            onclick="furtherOptimize()"
+                            class="flex-1 bg-gradient-to-r from-purple-500 to-pink-500 hover:opacity-90 text-white py-3 rounded-lg font-medium transition flex items-center justify-center gap-2"
+                        >
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span data-i18n="further_optimize_btn">Further Optimize</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

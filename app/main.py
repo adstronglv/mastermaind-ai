@@ -58,6 +58,7 @@ class PromptRequest(BaseModel):
     prompt: str
     model: str = "claude-3-haiku"
     task_type: str = "general"  # general, coding, creative, marketing
+    is_further_optimization: bool = False  # True when optimizing an already optimized prompt
 
 
 class OptimizationResult(BaseModel):
@@ -93,11 +94,32 @@ def get_anthropic_client():
     return anthropic.Anthropic(api_key=api_key)
 
 
-async def optimize_prompt(prompt: str, task_type: str) -> dict[str, Any]:
+async def optimize_prompt(prompt: str, task_type: str, is_further_optimization: bool = False) -> dict[str, Any]:
     """Optimize a prompt using Claude."""
     client = get_anthropic_client()
 
-    system_prompt = """You are an expert prompt engineer. Your job is to analyze and optimize prompts for AI models.
+    if is_further_optimization:
+        system_prompt = """You are an expert prompt engineer doing a SECOND PASS optimization on an already-optimized prompt.
+
+Your job is to take this already-good prompt and make it EVEN BETTER:
+1. Add more nuance and specificity
+2. Improve structure and flow
+3. Add advanced techniques (chain-of-thought, few-shot examples, etc.)
+4. Make the output expectations clearer
+5. Optimize for the specific AI model being used
+
+Since this is already optimized, focus on REFINEMENT and POLISH, not basic improvements.
+
+Respond in JSON format:
+{
+    "optimized": "the further improved prompt",
+    "improvements": ["refinement 1", "refinement 2", ...],
+    "score_before": 7-9 (already optimized),
+    "score_after": 9-10,
+    "tips": ["advanced tip 1", "advanced tip 2", ...]
+}"""
+    else:
+        system_prompt = """You are an expert prompt engineer. Your job is to analyze and optimize prompts for AI models.
 
 For each prompt you receive:
 1. Analyze its clarity, specificity, and effectiveness
@@ -122,7 +144,19 @@ Respond in JSON format:
         "marketing": "This prompt is for marketing copy or business content.",
     }
 
-    user_message = f"""Analyze and optimize this prompt for {task_type} tasks:
+    if is_further_optimization:
+        user_message = f"""This prompt has ALREADY been optimized once. Now do a SECOND PASS to make it even better:
+
+ALREADY-OPTIMIZED PROMPT:
+{prompt}
+
+Context: {task_context.get(task_type, task_context["general"])}
+
+Focus on advanced refinements: better structure, more specific instructions, clearer output format, etc.
+
+Provide your analysis in JSON format."""
+    else:
+        user_message = f"""Analyze and optimize this prompt for {task_type} tasks:
 
 ORIGINAL PROMPT:
 {prompt}
@@ -261,7 +295,7 @@ async def api_optimize(
             detail=f"Daily limit reached ({used}/{limit} prompts). Upgrade to Pro for more."
         )
 
-    result = await optimize_prompt(req.prompt, req.task_type)
+    result = await optimize_prompt(req.prompt, req.task_type, req.is_further_optimization)
 
     return {
         "status": "success",
