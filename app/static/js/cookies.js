@@ -1,5 +1,5 @@
 /**
- * AdStrong Cookie Consent Banner
+ * AdStrong LV Cookie Consent Banner
  * Simple GDPR-compliant cookie consent
  */
 

@@ -1,5 +1,5 @@
 """
-AdStrong - AI Marketing Tools Platform
+AdStrong LV - AI Marketing Tools Platform
 Includes: Prompt Engineer + Ad Creator
 """
 
@@ -30,7 +30,7 @@ from app.payments import router as payments_router
 
 # Initialize FastAPI
 app = FastAPI(
-    title="AdStrong",
+    title="AdStrong LV",
     description="AI-powered marketing tools platform",
     version="2.0.0",
 )

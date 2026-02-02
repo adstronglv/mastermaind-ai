@@ -1,5 +1,5 @@
 """
-Authentication utilities for AdStrong.
+Authentication utilities for AdStrong LV.
 """
 
 from fastapi import Depends, HTTPException, Request

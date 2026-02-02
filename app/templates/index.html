@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdStrong - AI Tools for Marketers</title>
-    <meta name="description" content="Create better content faster with AI. Optimize prompts, generate ads, and boost your marketing with AdStrong.">
+    <title>AdStrong LV - AI Tools for Marketers</title>
+    <meta name="description" content="Create better content faster with AI. Optimize prompts, generate ads, and boost your marketing with AdStrong LV.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="/static/css/style.css">
+    <script src="/static/js/error-logger.js"></script>
 </head>
 <body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
     <!-- Header -->
@@ -17,11 +18,12 @@
                 <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-xl">A</span>
                 </div>
-                <span class="text-white font-bold text-xl">AdStrong</span>
+                <span class="text-white font-bold text-xl">AdStrong LV</span>
             </div>
             <nav class="flex items-center gap-4">
-                <a href="/prompt" class="text-gray-300 hover:text-white transition">Prompt Engineer</a>
+                <a href="/prompt" class="text-gray-300 hover:text-white transition">AI Solutions</a>
                 <a href="/ads" class="text-gray-300 hover:text-white transition">Ad Creator</a>
+                <a href="/pricing" class="text-gray-300 hover:text-white transition" data-i18n="nav_pricing">Pricing</a>
                 <span id="auth-buttons">
                     <a href="/login" class="text-gray-300 hover:text-white transition" data-i18n="login_link">Log In</a>
                 </span>
@@ -40,7 +42,7 @@
         </h1>
         <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto" data-i18n="hero_subtitle">
             Create better content faster with artificial intelligence.
-            Free tools to optimize your prompts and generate ad creatives.
+            TikTok scripts, YouTube ideas, Instagram posts, ads and more.
         </p>
 
         <!-- Tool Cards -->
@@ -48,10 +50,10 @@
             <!-- Prompt Engineer Card -->
             <a href="/prompt" class="group bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 text-left hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300">
                 <div class="text-5xl mb-4">&#128221;</div>
-                <h2 class="text-2xl font-bold text-white mb-2" data-i18n="prompt_title">Prompt Engineer</h2>
+                <h2 class="text-2xl font-bold text-white mb-2" data-i18n="prompt_title">AI Solutions Developer</h2>
                 <p class="text-gray-400 mb-6" data-i18n="prompt_desc">
-                    Optimize your prompts for ChatGPT, Claude and other AI models.
-                    Get better results with improved prompts.
+                    Create TikTok scripts, YouTube ideas, blog posts and more.
+                    Optimize prompts for ChatGPT, Claude and other AI models.
                 </p>
                 <div class="space-y-2 mb-6">
                     <div class="flex items-center gap-2 text-gray-300 text-sm">
@@ -74,7 +76,7 @@
                     </div>
                 </div>
                 <div class="flex items-center gap-2 text-purple-400 font-semibold group-hover:text-purple-300 transition">
-                    <span data-i18n="try_prompt">Try Prompt Engineer</span>
+                    <span data-i18n="try_prompt">Try AI Solutions</span>
                     <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
                     </svg>
@@ -125,13 +127,13 @@
     <!-- Demo Section -->
     <section class="max-w-6xl mx-auto px-4 py-16">
         <h2 class="text-3xl font-bold text-white text-center mb-4" data-i18n="demo_title">See It In Action</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="demo_subtitle">Real examples of what AdStrong can do for you</p>
+        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="demo_subtitle">Real examples of what AdStrong LV can do for you</p>
 
         <!-- Prompt Engineer Demo -->
         <div class="mb-16">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                 <span class="text-3xl">&#128221;</span>
-                <span data-i18n="demo_prompt_title">Prompt Engineer Demo</span>
+                <span data-i18n="demo_prompt_title">AI Solutions Demo</span>
             </h3>
             <div class="grid md:grid-cols-2 gap-6">
                 <!-- Before -->
@@ -300,7 +302,7 @@
 
     <!-- Features Section -->
     <section class="max-w-6xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-white text-center mb-12" data-i18n="why_adstrong">Why AdStrong?</h2>
+        <h2 class="text-3xl font-bold text-white text-center mb-12" data-i18n="why_adstrong">Why AdStrong LV?</h2>
         <div class="grid md:grid-cols-3 gap-8">
             <div class="text-center">
                 <div class="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -332,6 +334,67 @@
         </div>
     </section>
 
+    <!-- Pro Plan CTA -->
+    <section class="max-w-5xl mx-auto px-4 py-16 border-t border-white/10">
+        <div class="bg-gradient-to-r from-purple-600/30 to-pink-600/30 border-2 border-purple-500/50 rounded-2xl p-8 md:p-12">
+            <div class="grid md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <span class="inline-block bg-purple-500 text-white text-sm font-bold px-3 py-1 rounded-full mb-4" data-i18n="pro_badge">PRO</span>
+                    <h2 class="text-3xl font-bold text-white mb-4" data-i18n="pro_cta_title">Unlock Your Full Potential</h2>
+                    <p class="text-gray-300 mb-6" data-i18n="pro_cta_desc">Get 10x more power with Pro. Perfect for marketers, agencies, and content creators who need more.</p>
+                    <ul class="space-y-3 mb-6">
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span data-i18n="pro_feature_1">100 prompts per day (vs 10 free)</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span data-i18n="pro_feature_2">50 ad creations per month</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-gray-300">
+                            <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span data-i18n="pro_feature_3">Pro quality (3-step AI refinement)</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="text-center md:text-right">
+                    <div class="inline-block bg-white/10 rounded-2xl p-6">
+                        <div class="text-gray-400 text-sm mb-2" data-i18n="pro_only">Only</div>
+                        <div class="text-5xl font-bold text-white mb-1">9<span class="text-2xl">EUR</span></div>
+                        <div class="text-gray-400 text-sm mb-4" data-i18n="pro_per_month">per month</div>
+                        <a href="/pricing" class="inline-block w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition" data-i18n="pro_cta_btn">
+                            View Plans
+                        </a>
+                        <p class="text-gray-500 text-xs mt-3" data-i18n="pro_cancel">Cancel anytime</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Email Subscription -->
+    <section class="max-w-4xl mx-auto px-4 py-16 border-t border-white/10">
+        <div class="text-center">
+            <h2 class="text-3xl font-bold text-white mb-4" data-i18n="newsletter_title">Stay Updated</h2>
+            <p class="text-gray-400 mb-8" data-i18n="newsletter_desc">Get tips, updates, and exclusive offers. No spam, unsubscribe anytime.</p>
+            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                <input type="email" id="newsletter-email" required placeholder="your@email.com"
+                    class="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition">
+                <button type="submit" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition whitespace-nowrap" data-i18n="newsletter_btn">
+                    Subscribe
+                </button>
+            </form>
+            <p id="newsletter-success" class="hidden text-green-400 mt-4" data-i18n="newsletter_success">Thanks for subscribing!</p>
+            <p id="newsletter-error" class="hidden text-red-400 mt-4" data-i18n="newsletter_error">Something went wrong. Please try again.</p>
+        </div>
+    </section>
+
     <!-- CTA Section -->
     <section class="max-w-4xl mx-auto px-4 py-16 text-center">
         <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-8">
@@ -356,7 +419,7 @@
                 <a href="/datenschutz" class="hover:text-gray-300 transition" data-i18n="privacy">Privacy Policy</a>
                 <a href="/terms" class="hover:text-gray-300 transition" data-i18n="terms">Terms</a>
             </div>
-            <p>&copy; 2026 AdStrong. Powered by Claude AI.</p>
+            <p>&copy; 2026 AdStrong LV. Powered by Claude AI.</p>
         </div>
     </footer>
 
@@ -366,13 +429,13 @@
         const translations = {
             en: {
                 hero_title: "AI Tools for Marketers",
-                hero_subtitle: "Create better content faster with artificial intelligence. Free tools to optimize your prompts and generate ad creatives.",
-                prompt_title: "Prompt Engineer",
-                prompt_desc: "Optimize your prompts for ChatGPT, Claude and other AI models. Get better results with improved prompts.",
+                hero_subtitle: "Create better content faster with artificial intelligence. TikTok scripts, YouTube ideas, Instagram posts, ads and more.",
+                prompt_title: "AI Solutions Developer",
+                prompt_desc: "Create TikTok scripts, YouTube ideas, blog posts and more. Optimize prompts for ChatGPT, Claude and other AI models.",
                 free_to_use: "Free to use",
                 no_signup: "No signup required",
                 instant_results: "Instant results",
-                try_prompt: "Try Prompt Engineer",
+                try_prompt: "Try AI Solutions",
                 new_badge: "NEW",
                 ads_title: "Ad Creator",
                 ads_desc: "Generate stunning ad creatives with AI in seconds. Images and copy for Instagram, Facebook and more.",
@@ -380,7 +443,7 @@
                 ai_images: "AI-generated images",
                 headlines_copy: "Headlines & copy included",
                 create_ad: "Create Ad",
-                why_adstrong: "Why AdStrong?",
+                why_adstrong: "Why AdStrong LV?",
                 feature_fast: "Lightning Fast",
                 feature_fast_desc: "Generate content in seconds, not hours. Save time and focus on what matters.",
                 feature_ai: "AI-Powered",
@@ -396,9 +459,10 @@
                 terms: "Terms",
                 login_link: "Log In",
                 dashboard_link: "Dashboard",
+                nav_pricing: "Pricing",
                 demo_title: "See It In Action",
-                demo_subtitle: "Real examples of what AdStrong can do for you",
-                demo_prompt_title: "Prompt Engineer Demo",
+                demo_subtitle: "Real examples of what AdStrong LV can do for you",
+                demo_prompt_title: "AI Solutions Demo",
                 demo_before: "Before",
                 demo_after: "After",
                 demo_weak: "Weak prompt",
@@ -450,17 +514,32 @@
                 uc_creative_1: "• AI image prompts",
                 uc_creative_2: "• Story ideas",
                 uc_creative_3: "• Video scripts",
-                uc_creative_4: "• Brainstorming"
+                uc_creative_4: "• Brainstorming",
+                pro_badge: "PRO",
+                pro_cta_title: "Unlock Your Full Potential",
+                pro_cta_desc: "Get 10x more power with Pro. Perfect for marketers, agencies, and content creators who need more.",
+                pro_feature_1: "100 prompts per day (vs 10 free)",
+                pro_feature_2: "50 ad creations per month",
+                pro_feature_3: "Pro quality (3-step AI refinement)",
+                pro_only: "Only",
+                pro_per_month: "per month",
+                pro_cta_btn: "View Plans",
+                pro_cancel: "Cancel anytime",
+                newsletter_title: "Stay Updated",
+                newsletter_desc: "Get tips, updates, and exclusive offers. No spam, unsubscribe anytime.",
+                newsletter_btn: "Subscribe",
+                newsletter_success: "Thanks for subscribing!",
+                newsletter_error: "Something went wrong. Please try again."
             },
             de: {
                 hero_title: "KI-Tools für Marketer",
-                hero_subtitle: "Erstelle bessere Inhalte schneller mit künstlicher Intelligenz. Kostenlose Tools zur Optimierung deiner Prompts und Erstellung von Werbeanzeigen.",
-                prompt_title: "Prompt Engineer",
-                prompt_desc: "Optimiere deine Prompts für ChatGPT, Claude und andere KI-Modelle. Erziele bessere Ergebnisse mit verbesserten Prompts.",
+                hero_subtitle: "Erstelle bessere Inhalte schneller mit künstlicher Intelligenz. TikTok-Skripte, YouTube-Ideen, Instagram-Posts, Werbung und mehr.",
+                prompt_title: "AI Solutions Developer",
+                prompt_desc: "Erstelle TikTok-Skripte, YouTube-Ideen, Blogposts und mehr. Optimiere Prompts für ChatGPT, Claude und andere KI-Modelle.",
                 free_to_use: "Kostenlos nutzbar",
                 no_signup: "Keine Anmeldung nötig",
                 instant_results: "Sofortige Ergebnisse",
-                try_prompt: "Prompt Engineer testen",
+                try_prompt: "AI Solutions testen",
                 new_badge: "NEU",
                 ads_title: "Ad Creator",
                 ads_desc: "Erstelle beeindruckende Werbeanzeigen mit KI in Sekunden. Bilder und Texte für Instagram, Facebook und mehr.",
@@ -468,7 +547,7 @@
                 ai_images: "KI-generierte Bilder",
                 headlines_copy: "Überschriften & Texte inklusive",
                 create_ad: "Anzeige erstellen",
-                why_adstrong: "Warum AdStrong?",
+                why_adstrong: "Warum AdStrong LV?",
                 feature_fast: "Blitzschnell",
                 feature_fast_desc: "Erstelle Inhalte in Sekunden, nicht Stunden. Spare Zeit und konzentriere dich auf das Wesentliche.",
                 feature_ai: "KI-gestützt",
@@ -484,9 +563,10 @@
                 terms: "AGB",
                 login_link: "Anmelden",
                 dashboard_link: "Dashboard",
+                nav_pricing: "Preise",
                 demo_title: "Live Demo",
-                demo_subtitle: "Echte Beispiele, was AdStrong für dich tun kann",
-                demo_prompt_title: "Prompt Engineer Demo",
+                demo_subtitle: "Echte Beispiele, was AdStrong LV für dich tun kann",
+                demo_prompt_title: "AI Solutions Demo",
                 demo_before: "Vorher",
                 demo_after: "Nachher",
                 demo_weak: "Schwacher Prompt",
@@ -538,7 +618,22 @@
                 uc_creative_1: "• KI-Bild Prompts",
                 uc_creative_2: "• Story-Ideen",
                 uc_creative_3: "• Video-Skripte",
-                uc_creative_4: "• Brainstorming"
+                uc_creative_4: "• Brainstorming",
+                pro_badge: "PRO",
+                pro_cta_title: "Entfalte dein volles Potenzial",
+                pro_cta_desc: "10x mehr Power mit Pro. Perfekt für Marketer, Agenturen und Content Creator, die mehr brauchen.",
+                pro_feature_1: "100 Prompts pro Tag (vs 10 kostenlos)",
+                pro_feature_2: "50 Anzeigen pro Monat",
+                pro_feature_3: "Pro-Qualität (3-Stufen KI-Verfeinerung)",
+                pro_only: "Nur",
+                pro_per_month: "pro Monat",
+                pro_cta_btn: "Pläne ansehen",
+                pro_cancel: "Jederzeit kündbar",
+                newsletter_title: "Bleib auf dem Laufenden",
+                newsletter_desc: "Erhalte Tipps, Updates und exklusive Angebote. Kein Spam, jederzeit abbestellbar.",
+                newsletter_btn: "Abonnieren",
+                newsletter_success: "Danke fürs Abonnieren!",
+                newsletter_error: "Etwas ist schiefgelaufen. Bitte versuche es erneut."
             }
         };
 
@@ -581,11 +676,45 @@
             }
         }
 
+        // Newsletter form handler
+        function handleNewsletter(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletter-email').value;
+            const successEl = document.getElementById('newsletter-success');
+            const errorEl = document.getElementById('newsletter-error');
+            const form = document.getElementById('newsletter-form');
+
+            // Simple email validation
+            if (!email || !email.includes('@')) {
+                errorEl.classList.remove('hidden');
+                successEl.classList.add('hidden');
+                return;
+            }
+
+            // For now, just show success (can be connected to backend later)
+            // Store in localStorage as a simple solution
+            const subscribers = JSON.parse(localStorage.getItem('adstrong_subscribers') || '[]');
+            if (!subscribers.includes(email)) {
+                subscribers.push(email);
+                localStorage.setItem('adstrong_subscribers', JSON.stringify(subscribers));
+            }
+
+            successEl.classList.remove('hidden');
+            errorEl.classList.add('hidden');
+            form.reset();
+        }
+
         // Apply saved language on page load
         document.addEventListener('DOMContentLoaded', function() {
             setLanguage(currentLanguage);
             // Wait for auth to initialize
             setTimeout(updateAuthButtons, 500);
+
+            // Newsletter form
+            const newsletterForm = document.getElementById('newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', handleNewsletter);
+            }
         });
     </script>
     <script src="/static/js/auth.js"></script>

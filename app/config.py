@@ -1,5 +1,5 @@
 """
-Configuration settings for AdStrong SaaS.
+Configuration settings for AdStrong LV SaaS.
 """
 
 from pydantic_settings import BaseSettings

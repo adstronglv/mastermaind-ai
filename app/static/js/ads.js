@@ -1,5 +1,5 @@
 /**
- * AdStrong Ad Creator - JavaScript
+ * AdStrong LV Ad Creator - JavaScript
  */
 
 // State

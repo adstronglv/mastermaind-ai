@@ -1,5 +1,5 @@
 /**
- * AdStrong Authentication Module
+ * AdStrong LV Authentication Module
  * Handles user authentication via Supabase
  */
 

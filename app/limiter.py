@@ -1,5 +1,5 @@
 """
-Usage limiter for AdStrong.
+Usage limiter for AdStrong LV.
 Tracks and limits API usage per user/anonymous session.
 """
 
