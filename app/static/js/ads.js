@@ -163,7 +163,9 @@ const translations = {
         warning_expire: "Download now! Image links expire in 1 hour.",
         results_title: "Your Ad Creatives",
         usage_remaining: "{n} generation{s} remaining today",
-        usage_limit: "Daily limit reached. Try again tomorrow!"
+        usage_limit: "Daily limit reached. Try again tomorrow!",
+        optimize_copy: "Optimize",
+        optimizing_copy: "Optimizing..."
     },
     de: {
         hero_title: "Werbung mit KI erstellen",
@@ -201,7 +203,9 @@ const translations = {
         warning_expire: "Jetzt herunterladen! Bildlinks laufen in 1 Stunde ab.",
         results_title: "Deine Werbeanzeigen",
         usage_remaining: "{n} Generierung{s} heute übrig",
-        usage_limit: "Tageslimit erreicht. Versuche es morgen wieder!"
+        usage_limit: "Tageslimit erreicht. Versuche es morgen wieder!",
+        optimize_copy: "Optimieren",
+        optimizing_copy: "Optimiere..."
     }
 };
 
@@ -550,6 +554,11 @@ function displayResults(result) {
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
                         </svg>
                     </button>
+                    <button onclick="optimizeCopy(${index})" id="optimize-btn-${index}" class="bg-purple-500/20 hover:bg-purple-500/30 text-purple-400 py-2 px-3 rounded-lg text-sm font-medium transition" title="Optimize copy">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                    </button>
                     <button onclick="copyText('${escapeHtml(ad.headline)}\\n\\n${escapeHtml(ad.copy)}')" class="bg-white/10 hover:bg-white/20 text-white py-2 px-3 rounded-lg text-sm font-medium transition" title="Copy text">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
@@ -687,4 +696,78 @@ function escapeHtml(text) {
     const div = document.createElement('div');
     div.textContent = text;
     return div.innerHTML;
+}
+
+// Optimize ad copy with AI
+async function optimizeCopy(index) {
+    if (!window.currentResults || !window.currentResults.ads[index]) {
+        alert('No ad to optimize');
+        return;
+    }
+
+    const ad = window.currentResults.ads[index];
+    const btn = document.getElementById(`optimize-btn-${index}`);
+    const card = btn.closest('.bg-white\\/5');
+    const headlineEl = card.querySelector('h3');
+    const copyEl = card.querySelector('p');
+
+    // Show loading state
+    btn.disabled = true;
+    btn.innerHTML = '<svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path></svg>';
+
+    try {
+        const response = await fetch('/api/ads/optimize-copy', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                headline: ad.headline,
+                copy: ad.copy,
+                business_name: document.getElementById('business-name').value.trim(),
+                product: document.getElementById('product').value.trim(),
+                audience: document.getElementById('audience').value.trim()
+            })
+        });
+
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.detail || 'Optimization failed');
+        }
+
+        const result = await response.json();
+
+        // Update the copy with animation
+        headlineEl.style.transition = 'opacity 0.3s';
+        copyEl.style.transition = 'opacity 0.3s';
+        headlineEl.style.opacity = '0';
+        copyEl.style.opacity = '0';
+
+        setTimeout(() => {
+            headlineEl.textContent = result.headline;
+            copyEl.textContent = result.copy;
+            headlineEl.style.opacity = '1';
+            copyEl.style.opacity = '1';
+
+            // Update stored results
+            window.currentResults.ads[index].headline = result.headline;
+            window.currentResults.ads[index].copy = result.copy;
+
+            // Update copy button
+            const copyBtn = card.querySelector('button[onclick^="copyText"]');
+            copyBtn.setAttribute('onclick', `copyText('${escapeHtml(result.headline)}\\n\\n${escapeHtml(result.copy)}')`);
+
+            // Flash success
+            headlineEl.style.color = '#a855f7';
+            setTimeout(() => { headlineEl.style.color = ''; }, 1000);
+        }, 300);
+
+    } catch (error) {
+        console.error('Optimization error:', error);
+        alert('Failed to optimize. Please try again.');
+    } finally {
+        // Restore button
+        btn.disabled = false;
+        btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>';
+    }
 }

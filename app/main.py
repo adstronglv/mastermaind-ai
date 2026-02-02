@@ -85,6 +85,14 @@ class RegenerateRequest(BaseModel):
     prompt: str
 
 
+class OptimizeCopyRequest(BaseModel):
+    headline: str
+    copy: str
+    business_name: str = ""
+    product: str = ""
+    audience: str = ""
+
+
 def get_anthropic_client():
     """Get Anthropic client."""
     import anthropic
@@ -720,6 +728,66 @@ async def regenerate_ad(
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Regeneration failed: {str(e)}")
+
+
+@app.post("/api/ads/optimize-copy")
+async def optimize_ad_copy(
+    req: OptimizeCopyRequest,
+    request: Request,
+    user: Optional[dict] = Depends(get_current_user)
+):
+    """Optimize ad headline and copy using Claude."""
+    if not req.headline or not req.copy:
+        raise HTTPException(status_code=400, detail="Headline and copy are required")
+
+    client = get_anthropic_client()
+
+    prompt = f"""You are an expert advertising copywriter. Optimize the following ad copy to be more compelling, persuasive, and engaging.
+
+CURRENT HEADLINE: {req.headline}
+CURRENT COPY: {req.copy}
+
+CONTEXT:
+- Business: {req.business_name or 'Not specified'}
+- Product/Service: {req.product or 'Not specified'}
+- Target Audience: {req.audience or 'General audience'}
+
+REQUIREMENTS:
+1. Make the headline more attention-grabbing (max 10 words)
+2. Make the copy more persuasive with a stronger call-to-action (max 30 words)
+3. Keep the core message but make it more impactful
+4. Use power words and emotional triggers
+5. Maintain professional tone
+
+Respond in JSON format:
+{{"headline": "improved headline", "copy": "improved copy"}}"""
+
+    try:
+        response = client.messages.create(
+            model="claude-3-haiku-20240307",
+            max_tokens=200,
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        result_text = response.content[0].text.strip()
+
+        try:
+            start = result_text.find("{")
+            end = result_text.rfind("}") + 1
+            if start >= 0 and end > start:
+                result = json.loads(result_text[start:end])
+                return result
+        except:
+            pass
+
+        # Fallback
+        return {
+            "headline": req.headline,
+            "copy": req.copy
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Optimization failed: {str(e)}")
 
 
 if __name__ == "__main__":
