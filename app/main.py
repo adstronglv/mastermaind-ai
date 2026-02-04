@@ -228,6 +228,12 @@ async def ads_page(request: Request):
     return templates.TemplateResponse("ads.html", {"request": request})
 
 
+@app.get("/agents", response_class=HTMLResponse)
+async def agents_page(request: Request):
+    """Render Custom AI Agents page."""
+    return templates.TemplateResponse("agents.html", {"request": request})
+
+
 @app.get("/pricing", response_class=HTMLResponse)
 async def pricing(request: Request):
     """Render pricing page."""
