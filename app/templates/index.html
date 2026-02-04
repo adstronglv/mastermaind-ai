@@ -134,32 +134,141 @@
         <div class="mb-16">
             <h3 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
                 <span class="text-3xl">&#128221;</span>
-                <span data-i18n="demo_prompt_title">AI Solutions Demo</span>
+                <span data-i18n="demo_prompt_title">Prompt Optimizer Demo</span>
             </h3>
-            <div class="grid md:grid-cols-2 gap-6">
-                <!-- Before -->
-                <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-red-400 font-semibold" data-i18n="demo_before">Before</span>
-                        <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded" data-i18n="demo_weak">Weak prompt</span>
+
+            <!-- Demo Tabs -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button onclick="showDemo('coffee')" id="tab-coffee" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-purple-500 text-white">
+                    Marketing
+                </button>
+                <button onclick="showDemo('tiktok')" id="tab-tiktok" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
+                    TikTok Script
+                </button>
+                <button onclick="showDemo('product')" id="tab-product" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
+                    E-Commerce
+                </button>
+                <button onclick="showDemo('code')" id="tab-code" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
+                    Code
+                </button>
+            </div>
+
+            <!-- Demo 1: Coffee/Marketing -->
+            <div id="demo-coffee" class="demo-content">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-red-400 font-semibold">Before</span>
+                            <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Weak prompt</span>
+                        </div>
+                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
+                            Write me something about coffee for my cafe
+                        </p>
                     </div>
-                    <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg" data-i18n="demo_prompt_before">
-                        Write me something about coffee for my cafe
-                    </p>
+                    <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-green-400 font-semibold">After</span>
+                            <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Optimized</span>
+                        </div>
+                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
+                            You are an expert barista and coffee copywriter. Write a compelling 150-word description for a specialty coffee shop's new seasonal menu. Include sensory details about aroma and taste. Target audience: urban professionals aged 25-40. Tone: warm, sophisticated, inviting. Mention the origin of beans (Ethiopian) and brewing method (pour-over).
+                        </p>
+                    </div>
                 </div>
-                <!-- After -->
-                <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-                    <div class="flex items-center gap-2 mb-3">
-                        <span class="text-green-400 font-semibold" data-i18n="demo_after">After</span>
-                        <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded" data-i18n="demo_optimized">Optimized</span>
-                    </div>
-                    <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg" data-i18n="demo_prompt_after">
-                        You are an expert barista and coffee copywriter. Write a compelling 150-word description for a specialty coffee shop's new seasonal menu. Include sensory details about aroma and taste. Target audience: urban professionals aged 25-40. Tone: warm, sophisticated, inviting. Mention the origin of beans (Ethiopian) and brewing method (pour-over).
-                    </p>
+                <div class="mt-4 text-center">
+                    <span class="text-gray-500 text-sm">Result: 85% more detailed AI responses, specific to your business</span>
                 </div>
             </div>
-            <div class="mt-4 text-center">
-                <span class="text-gray-500 text-sm" data-i18n="demo_prompt_result">Result: 85% more detailed AI responses, specific to your business</span>
+
+            <!-- Demo 2: TikTok Script -->
+            <div id="demo-tiktok" class="demo-content hidden">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-red-400 font-semibold">Before</span>
+                            <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Weak prompt</span>
+                        </div>
+                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
+                            Write a TikTok video script about fitness
+                        </p>
+                    </div>
+                    <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-green-400 font-semibold">After</span>
+                            <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Optimized</span>
+                        </div>
+                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
+                            Create a 60-second TikTok script about home workouts for busy professionals. Format: Hook (3 sec) - shocking stat about desk jobs. Problem (10 sec) - relatable struggle. Solution (40 sec) - 3 quick exercises with no equipment. CTA (7 sec) - follow for part 2. Style: energetic, Gen-Z friendly, use trending phrases. Include text overlay suggestions and transition cues.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <span class="text-gray-500 text-sm">Result: Ready-to-film script with hooks, timing, and viral elements</span>
+                </div>
+            </div>
+
+            <!-- Demo 3: E-Commerce Product -->
+            <div id="demo-product" class="demo-content hidden">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-red-400 font-semibold">Before</span>
+                            <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Weak prompt</span>
+                        </div>
+                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
+                            Write a product description for wireless headphones
+                        </p>
+                    </div>
+                    <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-green-400 font-semibold">After</span>
+                            <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Optimized</span>
+                        </div>
+                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
+                            Write an Amazon-optimized product description for premium wireless noise-canceling headphones ($199). Include: Benefit-focused headline (max 200 chars), 5 bullet points with features AND benefits, emotional trigger words. Target: remote workers and commuters. Highlight: 30hr battery, ANC technology, comfort for 8hr wear. Tone: premium but accessible. Include SEO keywords naturally.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <span class="text-gray-500 text-sm">Result: SEO-optimized, conversion-focused product copy</span>
+                </div>
+            </div>
+
+            <!-- Demo 4: Code -->
+            <div id="demo-code" class="demo-content hidden">
+                <div class="grid md:grid-cols-2 gap-6">
+                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-red-400 font-semibold">Before</span>
+                            <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Weak prompt</span>
+                        </div>
+                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
+                            Write a function to validate email
+                        </p>
+                    </div>
+                    <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
+                        <div class="flex items-center gap-2 mb-3">
+                            <span class="text-green-400 font-semibold">After</span>
+                            <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Optimized</span>
+                        </div>
+                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
+                            Write a TypeScript function to validate email addresses. Requirements: RFC 5322 compliant regex, handle edge cases (plus addressing, subdomains), return object with { isValid: boolean, error?: string }. Include: JSDoc comments, unit tests with Jest (valid, invalid, edge cases). Consider: XSS prevention, max length check (254 chars). Export as ES module.
+                        </p>
+                    </div>
+                </div>
+                <div class="mt-4 text-center">
+                    <span class="text-gray-500 text-sm">Result: Production-ready code with tests and error handling</span>
+                </div>
+            </div>
+
+            <!-- Try it button -->
+            <div class="mt-8 text-center">
+                <a href="/prompt" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                    <span>Try Prompt Optimizer</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
             </div>
         </div>
 
@@ -169,26 +278,39 @@
                 <span class="text-3xl">&#127912;</span>
                 <span data-i18n="demo_ad_title">Ad Creator Demo</span>
             </h3>
-            <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
+
+            <!-- Ad Demo Tabs -->
+            <div class="flex flex-wrap gap-2 mb-6">
+                <button onclick="showAdDemo('pizza')" id="ad-tab-pizza" class="ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-pink-500 text-white">
+                    Restaurant
+                </button>
+                <button onclick="showAdDemo('realestate')" id="ad-tab-realestate" class="ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
+                    Real Estate
+                </button>
+                <button onclick="showAdDemo('fitness')" id="ad-tab-fitness" class="ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
+                    Fitness
+                </button>
+            </div>
+
+            <!-- Ad Demo 1: Pizzeria -->
+            <div id="ad-demo-pizza" class="ad-demo-content bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
                 <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <!-- Input -->
                     <div>
-                        <p class="text-gray-400 mb-4" data-i18n="demo_ad_input_label">Input:</p>
+                        <p class="text-gray-400 mb-4">Input:</p>
                         <div class="bg-black/30 rounded-lg p-4 space-y-2 text-sm">
-                            <p><span class="text-purple-400" data-i18n="demo_business">Business:</span> <span class="text-white">Mario's Pizzeria</span></p>
-                            <p><span class="text-purple-400" data-i18n="demo_product">Product:</span> <span class="text-white" data-i18n="demo_product_value">Authentic Italian pizza, wood-fired oven</span></p>
-                            <p><span class="text-purple-400" data-i18n="demo_audience">Audience:</span> <span class="text-white" data-i18n="demo_audience_value">Families, food lovers</span></p>
-                            <p><span class="text-purple-400" data-i18n="demo_usp">USP:</span> <span class="text-white" data-i18n="demo_usp_value">Traditional recipes from Naples</span></p>
+                            <p><span class="text-purple-400">Business:</span> <span class="text-white">Mario's Pizzeria</span></p>
+                            <p><span class="text-purple-400">Product:</span> <span class="text-white">Authentic Italian pizza, wood-fired oven</span></p>
+                            <p><span class="text-purple-400">Audience:</span> <span class="text-white">Families, food lovers</span></p>
+                            <p><span class="text-purple-400">USP:</span> <span class="text-white">Traditional recipes from Naples</span></p>
                         </div>
                     </div>
-                    <!-- Output -->
                     <div class="bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl p-4 border border-orange-500/30">
                         <div class="aspect-square bg-gradient-to-br from-orange-400 to-red-500 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
                             <img src="/static/images/demo-pizza.jpg" alt="Mario's Pizzeria - AI Generated Ad" class="w-full h-full object-cover">
                         </div>
                         <div class="space-y-2">
-                            <h4 class="text-white font-bold text-lg" data-i18n="demo_ad_headline">Taste Naples in Every Bite!</h4>
-                            <p class="text-gray-300 text-sm" data-i18n="demo_ad_copy">Authentic Italian pizza baked in our traditional wood-fired oven. Family recipes passed down through generations. Visit Mario's Pizzeria today!</p>
+                            <h4 class="text-white font-bold text-lg">Taste Naples in Every Bite!</h4>
+                            <p class="text-gray-300 text-sm">Authentic Italian pizza baked in our traditional wood-fired oven. Family recipes passed down through generations.</p>
                             <div class="flex gap-2 mt-3">
                                 <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#pizza</span>
                                 <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#italian</span>
@@ -197,14 +319,73 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-6 text-center">
-                    <a href="/ads" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition">
-                        <span data-i18n="demo_try_now">Try It Yourself</span>
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
+            </div>
+
+            <!-- Ad Demo 2: Real Estate -->
+            <div id="ad-demo-realestate" class="ad-demo-content hidden bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-gray-400 mb-4">Input:</p>
+                        <div class="bg-black/30 rounded-lg p-4 space-y-2 text-sm">
+                            <p><span class="text-purple-400">Business:</span> <span class="text-white">Premium Homes Realty</span></p>
+                            <p><span class="text-purple-400">Product:</span> <span class="text-white">Luxury apartments, city center location</span></p>
+                            <p><span class="text-purple-400">Audience:</span> <span class="text-white">Young professionals, investors</span></p>
+                            <p><span class="text-purple-400">USP:</span> <span class="text-white">Smart home technology, rooftop terrace</span></p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl p-4 border border-blue-500/30">
+                        <div class="aspect-square bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                            <img src="/static/images/adstrong-ad-1.png" alt="Premium Homes Realty - AI Generated Ad" class="w-full h-full object-cover">
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="text-white font-bold text-lg">Your Dream Home Awaits!</h4>
+                            <p class="text-gray-300 text-sm">Modern luxury living in the heart of the city. Smart home features, stunning views, and premium amenities. Schedule your private tour today.</p>
+                            <div class="flex gap-2 mt-3">
+                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#realestate</span>
+                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#luxury</span>
+                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#apartment</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+            </div>
+
+            <!-- Ad Demo 3: Fitness -->
+            <div id="ad-demo-fitness" class="ad-demo-content hidden bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <p class="text-gray-400 mb-4">Input:</p>
+                        <div class="bg-black/30 rounded-lg p-4 space-y-2 text-sm">
+                            <p><span class="text-purple-400">Business:</span> <span class="text-white">PowerFit Gym</span></p>
+                            <p><span class="text-purple-400">Product:</span> <span class="text-white">Personal training, group classes</span></p>
+                            <p><span class="text-purple-400">Audience:</span> <span class="text-white">Fitness enthusiasts, beginners</span></p>
+                            <p><span class="text-purple-400">USP:</span> <span class="text-white">24/7 access, certified trainers</span></p>
+                        </div>
+                    </div>
+                    <div class="bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-500/30">
+                        <div class="aspect-square bg-gradient-to-br from-green-400 to-emerald-500 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                            <img src="/static/images/adstrong-ad-2.png" alt="PowerFit Gym - AI Generated Ad" class="w-full h-full object-cover">
+                        </div>
+                        <div class="space-y-2">
+                            <h4 class="text-white font-bold text-lg">Transform Your Body Today!</h4>
+                            <p class="text-gray-300 text-sm">Join the fitness revolution. Expert trainers, state-of-the-art equipment, and a community that supports your goals. First week free!</p>
+                            <div class="flex gap-2 mt-3">
+                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#fitness</span>
+                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#gym</span>
+                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#workout</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-6 text-center">
+                <a href="/ads" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                    <span data-i18n="demo_try_now">Try It Yourself</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
             </div>
         </div>
     </section>
@@ -703,6 +884,38 @@
             successEl.classList.remove('hidden');
             errorEl.classList.add('hidden');
             form.reset();
+        }
+
+        // Demo tab switching (Prompt Optimizer)
+        function showDemo(demoId) {
+            // Hide all demo content
+            document.querySelectorAll('.demo-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            // Reset all tabs
+            document.querySelectorAll('.demo-tab').forEach(el => {
+                el.className = 'demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white';
+            });
+            // Show selected demo
+            document.getElementById('demo-' + demoId).classList.remove('hidden');
+            // Highlight selected tab
+            document.getElementById('tab-' + demoId).className = 'demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-purple-500 text-white';
+        }
+
+        // Ad Demo tab switching
+        function showAdDemo(demoId) {
+            // Hide all ad demo content
+            document.querySelectorAll('.ad-demo-content').forEach(el => {
+                el.classList.add('hidden');
+            });
+            // Reset all ad tabs
+            document.querySelectorAll('.ad-demo-tab').forEach(el => {
+                el.className = 'ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white';
+            });
+            // Show selected ad demo
+            document.getElementById('ad-demo-' + demoId).classList.remove('hidden');
+            // Highlight selected tab
+            document.getElementById('ad-tab-' + demoId).className = 'ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-pink-500 text-white';
         }
 
         // Apply saved language on page load
