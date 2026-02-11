@@ -17,8 +17,8 @@
     let supabaseClient = null;
 
     // Token storage key
-    const TOKEN_KEY = 'adstrong_token';
-    const USER_KEY = 'adstrong_user';
+    const TOKEN_KEY = 'mastermaind_token';
+    const USER_KEY = 'mastermaind_user';
 
     /**
      * Initialize auth module with Supabase credentials

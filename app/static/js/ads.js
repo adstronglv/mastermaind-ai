@@ -13,7 +13,7 @@ let selectedStyle = 'modern';
 let selectedNiche = '';
 let currentLanguage = localStorage.getItem('mastermaind_lang') || 'en';
 const DAILY_LIMIT = 3;
-const STORAGE_KEY = 'adstrong_usage';
+const STORAGE_KEY = 'mastermaind_usage';
 
 // Niche templates with pre-filled examples
 const nicheTemplates = {
@@ -551,7 +551,7 @@ function displayResults(result) {
                 <h3 class="text-white font-semibold mb-2">${escapeHtml(ad.headline)}</h3>
                 <p class="text-gray-400 text-sm mb-4">${escapeHtml(ad.copy)}</p>
                 <div class="flex gap-2">
-                    <button onclick="downloadImage('${ad.image_url}', 'adstrong-ad-${index + 1}.png')" class="flex-1 bg-pink-500/20 hover:bg-pink-500/30 text-pink-400 py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1">
+                    <button onclick="downloadImage('${ad.image_url}', 'mastermaind-ad-${index + 1}.png')" class="flex-1 bg-pink-500/20 hover:bg-pink-500/30 text-pink-400 py-2 rounded-lg text-sm font-medium transition flex items-center justify-center gap-1">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
                         </svg>
@@ -620,7 +620,7 @@ async function downloadAll() {
 
     for (let i = 0; i < window.currentResults.ads.length; i++) {
         const ad = window.currentResults.ads[i];
-        await downloadImage(ad.image_url, `adstrong-ad-${i + 1}.png`);
+        await downloadImage(ad.image_url, `mastermaind-ad-${i + 1}.png`);
         // Small delay between downloads
         await new Promise(resolve => setTimeout(resolve, 500));
     }
@@ -668,7 +668,7 @@ async function regenerateImage(index) {
 
         // Update download button
         const downloadBtn = card.querySelector('button[onclick^="downloadImage"]');
-        downloadBtn.setAttribute('onclick', `downloadImage('${result.image_url}', 'adstrong-ad-${index + 1}.png')`);
+        downloadBtn.setAttribute('onclick', `downloadImage('${result.image_url}', 'mastermaind-ad-${index + 1}.png')`);
 
     } catch (error) {
         console.error('Regeneration error:', error);

@@ -9,7 +9,7 @@
 (function() {
     'use strict';
 
-    const CONSENT_KEY = 'adstrong_cookie_consent';
+    const CONSENT_KEY = 'mastermaind_cookie_consent';
 
     // Check if consent was already given
     function hasConsent() {
