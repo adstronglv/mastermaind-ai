@@ -1,5 +1,5 @@
-"""
-Supabase database client for AdStrong LV.
+﻿"""
+Supabase database client for Mastermaind.
 """
 
 from supabase import create_client, Client

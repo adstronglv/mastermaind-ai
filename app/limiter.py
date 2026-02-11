@@ -1,5 +1,5 @@
-"""
-Usage limiter for AdStrong LV.
+﻿"""
+Usage limiter for Mastermaind.
 Tracks and limits API usage per user/anonymous session.
 """
 

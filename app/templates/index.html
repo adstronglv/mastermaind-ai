@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdStrong LV - AI Tools for Marketers</title>
-    <meta name="description" content="Create better content faster with AI. Optimize prompts, generate ads, and boost your marketing with AdStrong LV.">
+    <title>Mastermaind - AI Tools for Marketers</title>
+    <meta name="description" content="Create better content faster with AI. Optimize prompts, generate ads, and boost your marketing with Mastermaind.">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="/static/css/style.css">
@@ -18,7 +18,7 @@
                 <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-xl">A</span>
                 </div>
-                <span class="text-white font-bold text-xl">AdStrong LV</span>
+                <span class="text-white font-bold text-xl">Mastermaind</span>
             </div>
             <nav class="flex items-center gap-4">
                 <a href="/prompt" class="text-gray-300 hover:text-white transition">AI Solutions</a>
@@ -38,9 +38,12 @@
 
     <!-- Hero Section -->
     <section class="max-w-6xl mx-auto px-4 py-20 text-center">
-        <h1 class="text-5xl md:text-6xl font-bold text-white mb-6" data-i18n="hero_title">
+        <h1 class="text-5xl md:text-6xl font-bold text-white mb-4" data-i18n="hero_title">
             AI Tools for Marketers
         </h1>
+        <p class="text-xl md:text-2xl text-gray-300 italic max-w-2xl mx-auto mb-6" data-i18n="hero_tagline">
+            "We don't sell AI. We sell you time back."
+        </p>
         <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto" data-i18n="hero_subtitle">
             Create better content faster with artificial intelligence.
             TikTok scripts, YouTube ideas, Instagram posts, ads and more.
@@ -125,10 +128,45 @@
         </div>
     </section>
 
+    <!-- How It Works Section -->
+    <section class="max-w-6xl mx-auto px-4 py-16 border-t border-white/10">
+        <h2 class="text-3xl font-bold text-white text-center mb-4" data-i18n="how_title">How It Works</h2>
+        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="how_subtitle">Get started in 3 simple steps</p>
+
+        <div class="grid md:grid-cols-3 gap-8">
+            <!-- Step 1 -->
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+                    1
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="how_step1_title">Choose Your Tool</h3>
+                <p class="text-gray-400" data-i18n="how_step1_desc">Select AI Solutions for content or Ad Creator for advertisements</p>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+                    2
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="how_step2_title">Fill In the Details</h3>
+                <p class="text-gray-400" data-i18n="how_step2_desc">Answer a few simple questions about your business and goals</p>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="text-center">
+                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
+                    3
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="how_step3_title">Get Results Instantly</h3>
+                <p class="text-gray-400" data-i18n="how_step3_desc">Receive optimized content ready to use in seconds</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Demo Section -->
     <section class="max-w-6xl mx-auto px-4 py-16">
         <h2 class="text-3xl font-bold text-white text-center mb-4" data-i18n="demo_title">See It In Action</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="demo_subtitle">Real examples of what AdStrong LV can do for you</p>
+        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="demo_subtitle">Real examples of what Mastermaind can do for you</p>
 
         <!-- Prompt Engineer Demo -->
         <div class="mb-16">
@@ -279,75 +317,62 @@
                 <span data-i18n="demo_ad_title">Ad Creator Demo</span>
             </h3>
 
-            <!-- Ad Demo Tabs -->
-            <div class="flex flex-wrap gap-2 mb-6">
-                <button onclick="showAdDemo('pizza')" id="ad-tab-pizza" class="ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-pink-500 text-white">
-                    Restaurant
-                </button>
-                <button onclick="showAdDemo('realestate')" id="ad-tab-realestate" class="ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
-                    Real Estate
-                </button>
-                <button onclick="showAdDemo('fitness')" id="ad-tab-fitness" class="ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
-                    Fitness
-                </button>
-            </div>
-
-            <!-- Ad Demo 1: Pizzeria -->
-            <div id="ad-demo-pizza" class="ad-demo-content bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <p class="text-gray-400 mb-4">Input:</p>
-                        <div class="bg-black/30 rounded-lg p-4 space-y-2 text-sm">
-                            <p><span class="text-purple-400">Business:</span> <span class="text-white">Mario's Pizzeria</span></p>
-                            <p><span class="text-purple-400">Product:</span> <span class="text-white">Authentic Italian pizza, wood-fired oven</span></p>
-                            <p><span class="text-purple-400">Audience:</span> <span class="text-white">Families, food lovers</span></p>
-                            <p><span class="text-purple-400">USP:</span> <span class="text-white">Traditional recipes from Naples</span></p>
+            <!-- Two Demo Examples Grid -->
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Demo 1: Real Estate -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-5">
+                    <div class="bg-black/30 rounded-lg p-3 space-y-1 text-sm mb-4">
+                        <p><span class="text-purple-400">Business:</span> <span class="text-white">Prime Properties</span></p>
+                        <p><span class="text-purple-400">Product:</span> <span class="text-white">Luxury apartments, homes</span></p>
+                        <p><span class="text-purple-400">Audience:</span> <span class="text-white">Home buyers, investors</span></p>
+                    </div>
+                    <div class="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl p-4 border border-blue-500/30">
+                        <div class="aspect-square rounded-lg mb-4 overflow-hidden">
+                            <img src="/static/images/demo-realestate.png" alt="Prime Properties - AI Generated Ad" class="w-full h-full object-cover">
                         </div>
+                        <div class="bg-black/40 rounded-lg p-3 border-l-4 border-blue-400">
+                            <p class="text-blue-300 text-xs font-medium uppercase tracking-wide mb-1">AI-Generated Headline</p>
+                            <h4 class="text-white font-bold text-lg leading-tight">Find Your Dream Home Today!</h4>
+                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">Discover premium properties in the best locations. Your perfect home awaits.</p>
+                        </div>
+                        <div class="flex gap-1 mt-3">
+                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#realestate</span>
+                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#property</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Demo 2: Restaurant -->
+                <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-5">
+                    <div class="bg-black/30 rounded-lg p-3 space-y-1 text-sm mb-4">
+                        <p><span class="text-purple-400">Business:</span> <span class="text-white">Mario's Pizzeria</span></p>
+                        <p><span class="text-purple-400">Product:</span> <span class="text-white">Italian pizza, wood-fired</span></p>
+                        <p><span class="text-purple-400">Audience:</span> <span class="text-white">Families, food lovers</span></p>
                     </div>
                     <div class="bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl p-4 border border-orange-500/30">
-                        <div class="aspect-square bg-gradient-to-br from-orange-400 to-red-500 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
+                        <div class="aspect-square rounded-lg mb-4 overflow-hidden">
                             <img src="/static/images/demo-pizza.jpg" alt="Mario's Pizzeria - AI Generated Ad" class="w-full h-full object-cover">
                         </div>
-                        <div class="space-y-2">
-                            <h4 class="text-white font-bold text-lg">Taste Naples in Every Bite!</h4>
-                            <p class="text-gray-300 text-sm">Authentic Italian pizza baked in our traditional wood-fired oven. Family recipes passed down through generations.</p>
-                            <div class="flex gap-2 mt-3">
-                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#pizza</span>
-                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#italian</span>
-                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#foodie</span>
-                            </div>
+                        <div class="bg-black/40 rounded-lg p-3 border-l-4 border-orange-400">
+                            <p class="text-orange-300 text-xs font-medium uppercase tracking-wide mb-1">AI-Generated Headline</p>
+                            <h4 class="text-white font-bold text-lg leading-tight">Taste Naples in Every Bite!</h4>
+                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">Authentic Italian pizza from our wood-fired oven. Family recipes since 1985.</p>
+                        </div>
+                        <div class="flex gap-1 mt-3">
+                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#pizza</span>
+                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#italian</span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Ad Demo 2: Real Estate -->
-            <div id="ad-demo-realestate" class="ad-demo-content hidden bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
-                <div class="grid md:grid-cols-2 gap-8 items-center">
-                    <div>
-                        <p class="text-gray-400 mb-4">Input:</p>
-                        <div class="bg-black/30 rounded-lg p-4 space-y-2 text-sm">
-                            <p><span class="text-purple-400">Business:</span> <span class="text-white">Premium Homes Realty</span></p>
-                            <p><span class="text-purple-400">Product:</span> <span class="text-white">Luxury apartments, city center location</span></p>
-                            <p><span class="text-purple-400">Audience:</span> <span class="text-white">Young professionals, investors</span></p>
-                            <p><span class="text-purple-400">USP:</span> <span class="text-white">Smart home technology, rooftop terrace</span></p>
-                        </div>
-                    </div>
-                    <div class="bg-gradient-to-br from-blue-500/20 to-cyan-500/20 rounded-xl p-4 border border-blue-500/30">
-                        <div class="aspect-square bg-gradient-to-br from-blue-400 to-cyan-500 rounded-lg mb-4 flex items-center justify-center overflow-hidden">
-                            <img src="/static/images/adstrong-ad-1.png" alt="Premium Homes Realty - AI Generated Ad" class="w-full h-full object-cover">
-                        </div>
-                        <div class="space-y-2">
-                            <h4 class="text-white font-bold text-lg">Your Dream Home Awaits!</h4>
-                            <p class="text-gray-300 text-sm">Modern luxury living in the heart of the city. Smart home features, stunning views, and premium amenities. Schedule your private tour today.</p>
-                            <div class="flex gap-2 mt-3">
-                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#realestate</span>
-                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#luxury</span>
-                                <span class="text-xs bg-white/10 text-gray-300 px-2 py-1 rounded">#apartment</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="mt-6 text-center">
+                <a href="/ads" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                    <span data-i18n="demo_try_now">Try It Yourself</span>
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                    </svg>
+                </a>
             </div>
 
             <!-- Ad Demo 3: Fitness -->
@@ -484,7 +509,7 @@
 
     <!-- Features Section -->
     <section class="max-w-6xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-white text-center mb-12" data-i18n="why_adstrong">Why AdStrong LV?</h2>
+        <h2 class="text-3xl font-bold text-white text-center mb-12" data-i18n="why_adstrong">Why Mastermaind?</h2>
         <div class="grid md:grid-cols-3 gap-8">
             <div class="text-center">
                 <div class="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
@@ -513,6 +538,69 @@
                 <h3 class="text-xl font-semibold text-white mb-2" data-i18n="feature_free">Free to Start</h3>
                 <p class="text-gray-400" data-i18n="feature_free_desc">No credit card required. Start creating for free today.</p>
             </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="max-w-4xl mx-auto px-4 py-16 border-t border-white/10">
+        <h2 class="text-3xl font-bold text-white text-center mb-4" data-i18n="faq_title">Frequently Asked Questions</h2>
+        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="faq_subtitle">Everything you need to know about Mastermaind</p>
+
+        <div class="space-y-4">
+            <!-- FAQ 1 -->
+            <details class="bg-white/5 rounded-xl border border-white/10 group">
+                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
+                    <span data-i18n="faq_q1">Is it really free?</span>
+                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a1">Yes! AI Solutions and Ad Creator both have free tiers. You get 10 prompt optimizations and 3 ad creations per day for free, no credit card required.</p>
+            </details>
+
+            <!-- FAQ 2 -->
+            <details class="bg-white/5 rounded-xl border border-white/10 group">
+                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
+                    <span data-i18n="faq_q2">What AI technology is used?</span>
+                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a2">We use Claude AI by Anthropic for text generation and optimization, and FLUX for image generation. These are among the best AI models available today.</p>
+            </details>
+
+            <!-- FAQ 3 -->
+            <details class="bg-white/5 rounded-xl border border-white/10 group">
+                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
+                    <span data-i18n="faq_q3">How long are generated images available?</span>
+                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a3">Generated images are available for download for 1 hour. Make sure to download them right away! We recommend saving all images immediately after generation.</p>
+            </details>
+
+            <!-- FAQ 4 -->
+            <details class="bg-white/5 rounded-xl border border-white/10 group">
+                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
+                    <span data-i18n="faq_q4">Can I use the results commercially?</span>
+                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a4">Yes! All content you create with Mastermaind is yours to use. You can use generated images and text for your business, ads, social media, and any commercial purpose.</p>
+            </details>
+
+            <!-- FAQ 5 -->
+            <details class="bg-white/5 rounded-xl border border-white/10 group">
+                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
+                    <span data-i18n="faq_q5">Do I need an account?</span>
+                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                    </svg>
+                </summary>
+                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a5">No account is required for free usage! You can start creating right away. An account is only needed if you want to upgrade to Pro for higher limits.</p>
+            </details>
         </div>
     </section>
 
@@ -601,16 +689,17 @@
                 <a href="/datenschutz" class="hover:text-gray-300 transition" data-i18n="privacy">Privacy Policy</a>
                 <a href="/terms" class="hover:text-gray-300 transition" data-i18n="terms">Terms</a>
             </div>
-            <p>&copy; 2026 AdStrong LV. Powered by Claude AI.</p>
+            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
         </div>
     </footer>
 
     <script>
-        let currentLanguage = localStorage.getItem('adstrong_lang') || 'en';
+        let currentLanguage = localStorage.getItem('mastermaind_lang') || 'en';
 
         const translations = {
             en: {
                 hero_title: "AI Tools for Marketers",
+                hero_tagline: "\"We don't sell AI. We sell you time back.\"",
                 hero_subtitle: "Create better content faster with artificial intelligence. TikTok scripts, YouTube ideas, Instagram posts, ads and more.",
                 prompt_title: "AI Solutions Developer",
                 prompt_desc: "Create TikTok scripts, YouTube ideas, blog posts and more. Optimize prompts for ChatGPT, Claude and other AI models.",
@@ -625,7 +714,7 @@
                 ai_images: "AI-generated images",
                 headlines_copy: "Headlines & copy included",
                 create_ad: "Create Ad",
-                why_adstrong: "Why AdStrong LV?",
+                why_adstrong: "Why Mastermaind?",
                 feature_fast: "Lightning Fast",
                 feature_fast_desc: "Generate content in seconds, not hours. Save time and focus on what matters.",
                 feature_ai: "AI-Powered",
@@ -643,7 +732,7 @@
                 dashboard_link: "Dashboard",
                 nav_pricing: "Pricing",
                 demo_title: "See It In Action",
-                demo_subtitle: "Real examples of what AdStrong LV can do for you",
+                demo_subtitle: "Real examples of what Mastermaind can do for you",
                 demo_prompt_title: "AI Solutions Demo",
                 demo_before: "Before",
                 demo_after: "After",
@@ -711,10 +800,31 @@
                 newsletter_desc: "Get tips, updates, and exclusive offers. No spam, unsubscribe anytime.",
                 newsletter_btn: "Subscribe",
                 newsletter_success: "Thanks for subscribing!",
-                newsletter_error: "Something went wrong. Please try again."
+                newsletter_error: "Something went wrong. Please try again.",
+                how_title: "How It Works",
+                how_subtitle: "Get started in 3 simple steps",
+                how_step1_title: "Choose Your Tool",
+                how_step1_desc: "Select AI Solutions for content or Ad Creator for advertisements",
+                how_step2_title: "Fill In the Details",
+                how_step2_desc: "Answer a few simple questions about your business and goals",
+                how_step3_title: "Get Results Instantly",
+                how_step3_desc: "Receive optimized content ready to use in seconds",
+                faq_title: "Frequently Asked Questions",
+                faq_subtitle: "Everything you need to know about Mastermaind",
+                faq_q1: "Is it really free?",
+                faq_a1: "Yes! AI Solutions and Ad Creator both have free tiers. You get 10 prompt optimizations and 3 ad creations per day for free, no credit card required.",
+                faq_q2: "What AI technology is used?",
+                faq_a2: "We use Claude AI by Anthropic for text generation and optimization, and FLUX for image generation. These are among the best AI models available today.",
+                faq_q3: "How long are generated images available?",
+                faq_a3: "Generated images are available for download for 1 hour. Make sure to download them right away! We recommend saving all images immediately after generation.",
+                faq_q4: "Can I use the results commercially?",
+                faq_a4: "Yes! All content you create with Mastermaind is yours to use. You can use generated images and text for your business, ads, social media, and any commercial purpose.",
+                faq_q5: "Do I need an account?",
+                faq_a5: "No account is required for free usage! You can start creating right away. An account is only needed if you want to upgrade to Pro for higher limits."
             },
             de: {
                 hero_title: "KI-Tools für Marketer",
+                hero_tagline: "„Wir verkaufen keine KI, wir verkaufen dir die Zeit zurück."",
                 hero_subtitle: "Erstelle bessere Inhalte schneller mit künstlicher Intelligenz. TikTok-Skripte, YouTube-Ideen, Instagram-Posts, Werbung und mehr.",
                 prompt_title: "AI Solutions Developer",
                 prompt_desc: "Erstelle TikTok-Skripte, YouTube-Ideen, Blogposts und mehr. Optimiere Prompts für ChatGPT, Claude und andere KI-Modelle.",
@@ -729,7 +839,7 @@
                 ai_images: "KI-generierte Bilder",
                 headlines_copy: "Überschriften & Texte inklusive",
                 create_ad: "Anzeige erstellen",
-                why_adstrong: "Warum AdStrong LV?",
+                why_adstrong: "Warum Mastermaind?",
                 feature_fast: "Blitzschnell",
                 feature_fast_desc: "Erstelle Inhalte in Sekunden, nicht Stunden. Spare Zeit und konzentriere dich auf das Wesentliche.",
                 feature_ai: "KI-gestützt",
@@ -747,7 +857,7 @@
                 dashboard_link: "Dashboard",
                 nav_pricing: "Preise",
                 demo_title: "Live Demo",
-                demo_subtitle: "Echte Beispiele, was AdStrong LV für dich tun kann",
+                demo_subtitle: "Echte Beispiele, was Mastermaind für dich tun kann",
                 demo_prompt_title: "AI Solutions Demo",
                 demo_before: "Vorher",
                 demo_after: "Nachher",
@@ -815,13 +925,33 @@
                 newsletter_desc: "Erhalte Tipps, Updates und exklusive Angebote. Kein Spam, jederzeit abbestellbar.",
                 newsletter_btn: "Abonnieren",
                 newsletter_success: "Danke fürs Abonnieren!",
-                newsletter_error: "Etwas ist schiefgelaufen. Bitte versuche es erneut."
+                newsletter_error: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
+                how_title: "So funktioniert's",
+                how_subtitle: "In 3 einfachen Schritten starten",
+                how_step1_title: "Wähle dein Tool",
+                how_step1_desc: "AI Solutions für Inhalte oder Ad Creator für Werbung",
+                how_step2_title: "Fülle die Details aus",
+                how_step2_desc: "Beantworte ein paar einfache Fragen zu deinem Business",
+                how_step3_title: "Erhalte sofort Ergebnisse",
+                how_step3_desc: "Optimierte Inhalte, sofort einsatzbereit",
+                faq_title: "Häufig gestellte Fragen",
+                faq_subtitle: "Alles was du über Mastermaind wissen musst",
+                faq_q1: "Ist es wirklich kostenlos?",
+                faq_a1: "Ja! AI Solutions und Ad Creator haben beide kostenlose Stufen. Du bekommst 10 Prompt-Optimierungen und 3 Anzeigen-Erstellungen pro Tag kostenlos, keine Kreditkarte erforderlich.",
+                faq_q2: "Welche KI-Technologie wird verwendet?",
+                faq_a2: "Wir verwenden Claude AI von Anthropic für Textgenerierung und -optimierung sowie FLUX für Bildgenerierung. Das sind einige der besten heute verfügbaren KI-Modelle.",
+                faq_q3: "Wie lange sind generierte Bilder verfügbar?",
+                faq_a3: "Generierte Bilder stehen 1 Stunde zum Download bereit. Lade sie sofort herunter! Wir empfehlen, alle Bilder direkt nach der Generierung zu speichern.",
+                faq_q4: "Kann ich die Ergebnisse kommerziell nutzen?",
+                faq_a4: "Ja! Alle Inhalte, die du mit Mastermaind erstellst, gehören dir. Du kannst generierte Bilder und Texte für dein Business, Werbung, Social Media und jeden kommerziellen Zweck nutzen.",
+                faq_q5: "Brauche ich einen Account?",
+                faq_a5: "Für die kostenlose Nutzung ist kein Account erforderlich! Du kannst sofort loslegen. Ein Account wird nur benötigt, wenn du auf Pro upgraden möchtest."
             }
         };
 
         function setLanguage(lang) {
             currentLanguage = lang;
-            localStorage.setItem('adstrong_lang', lang);
+            localStorage.setItem('mastermaind_lang', lang);
             applyLanguage(lang);
 
             // Update button styles
@@ -859,12 +989,13 @@
         }
 
         // Newsletter form handler
-        function handleNewsletter(e) {
+        async function handleNewsletter(e) {
             e.preventDefault();
             const email = document.getElementById('newsletter-email').value;
             const successEl = document.getElementById('newsletter-success');
             const errorEl = document.getElementById('newsletter-error');
             const form = document.getElementById('newsletter-form');
+            const submitBtn = form.querySelector('button[type="submit"]');
 
             // Simple email validation
             if (!email || !email.includes('@')) {
@@ -873,17 +1004,35 @@
                 return;
             }
 
-            // For now, just show success (can be connected to backend later)
-            // Store in localStorage as a simple solution
-            const subscribers = JSON.parse(localStorage.getItem('adstrong_subscribers') || '[]');
-            if (!subscribers.includes(email)) {
-                subscribers.push(email);
-                localStorage.setItem('adstrong_subscribers', JSON.stringify(subscribers));
-            }
+            // Disable button during submission
+            submitBtn.disabled = true;
+            submitBtn.textContent = '...';
 
-            successEl.classList.remove('hidden');
-            errorEl.classList.add('hidden');
-            form.reset();
+            try {
+                // Send to backend API
+                const response = await fetch('/api/newsletter/subscribe', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: email })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    successEl.classList.remove('hidden');
+                    errorEl.classList.add('hidden');
+                    form.reset();
+                } else {
+                    throw new Error(result.detail || 'Subscription failed');
+                }
+            } catch (error) {
+                console.error('Newsletter error:', error);
+                errorEl.classList.remove('hidden');
+                successEl.classList.add('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = translations[currentLanguage].newsletter_btn;
+            }
         }
 
         // Demo tab switching (Prompt Optimizer)

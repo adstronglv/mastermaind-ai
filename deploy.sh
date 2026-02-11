@@ -1,4 +1,4 @@
-#!/bin/bash
+﻿#!/bin/bash
 # Deployment script for Prompt Engineer on Hostinger VPS
 
 set -e
@@ -53,7 +53,7 @@ sudo apt install nginx -y
 sudo tee /etc/nginx/sites-available/prompt-engineer > /dev/null <<EOF
 server {
     listen 80;
-    server_name adstronglv.com www.adstronglv.com;
+    server_name mastermaind.ai www.mastermaind.ai;
 
     location / {
         proxy_pass http://localhost:8080;
@@ -76,7 +76,7 @@ sudo nginx -t && sudo systemctl restart nginx
 # Setup SSL with Let's Encrypt
 echo "Setting up SSL..."
 sudo apt install certbot python3-certbot-nginx -y
-sudo certbot --nginx -d adstronglv.com -d www.adstronglv.com --non-interactive --agree-tos -m alexbelafostau@gmail.com || echo "SSL setup failed - will try again later"
+sudo certbot --nginx -d mastermaind.ai -d www.mastermaind.ai --non-interactive --agree-tos -m alexbelafostau@gmail.com || echo "SSL setup failed - will try again later"
 
 echo "✅ Deployment complete!"
-echo "🌐 Visit: https://adstronglv.com"
+echo "🌐 Visit: https://mastermaind.ai"

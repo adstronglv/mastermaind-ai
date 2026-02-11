@@ -1,6 +1,9 @@
-/**
- * AdStrong LV Cookie Consent Banner
- * Simple GDPR-compliant cookie consent
+﻿/**
+ * Mastermaind Cookie Consent Banner
+ *
+ * @copyright 2024-2026 Mastermaind. All rights reserved.
+ * @author Mastermaind Team
+ * @license Proprietary - Unauthorized copying, modification, or distribution prohibited.
  */
 
 (function() {
@@ -37,7 +40,7 @@
 
     // Create and inject the banner HTML
     function createBanner() {
-        const lang = localStorage.getItem('adstrong_lang') || 'en';
+        const lang = localStorage.getItem('mastermaind_lang') || 'en';
 
         const text = {
             en: {

@@ -1,5 +1,10 @@
-// Error Logger for AdStrong LV - using Supabase
-// Logs client-side errors to Supabase table
+﻿/**
+ * Mastermaind Error Logger
+ *
+ * @copyright 2024-2026 Mastermaind. All rights reserved.
+ * @author Mastermaind Team
+ * @license Proprietary - Unauthorized copying, modification, or distribution prohibited.
+ */
 
 (function() {
     const SUPABASE_URL = window.SUPABASE_URL || '';
@@ -41,7 +46,7 @@
             column_number: colno,
             stack_trace: error?.stack || null,
             user_agent: navigator.userAgent,
-            language: localStorage.getItem('adstrong_lang') || 'en'
+            language: localStorage.getItem('mastermaind_lang') || 'en'
         });
     };
 
@@ -53,7 +58,7 @@
             page_url: window.location.href,
             stack_trace: event.reason?.stack || null,
             user_agent: navigator.userAgent,
-            language: localStorage.getItem('adstrong_lang') || 'en'
+            language: localStorage.getItem('mastermaind_lang') || 'en'
         });
     };
 

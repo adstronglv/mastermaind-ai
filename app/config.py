@@ -1,5 +1,5 @@
-"""
-Configuration settings for AdStrong LV SaaS.
+﻿"""
+Configuration settings for Mastermaind SaaS.
 """
 
 from pydantic_settings import BaseSettings
@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     paypal_webhook_id: str = ""
 
     # App
-    frontend_url: str = "https://adstronglv.com"
+    frontend_url: str = "https://mastermaind.ai"
 
     # Limits
     free_prompts: int = 10

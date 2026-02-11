@@ -1,5 +1,5 @@
-"""
-PayPal payment integration for AdStrong LV.
+﻿"""
+PayPal payment integration for Mastermaind.
 """
 
 import json
@@ -53,7 +53,7 @@ async def create_subscription(user: dict = Depends(require_user)):
                 "plan_id": settings.paypal_plan_pro,
                 "custom_id": str(user["id"]),
                 "application_context": {
-                    "brand_name": "AdStrong LV",
+                    "brand_name": "Mastermaind",
                     "locale": "de-DE",
                     "shipping_preference": "NO_SHIPPING",
                     "user_action": "SUBSCRIBE_NOW",

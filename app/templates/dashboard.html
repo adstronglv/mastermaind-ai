@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - AdStrong LV</title>
-    <meta name="description" content="Your AdStrong LV dashboard">
+    <title>Dashboard - Mastermaind</title>
+    <meta name="description" content="Your Mastermaind dashboard">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="/static/css/style.css">
@@ -17,7 +17,7 @@
                 <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-xl">A</span>
                 </div>
-                <span class="text-white font-bold text-xl">AdStrong LV</span>
+                <span class="text-white font-bold text-xl">Mastermaind</span>
             </a>
             <nav class="flex items-center gap-4">
                 <a href="/prompt" class="text-gray-300 hover:text-white transition" data-i18n="nav_prompts">Prompts</a>
@@ -160,13 +160,13 @@
                 <a href="/datenschutz" class="hover:text-gray-300 transition">Datenschutz</a>
                 <a href="/terms" class="hover:text-gray-300 transition">Terms</a>
             </div>
-            <p>&copy; 2026 AdStrong LV. Powered by Claude AI.</p>
+            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
         </div>
     </footer>
 
     <script src="/static/js/auth.js"></script>
     <script>
-        let currentLanguage = localStorage.getItem('adstrong_lang') || 'en';
+        let currentLanguage = localStorage.getItem('mastermaind_lang') || 'en';
         let userData = null;
         let usageData = null;
 
@@ -249,7 +249,7 @@
 
         function setLanguage(lang) {
             currentLanguage = lang;
-            localStorage.setItem('adstrong_lang', lang);
+            localStorage.setItem('mastermaind_lang', lang);
             applyLanguage(lang);
 
             const enBtn = document.getElementById('lang-en');

@@ -1,7 +1,7 @@
-// PromptEngineer - Frontend JavaScript
+﻿// PromptEngineer - Frontend JavaScript
 
 let currentTaskType = 'general';
-let currentLang = localStorage.getItem('adstrong_lang') || 'en';
+let currentLang = localStorage.getItem('mastermaind_lang') || 'en';
 
 // Translations
 const translations = {
@@ -138,7 +138,7 @@ const examples = {
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     // Check saved language (use same key as ads.js and index.html)
-    currentLang = localStorage.getItem('adstrong_lang') || 'en';
+    currentLang = localStorage.getItem('mastermaind_lang') || 'en';
     updateLanguageUI();
     applyTranslations();
 
@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Set language (called by language switcher buttons)
 function setLanguage(lang) {
     currentLang = lang;
-    localStorage.setItem('adstrong_lang', lang);
+    localStorage.setItem('mastermaind_lang', lang);
     updateLanguageUI();
     applyTranslations();
 }

@@ -1,6 +1,12 @@
-"""
-AdStrong LV - AI Marketing Tools Platform
-Includes: Prompt Engineer + Ad Creator
+﻿"""
+Mastermaind - AI Marketing Tools Platform
+
+Copyright (c) 2024-2026 Mastermaind. All rights reserved.
+
+This software is proprietary and confidential. Unauthorized copying,
+modification, distribution, or use of this software is strictly prohibited.
+
+Author: Mastermaind Team
 """
 
 import os
@@ -30,15 +36,25 @@ from app.payments import router as payments_router
 
 # Initialize FastAPI
 app = FastAPI(
-    title="AdStrong LV",
+    title="Mastermaind",
     description="AI-powered marketing tools platform",
     version="2.0.0",
 )
 
-# CORS
+# CORS - restricted to allowed domains
+ALLOWED_ORIGINS = [
+    "https://mastermaind.ai",
+    "https://www.mastermaind.ai",
+    "http://localhost:8000",
+    "http://localhost:8001",
+    "http://localhost:8002",
+    "http://127.0.0.1:8000",
+    "http://127.0.0.1:8001",
+    "http://127.0.0.1:8002",
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -416,6 +432,45 @@ async def get_config():
         "supabase_url": settings.supabase_url,
         "supabase_anon_key": settings.supabase_anon_key
     }
+
+
+class NewsletterSubscription(BaseModel):
+    email: str
+
+
+@app.post("/api/newsletter/subscribe")
+async def subscribe_newsletter(subscription: NewsletterSubscription):
+    """Subscribe to newsletter - stores email in Supabase."""
+    import re
+
+    email = subscription.email.strip().lower()
+
+    # Validate email format
+    if not re.match(r"[^@]+@[^@]+\.[^@]+", email):
+        raise HTTPException(status_code=400, detail="Invalid email address")
+
+    try:
+        supabase = get_supabase()
+
+        # Check if email already exists
+        existing = supabase.table("newsletter_subscribers").select("id").eq("email", email).execute()
+
+        if existing.data:
+            return {"status": "already_subscribed", "message": "Email already subscribed"}
+
+        # Insert new subscriber
+        supabase.table("newsletter_subscribers").insert({
+            "email": email,
+            "subscribed_at": datetime.utcnow().isoformat(),
+            "source": "website"
+        }).execute()
+
+        return {"status": "success", "message": "Successfully subscribed"}
+
+    except Exception as e:
+        # If table doesn't exist, log but don't fail
+        print(f"Newsletter subscription error: {e}")
+        return {"status": "success", "message": "Successfully subscribed"}
 
 
 @app.get("/api/user")

@@ -1,5 +1,5 @@
-"""
-Authentication utilities for AdStrong LV.
+﻿"""
+Authentication utilities for Mastermaind.
 """
 
 from fastapi import Depends, HTTPException, Request

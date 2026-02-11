@@ -1,4 +1,4 @@
-# Deployment Instructions for Prompt Engineer
+﻿# Deployment Instructions for Prompt Engineer
 
 ## Hostinger VPS Deployment
 
@@ -60,7 +60,7 @@ Wait 5-15 minutes for DNS propagation.
 
 ### Step 6: Verify
 
-Visit https://adstronglv.com
+Visit https://mastermaind.ai
 
 ---
 
@@ -106,7 +106,7 @@ railway up
 
 3. Add environment variables in Railway dashboard
 
-4. Add custom domain adstronglv.com
+4. Add custom domain mastermaind.ai
 
 ---
 

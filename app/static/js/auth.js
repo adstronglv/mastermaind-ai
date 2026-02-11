@@ -1,6 +1,11 @@
-/**
- * AdStrong LV Authentication Module
- * Handles user authentication via Supabase
+﻿/**
+ * Mastermaind Authentication Module
+ *
+ * @copyright 2024-2026 Mastermaind. All rights reserved.
+ * @author Mastermaind Team
+ * @license Proprietary - Unauthorized copying, modification, or distribution prohibited.
+ *
+ * This software is the confidential and proprietary information of Mastermaind.
  */
 
 (function() {

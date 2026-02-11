@@ -1,10 +1,10 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pricing - AdStrong LV</title>
-    <meta name="description" content="AdStrong LV pricing plans">
+    <title>Pricing - Mastermaind</title>
+    <meta name="description" content="Mastermaind pricing plans">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="/static/css/style.css">
@@ -17,7 +17,7 @@
                 <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-xl">A</span>
                 </div>
-                <span class="text-white font-bold text-xl">AdStrong LV</span>
+                <span class="text-white font-bold text-xl">Mastermaind</span>
             </a>
             <nav class="flex items-center gap-4">
                 <a href="/" class="text-gray-300 hover:text-white transition" data-i18n="nav_home">Home</a>
@@ -226,7 +226,7 @@
                 </div>
                 <div class="bg-white/5 backdrop-blur-lg rounded-lg p-6">
                     <h3 class="text-white font-semibold mb-2" data-i18n="faq_refund_q">What's your refund policy?</h3>
-                    <p class="text-gray-400" data-i18n="faq_refund_a">We offer a 14-day money-back guarantee in accordance with EU consumer protection law. Contact us at adstronglv@gmail.com for refund requests.</p>
+                    <p class="text-gray-400" data-i18n="faq_refund_a">We offer a 14-day money-back guarantee in accordance with EU consumer protection law. Contact us at info@mastermaind.ai for refund requests.</p>
                 </div>
                 <div class="bg-white/5 backdrop-blur-lg rounded-lg p-6">
                     <h3 class="text-white font-semibold mb-2" data-i18n="faq_payment_q">What payment methods do you accept?</h3>
@@ -243,7 +243,7 @@
         <div class="mt-12 text-center">
             <p class="text-gray-400">
                 <span data-i18n="questions">Questions?</span>
-                <a href="mailto:adstronglv@gmail.com" class="text-purple-400 hover:text-purple-300">adstronglv@gmail.com</a>
+                <a href="mailto:info@mastermaind.ai" class="text-purple-400 hover:text-purple-300">info@mastermaind.ai</a>
             </p>
         </div>
     </section>
@@ -256,13 +256,13 @@
                 <a href="/datenschutz" class="hover:text-gray-300 transition">Datenschutz</a>
                 <a href="/terms" class="hover:text-gray-300 transition">Terms</a>
             </div>
-            <p>&copy; 2026 AdStrong LV. Powered by Claude AI.</p>
+            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
         </div>
     </footer>
 
     <script src="/static/js/auth.js"></script>
     <script>
-        let currentLanguage = localStorage.getItem('adstrong_lang') || 'en';
+        let currentLanguage = localStorage.getItem('mastermaind_lang') || 'en';
         let currentUser = null;
 
         const translations = {
@@ -309,7 +309,7 @@
                 faq_cancel_q: "Can I cancel anytime?",
                 faq_cancel_a: "Yes! You can cancel your subscription at any time from your dashboard. You'll keep Pro access until the end of your billing period.",
                 faq_refund_q: "What's your refund policy?",
-                faq_refund_a: "We offer a 14-day money-back guarantee in accordance with EU consumer protection law. Contact us at adstronglv@gmail.com for refund requests.",
+                faq_refund_a: "We offer a 14-day money-back guarantee in accordance with EU consumer protection law. Contact us at info@mastermaind.ai for refund requests.",
                 faq_payment_q: "What payment methods do you accept?",
                 faq_payment_a: "We accept PayPal and all major credit cards through PayPal's secure payment system.",
                 faq_quality_q: "What is \"Pro quality\" refinement?",
@@ -363,7 +363,7 @@
                 faq_cancel_q: "Kann ich jederzeit kundigen?",
                 faq_cancel_a: "Ja! Du kannst dein Abo jederzeit in deinem Dashboard kundigen. Du behaltst Pro-Zugang bis zum Ende deiner Abrechnungsperiode.",
                 faq_refund_q: "Wie ist eure Ruckerstattungspolitik?",
-                faq_refund_a: "Wir bieten eine 14-tagige Geld-zuruck-Garantie gemaß EU-Verbraucherschutzrecht. Kontaktiere uns unter adstronglv@gmail.com fur Ruckerstattungsanfragen.",
+                faq_refund_a: "Wir bieten eine 14-tagige Geld-zuruck-Garantie gemaß EU-Verbraucherschutzrecht. Kontaktiere uns unter info@mastermaind.ai fur Ruckerstattungsanfragen.",
                 faq_payment_q: "Welche Zahlungsmethoden akzeptiert ihr?",
                 faq_payment_a: "Wir akzeptieren PayPal und alle gangigen Kreditkarten uber PayPals sicheres Zahlungssystem.",
                 faq_quality_q: "Was ist \"Pro-Qualitat\" Verfeinerung?",
@@ -378,7 +378,7 @@
 
         function setLanguage(lang) {
             currentLanguage = lang;
-            localStorage.setItem('adstrong_lang', lang);
+            localStorage.setItem('mastermaind_lang', lang);
             applyLanguage(lang);
 
             const enBtn = document.getElementById('lang-en');

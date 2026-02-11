@@ -1,11 +1,17 @@
-/**
- * AdStrong LV Ad Creator - JavaScript
+﻿/**
+ * Mastermaind Ad Creator
+ *
+ * @copyright 2024-2026 Mastermaind. All rights reserved.
+ * @author Mastermaind Team
+ * @license Proprietary - Unauthorized copying, modification, or distribution prohibited.
+ *
+ * This software is the confidential and proprietary information of Mastermaind.
  */
 
 // State
 let selectedStyle = 'modern';
 let selectedNiche = '';
-let currentLanguage = localStorage.getItem('adstrong_lang') || 'en';
+let currentLanguage = localStorage.getItem('mastermaind_lang') || 'en';
 const DAILY_LIMIT = 3;
 const STORAGE_KEY = 'adstrong_usage';
 
@@ -161,6 +167,7 @@ const translations = {
         loading_title: "Creating Your Ads...",
         loading_subtitle: "This usually takes 20-30 seconds",
         warning_expire: "Download now! Image links expire in 1 hour.",
+        warning_expire_sub: "Save your images immediately - they cannot be recovered after expiry.",
         results_title: "Your Ad Creatives",
         usage_remaining: "{n} generation{s} remaining today",
         usage_limit: "Daily limit reached. Try again tomorrow!",
@@ -201,6 +208,7 @@ const translations = {
         loading_title: "Deine Anzeigen werden erstellt...",
         loading_subtitle: "Dies dauert normalerweise 20-30 Sekunden",
         warning_expire: "Jetzt herunterladen! Bildlinks laufen in 1 Stunde ab.",
+        warning_expire_sub: "Speichere deine Bilder sofort - sie können nach Ablauf nicht wiederhergestellt werden.",
         results_title: "Deine Werbeanzeigen",
         usage_remaining: "{n} Generierung{s} heute übrig",
         usage_limit: "Tageslimit erreicht. Versuche es morgen wieder!",
@@ -238,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Language functions
 function setLanguage(lang) {
     currentLanguage = lang;
-    localStorage.setItem('adstrong_lang', lang);
+    localStorage.setItem('mastermaind_lang', lang);
     applyLanguage(lang);
 
     // Update button styles
