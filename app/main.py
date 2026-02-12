@@ -33,6 +33,7 @@ from app.database import get_supabase
 from app.auth import get_current_user, require_user
 from app.limiter import limiter
 from app.payments import router as payments_router
+from app.enterprise import router as enterprise_router
 
 # Initialize FastAPI
 app = FastAPI(
@@ -65,8 +66,9 @@ BASE_DIR = Path(__file__).parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
 
-# Include payments router
+# Include routers
 app.include_router(payments_router)
+app.include_router(enterprise_router)
 
 
 # Models
@@ -248,6 +250,30 @@ async def ads_page(request: Request):
 async def agents_page(request: Request):
     """Render Custom AI Agents page."""
     return templates.TemplateResponse("agents.html", {"request": request})
+
+
+@app.get("/rag", response_class=HTMLResponse)
+async def rag_page(request: Request):
+    """Render RAG Document Analysis page."""
+    return templates.TemplateResponse("rag.html", {"request": request})
+
+
+@app.get("/sql", response_class=HTMLResponse)
+async def sql_page(request: Request):
+    """Render NL to SQL page."""
+    return templates.TemplateResponse("sql.html", {"request": request})
+
+
+@app.get("/process", response_class=HTMLResponse)
+async def process_page(request: Request):
+    """Render Process Automation page."""
+    return templates.TemplateResponse("process.html", {"request": request})
+
+
+@app.get("/orchestrator", response_class=HTMLResponse)
+async def orchestrator_page(request: Request):
+    """Render Multi-Agent Orchestrator page."""
+    return templates.TemplateResponse("orchestrator.html", {"request": request})
 
 
 @app.get("/pricing", response_class=HTMLResponse)

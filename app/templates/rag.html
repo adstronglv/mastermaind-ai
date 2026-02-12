@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG Document Analysis | Mastermaind</title>
+    <meta name="description" content="Analyze documents with AI. Ask questions in natural language and get answers with citations.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">M</span>
+                </div>
+                <span class="text-white font-bold text-xl">MastermAInd</span>
+            </a>
+            <nav class="flex items-center gap-4">
+                <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
+                <div class="relative" id="services-dropdown">
+                    <button onclick="document.getElementById('services-menu').classList.toggle('hidden')" class="flex items-center gap-1 text-gray-300 hover:text-white transition">
+                        <span>AI Services</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div id="services-menu" class="hidden absolute top-full right-0 mt-2 w-64 bg-slate-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
+                        <a href="/prompt" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition"><span class="text-2xl">&#128221;</span><div><div class="text-white font-medium text-sm">AI Solutions</div><div class="text-gray-400 text-xs">Prompts, scripts, content</div></div></a>
+                        <a href="/ads" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#127912;</span><div><div class="text-white font-medium text-sm">Ad Creator</div><div class="text-gray-400 text-xs">AI images & ad copy</div></div></a>
+                        <a href="/agents" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#129302;</span><div><div class="text-white font-medium text-sm">AI Agents Army</div><div class="text-gray-400 text-xs">Custom agents for business</div></div></a>
+                        <div class="border-t border-white/10 my-1"></div>
+                        <a href="/rag" class="flex items-center gap-3 px-4 py-3 bg-white/10 border-t border-white/5"><span class="text-2xl">&#128214;</span><div><div class="text-white font-medium text-sm">RAG Analyse</div><div class="text-gray-400 text-xs">Document Q&A</div></div></a>
+                        <a href="/sql" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#128450;</span><div><div class="text-white font-medium text-sm">NL &rarr; SQL</div><div class="text-gray-400 text-xs">Natural language queries</div></div></a>
+                        <a href="/process" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#9881;</span><div><div class="text-white font-medium text-sm">Prozesse</div><div class="text-gray-400 text-xs">Process optimization</div></div></a>
+                        <a href="/orchestrator" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#127891;</span><div><div class="text-white font-medium text-sm">Orchestrator</div><div class="text-gray-400 text-xs">Multi-Agent AI</div></div></a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white">EN</button>
+                    <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">DE</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="max-w-6xl mx-auto px-4 py-8 text-center">
+        <div class="inline-flex items-center gap-2 bg-indigo-500/20 text-indigo-300 px-3 py-1 rounded-full text-sm mb-4">
+            <span>RAG Analyse</span>
+            <span class="bg-indigo-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">DEMO</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4" data-i18n="hero_title">
+            RAG Document Analysis
+        </h1>
+        <p class="text-xl text-gray-300 mb-6 max-w-2xl mx-auto" data-i18n="hero_subtitle">
+            Upload a document and ask questions in natural language. AI answers with citations from the text.
+        </p>
+    </section>
+
+    <!-- Main Tool -->
+    <section class="max-w-4xl mx-auto px-4 pb-16">
+        <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
+            <!-- Demo Documents -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 font-bold text-sm">1</div>
+                    <h2 class="text-lg font-semibold text-white" data-i18n="step1_title">Document</h2>
+                    <span class="text-xs text-indigo-400 bg-indigo-500/20 px-2 py-0.5 rounded-full" data-i18n="demo_label">Demo available</span>
+                </div>
+
+                <div class="flex gap-2 mb-3">
+                    <button onclick="loadDemo('sgb2_7')" class="text-sm px-3 py-1.5 rounded-lg border border-white/20 bg-white/5 hover:border-indigo-500/50 text-gray-300 hover:text-white transition">SGB II &sect;7</button>
+                    <button onclick="loadDemo('sgb2_21')" class="text-sm px-3 py-1.5 rounded-lg border border-white/20 bg-white/5 hover:border-indigo-500/50 text-gray-300 hover:text-white transition">SGB II &sect;21</button>
+                    <button onclick="loadDemo('sgb2_22')" class="text-sm px-3 py-1.5 rounded-lg border border-white/20 bg-white/5 hover:border-indigo-500/50 text-gray-300 hover:text-white transition">SGB II &sect;22</button>
+                </div>
+
+                <textarea id="document-input" rows="8" class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500 text-sm font-mono" data-i18n-placeholder="placeholder_document" placeholder="Paste your document text here, or select a demo above..."></textarea>
+            </div>
+
+            <!-- Question -->
+            <div class="mb-6">
+                <div class="flex items-center gap-2 mb-3">
+                    <div class="w-8 h-8 bg-indigo-500/20 rounded-full flex items-center justify-center text-indigo-400 font-bold text-sm">2</div>
+                    <h2 class="text-lg font-semibold text-white" data-i18n="step2_title">Your Question</h2>
+                </div>
+                <input type="text" id="question-input" class="w-full bg-white/5 border border-white/20 rounded-lg p-3 text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500" data-i18n-placeholder="placeholder_question" placeholder="e.g. Who is entitled to benefits under this law?">
+            </div>
+
+            <!-- Submit -->
+            <button onclick="analyzeDocument()" id="analyze-btn" class="w-full bg-gradient-to-r from-indigo-500 to-purple-500 text-white py-4 rounded-lg font-semibold hover:opacity-90 transition flex items-center justify-center gap-2 text-lg">
+                <span id="btn-text" data-i18n="analyze_btn">Analyze Document</span>
+                <svg id="btn-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                </svg>
+            </button>
+
+            <div class="text-center mt-3">
+                <span id="usage-info" class="text-gray-500 text-sm">5 analyses remaining today</span>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div id="results-section" class="hidden mt-8">
+            <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6">
+                <h2 class="text-xl font-bold text-white mb-4" data-i18n="result_title">Analysis Result</h2>
+
+                <!-- Answer -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-medium text-indigo-400 mb-2" data-i18n="answer_label">Answer</h3>
+                    <div id="result-answer" class="text-gray-200 bg-white/5 rounded-lg p-4 text-sm leading-relaxed"></div>
+                </div>
+
+                <!-- Sources -->
+                <div class="mb-6">
+                    <h3 class="text-sm font-medium text-indigo-400 mb-2" data-i18n="sources_label">Sources from Document</h3>
+                    <div id="result-sources" class="space-y-2"></div>
+                </div>
+
+                <!-- Confidence -->
+                <div class="flex items-center gap-2">
+                    <span class="text-sm text-gray-400" data-i18n="confidence_label">Confidence:</span>
+                    <span id="result-confidence" class="text-sm font-medium px-2 py-0.5 rounded-full"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-8 mt-16">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="/impressum" class="hover:text-gray-300 transition">Impressum</a>
+                <a href="/datenschutz" class="hover:text-gray-300 transition">Privacy Policy</a>
+            </div>
+            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/rag.js"></script>
+</body>
+</html>

@@ -30,7 +30,15 @@ class Limiter:
                 "ad": 50,
                 "ad_period": "month",
                 "regenerate": 100,
-                "regenerate_period": "month"
+                "regenerate_period": "month",
+                "rag": 50,
+                "rag_period": "day",
+                "sql": 50,
+                "sql_period": "day",
+                "process": 30,
+                "process_period": "day",
+                "orchestrate": 20,
+                "orchestrate_period": "day",
             }
         # Free plan
         return {
@@ -39,7 +47,15 @@ class Limiter:
             "ad": 3,
             "ad_period": "day",
             "regenerate": 5,
-            "regenerate_period": "day"
+            "regenerate_period": "day",
+            "rag": 5,
+            "rag_period": "day",
+            "sql": 5,
+            "sql_period": "day",
+            "process": 5,
+            "process_period": "day",
+            "orchestrate": 5,
+            "orchestrate_period": "day",
         }
 
     def get_anonymous_id(self, request: Request) -> str:
@@ -145,7 +161,7 @@ class Limiter:
         supabase = get_supabase()
 
         usage = {}
-        for action in ["prompt", "ad", "regenerate"]:
+        for action in ["prompt", "ad", "regenerate", "rag", "sql", "process", "orchestrate"]:
             period = limits.get(f"{action}_period", "day")
             period_start = self.get_period_start(period)
 
