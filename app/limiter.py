@@ -3,6 +3,7 @@ Usage limiter for Mastermaind.
 Tracks and limits API usage per user/anonymous session.
 """
 
+import logging
 from datetime import date
 from typing import Optional
 from fastapi import Request
@@ -10,6 +11,8 @@ import hashlib
 
 from app.database import get_supabase
 from app.config import get_settings
+
+logger = logging.getLogger(__name__)
 
 
 class Limiter:
@@ -133,24 +136,28 @@ class Limiter:
 
         today_result = today_query.execute()
 
-        if today_result.data:
-            # Update existing record
-            supabase.table("usage_logs").update(
-                {"count": today_result.data[0]["count"] + 1}
-            ).eq("id", today_result.data[0]["id"]).execute()
-        else:
-            # Create new record
-            data = {
-                "action_type": action,
-                "date": today,
-                "count": 1
-            }
-            if user_id:
-                data["user_id"] = user_id
+        try:
+            if today_result.data:
+                # Update existing record
+                supabase.table("usage_logs").update(
+                    {"count": today_result.data[0]["count"] + 1}
+                ).eq("id", today_result.data[0]["id"]).execute()
             else:
-                data["anonymous_id"] = anon_id
+                # Create new record
+                data = {
+                    "action_type": action,
+                    "date": today,
+                    "count": 1
+                }
+                if user_id:
+                    data["user_id"] = user_id
+                else:
+                    data["anonymous_id"] = anon_id
 
-            supabase.table("usage_logs").insert(data).execute()
+                supabase.table("usage_logs").insert(data).execute()
+        except Exception as e:
+            # Log the error but don't block the user request
+            logger.error(f"Usage tracking failed for action={action}: {e}")
 
         return True, used + 1, limit
 
