@@ -476,11 +476,12 @@ async def mindlight_chat(
     if not req.message or len(req.message) < 2:
         raise HTTPException(status_code=400, detail="Message too short (min 2 chars)")
 
-    used, limit = await check_enterprise_limit("chat", request, user)
+    try:
+        used, limit = await check_enterprise_limit("chat", request, user)
 
-    client = get_anthropic_client()
+        client = get_anthropic_client()
 
-    system_prompt = f"""Du bist MindLight, der intelligente KI-Assistent von mastermaind.ai.
+        system_prompt = f"""Du bist MindLight, der intelligente KI-Assistent von mastermaind.ai.
 Du hilfst Sachbearbeitern in der oeffentlichen Verwaltung (SGB II / Jobcenter).
 
 Du hast Zugriff auf folgende Wissensbereiche:
@@ -519,13 +520,12 @@ Regeln:
 - Antworte IMMER in der Sprache des Nutzers (Deutsch oder Englisch)
 - Halte dich ans JSON-Format"""
 
-    messages = []
-    for msg in (req.history or [])[-10:]:
-        if isinstance(msg, dict) and "role" in msg and "content" in msg:
-            messages.append({"role": msg["role"], "content": msg["content"]})
-    messages.append({"role": "user", "content": req.message})
+        messages = []
+        for msg in (req.history or [])[-10:]:
+            if isinstance(msg, dict) and "role" in msg and "content" in msg:
+                messages.append({"role": msg["role"], "content": msg["content"]})
+        messages.append({"role": "user", "content": req.message})
 
-    try:
         response = client.messages.create(
             model="claude-3-haiku-20240307",
             max_tokens=2000,

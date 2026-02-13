@@ -241,8 +241,14 @@ async function sendMessage() {
         });
 
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.detail || 'Chat failed');
+            let errorMsg = 'Chat failed';
+            try {
+                const error = await response.json();
+                errorMsg = error.detail || errorMsg;
+            } catch {
+                errorMsg = `Server error (${response.status})`;
+            }
+            throw new Error(errorMsg);
         }
 
         const result = await response.json();
