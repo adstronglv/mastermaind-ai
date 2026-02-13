@@ -17,6 +17,91 @@ from app.limiter import limiter
 router = APIRouter(prefix="/api/enterprise", tags=["enterprise"])
 
 
+# --- MindLight SGB-II Context ---
+
+SGB2_DOCUMENTS = """§ 7 Leistungsberechtigte (SGB II)
+
+(1) Leistungen nach diesem Buch erhalten Personen, die
+1. das 15. Lebensjahr vollendet und die Altersgrenze nach § 7a noch nicht erreicht haben,
+2. erwerbsfähig sind,
+3. hilfebedürftig sind und
+4. ihren gewöhnlichen Aufenthalt in der Bundesrepublik Deutschland haben
+(erwerbsfähige Leistungsberechtigte).
+
+(2) Leistungen erhalten auch Personen, die mit erwerbsfähigen Leistungsberechtigten in einer Bedarfsgemeinschaft leben. Eine Bedarfsgemeinschaft bilden:
+1. die erwerbsfähigen Leistungsberechtigten,
+2. die im Haushalt lebenden Eltern oder der im Haushalt lebende Elternteil eines unverheirateten erwerbsfähigen Kindes, welches das 25. Lebensjahr noch nicht vollendet hat,
+3. als Partner der erwerbsfähigen Leistungsberechtigten der nicht dauernd getrennt lebende Ehegatte oder Lebenspartner,
+4. die dem Haushalt angehörenden unverheirateten Kinder der in den Nummern 1 bis 3 genannten Personen, wenn sie das 25. Lebensjahr noch nicht vollendet haben.
+
+(3) Vom Leistungsausschluss ausgenommen sind Ausländer, die sich seit mindestens fünf Jahren im Bundesgebiet aufhalten und erwerbstätig sind oder Anspruch auf Arbeitslosengeld I haben.
+
+§ 21 Mehrbedarfe (SGB II)
+
+(1) Für Personen, die trotz Erfüllung der Voraussetzungen nach § 7 keinen Anspruch auf Arbeitslosengeld II haben, wird ein Mehrbedarf anerkannt.
+
+(2) Bei werdenden Müttern wird nach der 12. Schwangerschaftswoche ein Mehrbedarf von 17 Prozent des maßgebenden Regelbedarfs anerkannt.
+
+(3) Für Personen, die mit einem oder mehreren minderjährigen Kindern zusammenleben und allein für deren Pflege und Erziehung sorgen, ist ein Mehrbedarf anzuerkennen in Höhe von:
+- 36 Prozent des Regelbedarfs für ein Kind unter 7 Jahren oder zwei bis drei Kinder unter 16 Jahren,
+- 12 Prozent des Regelbedarfs für jedes Kind, wenn die Voraussetzungen nach Nummer 1 nicht vorliegen, höchstens jedoch 60 Prozent des Regelbedarfs.
+
+(4) Bei erwerbsfähigen Leistungsberechtigten mit Behinderungen wird ein Mehrbedarf von 35 Prozent des maßgebenden Regelbedarfs anerkannt, wenn sie Leistungen zur Teilhabe am Arbeitsleben erhalten.
+
+(5) Für die Beschaffung von Schulbüchern und Schulmaterialien wird ein jährlicher Mehrbedarf anerkannt. Die Höhe beträgt 174 Euro im ersten Schulhalbjahr und 58 Euro im zweiten Schulhalbjahr.
+
+§ 22 Bedarfe für Unterkunft und Heizung (SGB II)
+
+(1) Bedarfe für Unterkunft und Heizung werden in Höhe der tatsächlichen Aufwendungen anerkannt, soweit diese angemessen sind. Die Angemessenheit richtet sich nach den örtlichen Verhältnissen.
+
+(2) Als Bedarf für die Unterkunft werden auch die Aufwendungen für die Instandhaltung und Reparatur anerkannt, soweit diese nicht vom Vermieter oder einem Dritten zu tragen sind.
+
+(3) Übersteigen die Aufwendungen für die Unterkunft den der Besonderheit des Einzelfalles angemessenen Umfang, sind sie als Bedarf so lange anzuerkennen, wie es dem Leistungsberechtigten nicht möglich oder nicht zuzumuten ist, durch einen Wohnungswechsel die Aufwendungen zu senken, in der Regel jedoch längstens für sechs Monate.
+
+(4) Bei einem Umzug ist eine Zusicherung des kommunalen Trägers erforderlich. Die Zusicherung soll erteilt werden, wenn der Umzug erforderlich ist und die Kosten der neuen Unterkunft angemessen sind.
+
+(5) Sofern Bedarfe für Heizung als Pauschale anerkannt werden, ist sicherzustellen, dass ein ausreichender Betrag zur Verfügung steht, um den Bedarf für Heizung zu decken."""
+
+SGB2_SQL_SCHEMA = """-- SGB-II Datenbank (Demo)
+
+CREATE TABLE leistungsberechtigte (
+    id              SERIAL PRIMARY KEY,
+    name            VARCHAR(200),
+    geburtsdatum    DATE,
+    bg_id           INTEGER REFERENCES bedarfsgemeinschaften(id),
+    status          VARCHAR(50),  -- 'aktiv', 'abgemeldet', 'sanktioniert'
+    eintrittsdatum  DATE,
+    austritt        DATE
+);
+
+CREATE TABLE bedarfsgemeinschaften (
+    id              SERIAL PRIMARY KEY,
+    typ             VARCHAR(50),  -- 'single', 'paar', 'familie'
+    personen_anzahl INTEGER,
+    erstellt_am     DATE
+);
+
+CREATE TABLE massnahmen (
+    id              SERIAL PRIMARY KEY,
+    person_id       INTEGER REFERENCES leistungsberechtigte(id),
+    typ             VARCHAR(100), -- 'Bewerbungstraining', 'Sprachkurs', 'Umschulung'
+    beginn          DATE,
+    ende            DATE,
+    status          VARCHAR(50),  -- 'geplant', 'laufend', 'abgeschlossen', 'abgebrochen'
+    traeger         VARCHAR(200)
+);
+
+CREATE TABLE bescheide (
+    id              SERIAL PRIMARY KEY,
+    person_id       INTEGER REFERENCES leistungsberechtigte(id),
+    art             VARCHAR(100), -- 'Bewilligungsbescheid', 'Aenderungsbescheid', 'Sanktionsbescheid'
+    betrag          DECIMAL(10,2),
+    gueltig_ab      DATE,
+    gueltig_bis     DATE,
+    status          VARCHAR(50)   -- 'aktiv', 'aufgehoben', 'widerspruch'
+);"""
+
+
 # --- Pydantic Models ---
 
 class RAGRequest(BaseModel):
@@ -36,6 +121,11 @@ class ProcessRequest(BaseModel):
 
 class OrchestratorRequest(BaseModel):
     task: str
+
+
+class ChatRequest(BaseModel):
+    message: str
+    history: list = []
 
 
 # --- Helpers ---
@@ -372,3 +462,95 @@ Zerlege diese Aufgabe, weise sie den optimalen Modellen zu, fuehre sie aus und s
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Orchestration failed: {str(e)}")
+
+
+# --- MindLight Chat Endpoint ---
+
+@router.post("/chat")
+async def mindlight_chat(
+    req: ChatRequest,
+    request: Request,
+    user: Optional[dict] = Depends(get_current_user)
+):
+    """MindLight unified chat - routes to RAG, SQL, Process, or General."""
+    if not req.message or len(req.message) < 2:
+        raise HTTPException(status_code=400, detail="Message too short (min 2 chars)")
+
+    used, limit = await check_enterprise_limit("chat", request, user)
+
+    client = get_anthropic_client()
+
+    system_prompt = f"""Du bist MindLight, der intelligente KI-Assistent von mastermaind.ai.
+Du hilfst Sachbearbeitern in der oeffentlichen Verwaltung (SGB II / Jobcenter).
+
+Du hast Zugriff auf folgende Wissensbereiche:
+
+=== TOOL 1: RAG (Dokumentenanalyse) ===
+Wenn der Nutzer Fragen zu SGB-II-Gesetzen, Leistungen, Anspruechen, Mehrbedarfen oder Unterkunftskosten stellt, nutze dieses Wissen:
+
+{SGB2_DOCUMENTS}
+
+=== TOOL 2: SQL (Datenbankabfragen) ===
+Wenn der Nutzer Datenabfragen, Statistiken oder Auswertungen will, generiere PostgreSQL basierend auf diesem Schema:
+
+{SGB2_SQL_SCHEMA}
+
+=== TOOL 3: PROCESS (Prozessanalyse) ===
+Wenn der Nutzer einen Geschaeftsprozess beschreibt oder nach Optimierung fragt, analysiere Schwachstellen und empfehle KI-Automatisierungen.
+
+=== TOOL 4: GENERAL ===
+Fuer alle anderen Fragen antworte hilfreich und kompetent als KI-Experte.
+
+WICHTIG - Antwortformat IMMER als JSON:
+{{
+    "tool_used": "rag" oder "sql" oder "process" oder "general",
+    "message": "Deine ausfuehrliche Antwort in der Sprache des Nutzers",
+    "sources": ["Nur bei tool_used=rag: Relevante Zitate aus dem SGB-II-Text"],
+    "sql": "Nur bei tool_used=sql: Die generierte SQL-Abfrage",
+    "tables_used": ["Nur bei tool_used=sql: Liste der verwendeten Tabellen"],
+    "weaknesses": ["Nur bei tool_used=process: Identifizierte Schwachstellen"],
+    "recommendations": ["Nur bei tool_used=process: KI-Empfehlungen"]
+}}
+
+Regeln:
+- Bei RAG-Fragen: Zitiere immer die relevanten Paragraphen
+- Bei SQL: Generiere korrektes PostgreSQL und erklaere die Abfrage
+- Bei Prozessen: Sei konkret mit KI-Automatisierungsvorschlaegen
+- Antworte IMMER in der Sprache des Nutzers (Deutsch oder Englisch)
+- Halte dich ans JSON-Format"""
+
+    messages = []
+    for msg in (req.history or [])[-10:]:
+        if isinstance(msg, dict) and "role" in msg and "content" in msg:
+            messages.append({"role": msg["role"], "content": msg["content"]})
+    messages.append({"role": "user", "content": req.message})
+
+    try:
+        response = client.messages.create(
+            model="claude-3-haiku-20240307",
+            max_tokens=2000,
+            system=system_prompt,
+            messages=messages
+        )
+
+        result = parse_json_response(response.content[0].text)
+
+        if not result:
+            result = {
+                "tool_used": "general",
+                "message": response.content[0].text
+            }
+
+        if "message" not in result:
+            result["message"] = response.content[0].text
+
+        return {
+            "status": "success",
+            "usage": {"used": used, "limit": limit},
+            **result
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Chat failed: {str(e)}")

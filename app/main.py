@@ -276,6 +276,12 @@ async def orchestrator_page(request: Request):
     return templates.TemplateResponse("orchestrator.html", {"request": request})
 
 
+@app.get("/mindlight", response_class=HTMLResponse)
+async def mindlight_page(request: Request):
+    """Render MindLight unified AI chat page."""
+    return templates.TemplateResponse("mindlight.html", {"request": request})
+
+
 @app.get("/pricing", response_class=HTMLResponse)
 async def pricing(request: Request):
     """Render pricing page."""

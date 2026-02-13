@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindLight AI Chat | Mastermaind</title>
+    <meta name="description" content="MindLight - Unified AI Assistant. Ask about SGB-II laws, generate SQL queries, analyze processes - all in one chat.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .chat-container { height: calc(100vh - 280px); min-height: 300px; }
+        .typing-dot { animation: typingDot 1.4s infinite; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes typingDot {
+            0%, 60%, 100% { opacity: 0.3; transform: translateY(0); }
+            30% { opacity: 1; transform: translateY(-4px); }
+        }
+        .tool-badge-rag { background: rgba(99, 102, 241, 0.2); color: #a5b4fc; }
+        .tool-badge-sql { background: rgba(16, 185, 129, 0.2); color: #6ee7b7; }
+        .tool-badge-process { background: rgba(245, 158, 11, 0.2); color: #fcd34d; }
+        .tool-badge-general { background: rgba(139, 92, 246, 0.2); color: #c4b5fd; }
+        .suggestion-chip:hover { border-color: rgba(6, 182, 212, 0.5); background: rgba(6, 182, 212, 0.1); }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">M</span>
+                </div>
+                <span class="text-white font-bold text-xl">MastermAInd</span>
+            </a>
+            <nav class="flex items-center gap-4">
+                <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
+                <div class="relative" id="services-dropdown">
+                    <button onclick="document.getElementById('services-menu').classList.toggle('hidden')" class="flex items-center gap-1 text-gray-300 hover:text-white transition">
+                        <span>AI Services</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                    </button>
+                    <div id="services-menu" class="hidden absolute top-full right-0 mt-2 w-64 bg-slate-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
+                        <a href="/prompt" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition"><span class="text-2xl">&#128221;</span><div><div class="text-white font-medium text-sm">AI Solutions</div><div class="text-gray-400 text-xs">Prompts, scripts, content</div></div></a>
+                        <a href="/ads" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#127912;</span><div><div class="text-white font-medium text-sm">Ad Creator</div><div class="text-gray-400 text-xs">AI images & ad copy</div></div></a>
+                        <a href="/agents" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#129302;</span><div><div class="text-white font-medium text-sm">AI Agents Army</div><div class="text-gray-400 text-xs">Custom agents for business</div></div></a>
+                        <div class="border-t border-white/10 my-1"></div>
+                        <a href="/mindlight" class="flex items-center gap-3 px-4 py-3 bg-cyan-500/10 border-t border-white/5"><span class="text-2xl">&#128172;</span><div><div class="text-white font-medium text-sm">MindLight <span class="text-xs bg-cyan-500 text-white px-1.5 py-0.5 rounded-full">AI</span></div><div class="text-gray-400 text-xs">Unified AI Chat</div></div></a>
+                        <a href="/rag" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#128214;</span><div><div class="text-white font-medium text-sm">RAG Analyse</div><div class="text-gray-400 text-xs">Document Q&A</div></div></a>
+                        <a href="/sql" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#128450;</span><div><div class="text-white font-medium text-sm">NL &rarr; SQL</div><div class="text-gray-400 text-xs">Natural language queries</div></div></a>
+                        <a href="/process" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#9881;</span><div><div class="text-white font-medium text-sm">Prozesse</div><div class="text-gray-400 text-xs">Process optimization</div></div></a>
+                        <a href="/orchestrator" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#127891;</span><div><div class="text-white font-medium text-sm">Orchestrator</div><div class="text-gray-400 text-xs">Multi-Agent AI</div></div></a>
+                    </div>
+                </div>
+                <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white">EN</button>
+                    <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">DE</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero (compact) -->
+    <section class="max-w-4xl mx-auto px-4 pt-6 pb-2 text-center">
+        <div class="inline-flex items-center gap-2 bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full text-sm mb-3">
+            <span>MindLight</span>
+            <span class="bg-cyan-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">AI CHAT</span>
+        </div>
+        <h1 class="text-2xl md:text-3xl font-bold text-white mb-2" data-i18n="hero_title">
+            Your Unified AI Assistant
+        </h1>
+        <p class="text-gray-400 text-sm max-w-xl mx-auto" data-i18n="hero_subtitle">
+            Ask about SGB-II laws, generate SQL queries, analyze processes - all in one conversation.
+        </p>
+    </section>
+
+    <!-- Chat Area -->
+    <section class="max-w-4xl mx-auto px-4 flex-1 flex flex-col pb-4">
+        <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 flex flex-col flex-1">
+            <!-- Chat Messages -->
+            <div id="chat-messages" class="chat-container overflow-y-auto p-4 space-y-4">
+                <!-- Welcome message -->
+                <div id="welcome-screen" class="flex flex-col items-center justify-center h-full text-center">
+                    <div class="text-6xl mb-4">&#128172;</div>
+                    <h2 class="text-xl font-bold text-white mb-2" data-i18n="welcome_title">Welcome to MindLight</h2>
+                    <p class="text-gray-400 text-sm mb-6 max-w-md" data-i18n="welcome_subtitle">
+                        I can answer questions about SGB-II laws, generate database queries, and analyze business processes.
+                    </p>
+
+                    <!-- Suggestion Chips -->
+                    <div class="flex flex-wrap gap-2 justify-center max-w-lg" id="suggestions-container">
+                        <button onclick="useSuggestion(0)" class="suggestion-chip text-xs px-3 py-2 rounded-lg border border-white/20 bg-white/5 text-gray-300 hover:text-white transition" data-i18n="suggestion_1">
+                            Who is entitled to SGB-II benefits?
+                        </button>
+                        <button onclick="useSuggestion(1)" class="suggestion-chip text-xs px-3 py-2 rounded-lg border border-white/20 bg-white/5 text-gray-300 hover:text-white transition" data-i18n="suggestion_2">
+                            Show active recipients as SQL
+                        </button>
+                        <button onclick="useSuggestion(2)" class="suggestion-chip text-xs px-3 py-2 rounded-lg border border-white/20 bg-white/5 text-gray-300 hover:text-white transition" data-i18n="suggestion_3">
+                            Analyze benefits application process
+                        </button>
+                        <button onclick="useSuggestion(3)" class="suggestion-chip text-xs px-3 py-2 rounded-lg border border-white/20 bg-white/5 text-gray-300 hover:text-white transition" data-i18n="suggestion_4">
+                            What additional needs exist for single parents?
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Input Bar -->
+            <div class="border-t border-white/10 p-4">
+                <div class="flex gap-2 items-end">
+                    <div class="flex-1 relative">
+                        <textarea id="chat-input" rows="1" class="w-full bg-white/5 border border-white/20 rounded-xl px-4 py-3 pr-12 text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 text-sm resize-none" data-i18n-placeholder="input_placeholder" placeholder="Ask MindLight anything..." onkeydown="handleKeyDown(event)" oninput="autoResize(this)"></textarea>
+                    </div>
+                    <button onclick="sendMessage()" id="send-btn" class="bg-gradient-to-r from-cyan-500 to-teal-500 text-white p-3 rounded-xl hover:opacity-90 transition flex items-center justify-center" title="Send">
+                        <svg id="send-icon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19V5m0 0l-7 7m7-7l7 7"/>
+                        </svg>
+                        <svg id="send-spinner" class="hidden w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="flex justify-between items-center mt-2 px-1">
+                    <span id="usage-info" class="text-gray-500 text-xs">10 messages remaining today</span>
+                    <button onclick="clearChat()" class="text-gray-500 hover:text-gray-300 text-xs transition" data-i18n="clear_chat">Clear chat</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer (minimal) -->
+    <footer class="border-t border-white/10 py-4">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-500 text-sm">
+            <div class="flex justify-center gap-6 mb-2">
+                <a href="/impressum" class="hover:text-gray-300 transition">Impressum</a>
+                <a href="/datenschutz" class="hover:text-gray-300 transition">Privacy Policy</a>
+            </div>
+            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
+        </div>
+    </footer>
+
+    <script src="/static/js/mindlight.js"></script>
+</body>
+</html>
