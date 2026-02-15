@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard &amp; Reports | Mastermaind</title>
+    <meta name="description" content="Enterprise Dashboard with KPIs, department analytics, and automated reporting.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">M</span>
+                </div>
+                <span class="text-white font-bold text-xl">MastermAInd</span>
+            </a>
+            <nav class="flex items-center gap-4">
+                <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
+                <a href="/mindlight" class="text-gray-300 hover:text-white transition">MindLight</a>
+                <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white">EN</button>
+                    <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">DE</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="max-w-6xl mx-auto px-4 py-8 text-center">
+        <div class="inline-flex items-center gap-2 bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm mb-4">
+            <span data-i18n="badge_text">Dashboard &amp; Reports</span>
+            <span class="bg-purple-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">DEMO</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4" data-i18n="hero_title">
+            Dashboard &amp; Reports
+        </h1>
+        <p class="text-xl text-gray-300 mb-2 max-w-2xl mx-auto" data-i18n="hero_subtitle">
+            Zentrale &Uuml;bersicht mit automatischen Analysen. Reporting f&uuml;r verschiedene Abteilungen und Rollen.
+        </p>
+        <p class="text-sm text-amber-400/80" data-i18n="demo_hint">
+            Demo mit Beispieldaten &mdash; wird mit echten Abteilungsdaten konfiguriert
+        </p>
+    </section>
+
+    <!-- Department Filter -->
+    <section class="max-w-6xl mx-auto px-4 mb-6">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <span class="text-gray-400 text-sm" data-i18n="filter_label">Abteilung:</span>
+                <select id="dept-filter" onchange="filterDepartment()" class="bg-white/5 border border-white/20 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-purple-500">
+                    <option value="all" class="bg-slate-900 text-white" data-i18n-option="dept_all">Alle Abteilungen</option>
+                    <option value="sachbearbeitung" class="bg-slate-900 text-white" data-i18n-option="dept_case">Sachbearbeitung</option>
+                    <option value="it" class="bg-slate-900 text-white" data-i18n-option="dept_it">IT-Abteilung</option>
+                    <option value="leitung" class="bg-slate-900 text-white" data-i18n-option="dept_mgmt">Leitung</option>
+                </select>
+            </div>
+            <div class="text-gray-500 text-xs" data-i18n="last_updated">Letzte Aktualisierung: 15.02.2026, 09:00</div>
+        </div>
+    </section>
+
+    <!-- KPI Cards -->
+    <section class="max-w-6xl mx-auto px-4 mb-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5">
+                <div class="text-gray-400 text-xs mb-1" data-i18n="kpi_cases">Aktive F&auml;lle</div>
+                <div class="text-3xl font-bold text-white">1.247</div>
+                <div class="flex items-center gap-1 mt-1">
+                    <span class="text-green-400 text-xs">&#9650; 3,2%</span>
+                    <span class="text-gray-500 text-xs" data-i18n="kpi_vs_month">vs. Vormonat</span>
+                </div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5">
+                <div class="text-gray-400 text-xs mb-1" data-i18n="kpi_time">&Oslash; Bearbeitungszeit</div>
+                <div class="text-3xl font-bold text-white">4,2 <span class="text-lg text-gray-400" data-i18n="kpi_days">Tage</span></div>
+                <div class="flex items-center gap-1 mt-1">
+                    <span class="text-green-400 text-xs">&#9660; 12%</span>
+                    <span class="text-gray-500 text-xs" data-i18n="kpi_improved">verbessert</span>
+                </div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5">
+                <div class="text-gray-400 text-xs mb-1" data-i18n="kpi_success">Erfolgsquote Ma&szlig;nahmen</div>
+                <div class="text-3xl font-bold text-white">68%</div>
+                <div class="w-full bg-white/10 rounded-full h-1.5 mt-2">
+                    <div class="bg-gradient-to-r from-purple-500 to-pink-500 h-1.5 rounded-full" style="width: 68%"></div>
+                </div>
+            </div>
+            <div class="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5">
+                <div class="text-gray-400 text-xs mb-1" data-i18n="kpi_objections">Offene Widerspr&uuml;che</div>
+                <div class="text-3xl font-bold text-amber-400">23</div>
+                <div class="flex items-center gap-1 mt-1">
+                    <span class="text-red-400 text-xs">&#9650; 4</span>
+                    <span class="text-gray-500 text-xs" data-i18n="kpi_this_week">diese Woche</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Department Overview -->
+    <section class="max-w-6xl mx-auto px-4 mb-8">
+        <h2 class="text-xl font-bold text-white mb-4" data-i18n="dept_title">Abteilungs&uuml;bersicht</h2>
+        <div class="grid md:grid-cols-3 gap-4">
+            <!-- Sachbearbeitung -->
+            <div class="dept-card bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5" data-dept="sachbearbeitung">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                        <span class="text-emerald-400 text-lg">&#128196;</span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold" data-i18n="dept_case_title">Sachbearbeitung</h3>
+                        <span class="text-gray-500 text-xs">42 Mitarbeiter</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-gray-400" data-i18n="dept_workload">Auslastung</span>
+                            <span class="text-white">87%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-2">
+                            <div class="bg-emerald-500 h-2 rounded-full" style="width: 87%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400" data-i18n="dept_pending">Offene Antr&auml;ge</span>
+                        <span class="text-white">312</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400" data-i18n="dept_completed_today">Heute abgeschlossen</span>
+                        <span class="text-emerald-400">28</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- IT -->
+            <div class="dept-card bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5" data-dept="it">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                        <span class="text-blue-400 text-lg">&#128187;</span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold" data-i18n="dept_it_title">IT-Abteilung</h3>
+                        <span class="text-gray-500 text-xs">8 Mitarbeiter</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-gray-400" data-i18n="dept_uptime">System-Verf&uuml;gbarkeit</span>
+                            <span class="text-white">99,7%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 99.7%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400" data-i18n="dept_tickets">Offene Tickets</span>
+                        <span class="text-white">17</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400" data-i18n="dept_resolved_today">&Oslash; L&ouml;sungszeit</span>
+                        <span class="text-blue-400">2,1h</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leitung -->
+            <div class="dept-card bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5" data-dept="leitung">
+                <div class="flex items-center gap-2 mb-4">
+                    <div class="w-10 h-10 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                        <span class="text-purple-400 text-lg">&#128200;</span>
+                    </div>
+                    <div>
+                        <h3 class="text-white font-semibold" data-i18n="dept_mgmt_title">Leitung</h3>
+                        <span class="text-gray-500 text-xs">5 Personen</span>
+                    </div>
+                </div>
+                <div class="space-y-3">
+                    <div>
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-gray-400" data-i18n="dept_budget">Budget-Auslastung</span>
+                            <span class="text-white">73%</span>
+                        </div>
+                        <div class="w-full bg-white/10 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 73%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400" data-i18n="dept_integration">Eingliederungsquote</span>
+                        <span class="text-white">34%</span>
+                    </div>
+                    <div class="flex justify-between text-xs">
+                        <span class="text-gray-400" data-i18n="dept_cost_case">&Oslash; Kosten/Fall</span>
+                        <span class="text-purple-400">&euro; 847</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Bescheide Table -->
+    <section class="max-w-6xl mx-auto px-4 mb-8">
+        <h2 class="text-xl font-bold text-white mb-4" data-i18n="table_title">Letzte Bescheide</h2>
+        <div class="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 overflow-hidden">
+            <table class="w-full text-sm">
+                <thead>
+                    <tr class="border-b border-white/10 text-left">
+                        <th class="px-4 py-3 text-gray-400 font-medium" data-i18n="th_date">Datum</th>
+                        <th class="px-4 py-3 text-gray-400 font-medium" data-i18n="th_type">Art</th>
+                        <th class="px-4 py-3 text-gray-400 font-medium" data-i18n="th_person">Person</th>
+                        <th class="px-4 py-3 text-gray-400 font-medium" data-i18n="th_amount">Betrag</th>
+                        <th class="px-4 py-3 text-gray-400 font-medium" data-i18n="th_status">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                        <td class="px-4 py-3 text-gray-300">15.02.2026</td>
+                        <td class="px-4 py-3 text-white">Bewilligungsbescheid</td>
+                        <td class="px-4 py-3 text-gray-300">M. Schmidt</td>
+                        <td class="px-4 py-3 text-white">&euro; 1.247,00</td>
+                        <td class="px-4 py-3"><span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full text-xs" data-i18n="status_active">Aktiv</span></td>
+                    </tr>
+                    <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                        <td class="px-4 py-3 text-gray-300">14.02.2026</td>
+                        <td class="px-4 py-3 text-white">&Auml;nderungsbescheid</td>
+                        <td class="px-4 py-3 text-gray-300">A. M&uuml;ller</td>
+                        <td class="px-4 py-3 text-white">&euro; 982,50</td>
+                        <td class="px-4 py-3"><span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full text-xs" data-i18n="status_active">Aktiv</span></td>
+                    </tr>
+                    <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                        <td class="px-4 py-3 text-gray-300">14.02.2026</td>
+                        <td class="px-4 py-3 text-white">Sanktionsbescheid</td>
+                        <td class="px-4 py-3 text-gray-300">T. Weber</td>
+                        <td class="px-4 py-3 text-white">&euro; -124,70</td>
+                        <td class="px-4 py-3"><span class="bg-amber-500/20 text-amber-400 px-2 py-0.5 rounded-full text-xs" data-i18n="status_objection">Widerspruch</span></td>
+                    </tr>
+                    <tr class="border-b border-white/5 hover:bg-white/5 transition">
+                        <td class="px-4 py-3 text-gray-300">13.02.2026</td>
+                        <td class="px-4 py-3 text-white">Bewilligungsbescheid</td>
+                        <td class="px-4 py-3 text-gray-300">S. Yilmaz</td>
+                        <td class="px-4 py-3 text-white">&euro; 1.587,00</td>
+                        <td class="px-4 py-3"><span class="bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full text-xs" data-i18n="status_active">Aktiv</span></td>
+                    </tr>
+                    <tr class="hover:bg-white/5 transition">
+                        <td class="px-4 py-3 text-gray-300">12.02.2026</td>
+                        <td class="px-4 py-3 text-white">Aufhebungsbescheid</td>
+                        <td class="px-4 py-3 text-gray-300">K. Nowak</td>
+                        <td class="px-4 py-3 text-white">&euro; 0,00</td>
+                        <td class="px-4 py-3"><span class="bg-gray-500/20 text-gray-400 px-2 py-0.5 rounded-full text-xs" data-i18n="status_closed">Aufgehoben</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- Measures Chart -->
+    <section class="max-w-6xl mx-auto px-4 mb-8">
+        <h2 class="text-xl font-bold text-white mb-4" data-i18n="measures_title">Ma&szlig;nahmen-&Uuml;bersicht</h2>
+        <div class="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6">
+            <div class="space-y-4">
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-300" data-i18n="m_training">Bewerbungstraining</span>
+                        <span class="text-white">142 <span class="text-gray-500 text-xs">(73% Erfolg)</span></span>
+                    </div>
+                    <div class="w-full bg-white/10 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-emerald-500 to-emerald-400 h-3 rounded-full" style="width: 73%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-300" data-i18n="m_language">Sprachkurse</span>
+                        <span class="text-white">89 <span class="text-gray-500 text-xs">(65% Erfolg)</span></span>
+                    </div>
+                    <div class="w-full bg-white/10 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-blue-500 to-blue-400 h-3 rounded-full" style="width: 65%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-300" data-i18n="m_retraining">Umschulung</span>
+                        <span class="text-white">34 <span class="text-gray-500 text-xs">(82% Erfolg)</span></span>
+                    </div>
+                    <div class="w-full bg-white/10 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-purple-500 to-purple-400 h-3 rounded-full" style="width: 82%"></div>
+                    </div>
+                </div>
+                <div>
+                    <div class="flex justify-between text-sm mb-1">
+                        <span class="text-gray-300" data-i18n="m_agm">AGH (1-Euro-Jobs)</span>
+                        <span class="text-white">67 <span class="text-gray-500 text-xs">(41% Erfolg)</span></span>
+                    </div>
+                    <div class="w-full bg-white/10 rounded-full h-3">
+                        <div class="bg-gradient-to-r from-amber-500 to-amber-400 h-3 rounded-full" style="width: 41%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-white/10 py-8 mt-8">
+        <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
+            <div class="flex justify-center gap-6 mb-4">
+                <a href="/impressum" class="hover:text-gray-300 transition">Impressum</a>
+                <a href="/datenschutz" class="hover:text-gray-300 transition">Privacy Policy</a>
+            </div>
+            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
+        </div>
+    </footer>
+
+    <script>
+        let currentLang = localStorage.getItem('mastermaind_lang') || 'en';
+
+        const translations = {
+            en: {
+                badge_text: 'Dashboard & Reports',
+                hero_title: 'Dashboard & Reports',
+                hero_subtitle: 'Central overview with automated analyses. Reporting for different departments and roles.',
+                demo_hint: 'Demo with sample data — will be configured with real department data',
+                filter_label: 'Department:',
+                last_updated: 'Last updated: Feb 15, 2026, 09:00',
+                kpi_cases: 'Active Cases',
+                kpi_time: 'Avg. Processing Time',
+                kpi_days: 'days',
+                kpi_success: 'Measures Success Rate',
+                kpi_objections: 'Open Objections',
+                kpi_vs_month: 'vs. last month',
+                kpi_improved: 'improved',
+                kpi_this_week: 'this week',
+                dept_title: 'Department Overview',
+                dept_case_title: 'Case Management',
+                dept_it_title: 'IT Department',
+                dept_mgmt_title: 'Management',
+                dept_workload: 'Workload',
+                dept_pending: 'Pending Applications',
+                dept_completed_today: 'Completed Today',
+                dept_uptime: 'System Uptime',
+                dept_tickets: 'Open Tickets',
+                dept_resolved_today: 'Avg. Resolution Time',
+                dept_budget: 'Budget Utilization',
+                dept_integration: 'Integration Rate',
+                dept_cost_case: 'Avg. Cost/Case',
+                table_title: 'Recent Decisions',
+                th_date: 'Date',
+                th_type: 'Type',
+                th_person: 'Person',
+                th_amount: 'Amount',
+                th_status: 'Status',
+                status_active: 'Active',
+                status_objection: 'Objection',
+                status_closed: 'Revoked',
+                measures_title: 'Measures Overview',
+                m_training: 'Application Training',
+                m_language: 'Language Courses',
+                m_retraining: 'Retraining',
+                m_agm: 'Work Opportunities',
+                dept_all: 'All Departments',
+                dept_case: 'Case Management',
+                dept_it: 'IT Department',
+                dept_mgmt: 'Management'
+            },
+            de: {
+                badge_text: 'Dashboard & Reports',
+                hero_title: 'Dashboard & Reports',
+                hero_subtitle: 'Zentrale Übersicht mit automatischen Analysen. Reporting für verschiedene Abteilungen und Rollen.',
+                demo_hint: 'Demo mit Beispieldaten — wird mit echten Abteilungsdaten konfiguriert',
+                filter_label: 'Abteilung:',
+                last_updated: 'Letzte Aktualisierung: 15.02.2026, 09:00',
+                kpi_cases: 'Aktive Fälle',
+                kpi_time: 'Ø Bearbeitungszeit',
+                kpi_days: 'Tage',
+                kpi_success: 'Erfolgsquote Maßnahmen',
+                kpi_objections: 'Offene Widersprüche',
+                kpi_vs_month: 'vs. Vormonat',
+                kpi_improved: 'verbessert',
+                kpi_this_week: 'diese Woche',
+                dept_title: 'Abteilungsübersicht',
+                dept_case_title: 'Sachbearbeitung',
+                dept_it_title: 'IT-Abteilung',
+                dept_mgmt_title: 'Leitung',
+                dept_workload: 'Auslastung',
+                dept_pending: 'Offene Anträge',
+                dept_completed_today: 'Heute abgeschlossen',
+                dept_uptime: 'System-Verfügbarkeit',
+                dept_tickets: 'Offene Tickets',
+                dept_resolved_today: 'Ø Lösungszeit',
+                dept_budget: 'Budget-Auslastung',
+                dept_integration: 'Eingliederungsquote',
+                dept_cost_case: 'Ø Kosten/Fall',
+                table_title: 'Letzte Bescheide',
+                th_date: 'Datum',
+                th_type: 'Art',
+                th_person: 'Person',
+                th_amount: 'Betrag',
+                th_status: 'Status',
+                status_active: 'Aktiv',
+                status_objection: 'Widerspruch',
+                status_closed: 'Aufgehoben',
+                measures_title: 'Maßnahmen-Übersicht',
+                m_training: 'Bewerbungstraining',
+                m_language: 'Sprachkurse',
+                m_retraining: 'Umschulung',
+                m_agm: 'AGH (1-Euro-Jobs)',
+                dept_all: 'Alle Abteilungen',
+                dept_case: 'Sachbearbeitung',
+                dept_it: 'IT-Abteilung',
+                dept_mgmt: 'Leitung'
+            }
+        };
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            localStorage.setItem('mastermaind_lang', lang);
+
+            const enBtn = document.getElementById('lang-en');
+            const deBtn = document.getElementById('lang-de');
+            if (lang === 'en') {
+                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
+                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
+            } else {
+                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
+                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
+            }
+
+            applyLanguage(lang);
+        }
+
+        function applyLanguage(lang) {
+            const t = translations[lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) el.textContent = t[key];
+            });
+            document.querySelectorAll('[data-i18n-option]').forEach(el => {
+                const key = el.getAttribute('data-i18n-option');
+                if (t[key]) el.textContent = t[key];
+            });
+        }
+
+        function filterDepartment() {
+            const value = document.getElementById('dept-filter').value;
+            document.querySelectorAll('.dept-card').forEach(card => {
+                if (value === 'all' || card.dataset.dept === value) {
+                    card.style.display = '';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (currentLang === 'de') {
+                setLanguage('de');
+            }
+            applyLanguage(currentLang);
+        });
+    </script>
+</body>
+</html>

@@ -119,6 +119,11 @@ class ProcessRequest(BaseModel):
     industry: str = "general"
 
 
+class TroubleshootRequest(BaseModel):
+    log_text: str
+    system_type: str = "general"
+
+
 class OrchestratorRequest(BaseModel):
     task: str
 
@@ -375,6 +380,80 @@ Analysiere diesen Prozess und liefere Optimierungsvorschlaege. Antwort als JSON.
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Process analysis failed: {str(e)}")
+
+
+# --- Troubleshooting Endpoint ---
+
+@router.post("/troubleshoot")
+async def troubleshoot_analyze(
+    req: TroubleshootRequest,
+    request: Request,
+    user: Optional[dict] = Depends(get_current_user)
+):
+    """Troubleshooting - analyze logs and error messages, suggest fixes."""
+    if not req.log_text or len(req.log_text) < 10:
+        raise HTTPException(status_code=400, detail="Log text too short (min 10 chars)")
+    if len(req.log_text) > 30000:
+        raise HTTPException(status_code=400, detail="Log text too long (max 30000 chars)")
+
+    used, limit = await check_enterprise_limit("troubleshoot", request, user)
+
+    client = get_anthropic_client()
+
+    system_prompt = """Du bist ein IT-Troubleshooting-Experte fuer oeffentliche Verwaltung und Unternehmen. Deine Aufgabe:
+1. Analysiere die bereitgestellten Logs/Fehlermeldungen
+2. Bestimme den Schweregrad (critical/high/medium/low)
+3. Identifiziere die Ursache (Root Cause)
+4. Schlage konkrete Loesungen vor
+5. Empfehle Praevention fuer die Zukunft
+
+Antwortformat als JSON:
+{
+    "severity": "critical" oder "high" oder "medium" oder "low",
+    "root_cause": "Kurze Beschreibung der Hauptursache",
+    "analysis": "Detaillierte Analyse der Logs/Fehlermeldung",
+    "solutions": ["Loesung 1: Konkrete Schritte", "Loesung 2: Alternative"],
+    "prevention": ["Praevention 1: Was tun damit es nicht nochmal passiert", "Praevention 2"]
+}
+
+Antworte in der Sprache der Eingabe (Deutsch oder Englisch)."""
+
+    user_message = f"""LOG/FEHLERMELDUNG:
+{req.log_text}
+
+SYSTEMTYP: {req.system_type}
+
+Analysiere diese Fehlermeldung und liefere Troubleshooting-Ergebnisse. Antwort als JSON."""
+
+    try:
+        response = client.messages.create(
+            model="claude-3-haiku-20240307",
+            max_tokens=2000,
+            system=system_prompt,
+            messages=[{"role": "user", "content": user_message}]
+        )
+
+        result = parse_json_response(response.content[0].text)
+
+        if not result:
+            result = {
+                "severity": "medium",
+                "root_cause": "Konnte nicht automatisch bestimmt werden",
+                "analysis": response.content[0].text,
+                "solutions": [],
+                "prevention": []
+            }
+
+        return {
+            "status": "success",
+            "usage": {"used": used, "limit": limit},
+            **result
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Troubleshooting failed: {str(e)}")
 
 
 # --- Multi-Agent Orchestrator Endpoint ---

@@ -240,6 +240,18 @@ async def process_page(request: Request):
     return templates.TemplateResponse("process.html", {"request": request})
 
 
+@app.get("/troubleshoot", response_class=HTMLResponse)
+async def troubleshoot_page(request: Request):
+    """Render Troubleshooting page."""
+    return templates.TemplateResponse("troubleshoot.html", {"request": request})
+
+
+@app.get("/reports", response_class=HTMLResponse)
+async def reports_page(request: Request):
+    """Render Reports Demo page."""
+    return templates.TemplateResponse("reports.html", {"request": request})
+
+
 @app.get("/orchestrator", response_class=HTMLResponse)
 async def orchestrator_page(request: Request):
     """Render Multi-Agent Orchestrator page."""
