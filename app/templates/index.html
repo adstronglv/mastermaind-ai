@@ -237,16 +237,20 @@
         </div>
     </section>
 
-    <!-- Architecture / How it works -->
+    <!-- Architektur & On-Premises Deployment -->
     <section class="max-w-5xl mx-auto px-4 py-12 border-t border-white/10">
         <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="arch_title_de">Architektur</h2>
-            <p class="text-gray-400" data-i18n="arch_subtitle_de">Ein zentraler Einstiegspunkt f&uuml;r alle KI-Module</p>
+            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="arch_title_de">Architektur &amp; On-Premises</h2>
+            <p class="text-gray-400" data-i18n="arch_subtitle_de">Vom Cloud-Prototyp zur lokalen Installation &mdash; ein System, komplett &uuml;bertragbar</p>
         </div>
 
         <div class="bg-white/5 rounded-2xl border border-white/10 p-8">
-            <!-- MindLight Center -->
-            <div class="text-center mb-8">
+
+            <!-- Step 1: Architecture Diagram -->
+            <div class="text-center mb-3">
+                <span class="text-xs font-semibold tracking-widest text-gray-500 uppercase">Zentrale KI-Schnittstelle</span>
+            </div>
+            <div class="text-center mb-6">
                 <div class="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500/20 to-teal-500/20 px-6 py-3 rounded-xl border border-cyan-500/30">
                     <span class="text-3xl">&#128172;</span>
                     <div class="text-left">
@@ -257,7 +261,7 @@
             </div>
 
             <!-- Arrows -->
-            <div class="flex justify-center mb-6">
+            <div class="flex justify-center mb-4">
                 <div class="grid grid-cols-5 gap-4 max-w-xl">
                     <div class="text-center text-gray-500">&#8595;</div>
                     <div class="text-center text-gray-500">&#8595;</div>
@@ -268,7 +272,7 @@
             </div>
 
             <!-- Modules -->
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
                 <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3 text-center">
                     <i class="fas fa-database text-emerald-400 text-lg mb-1"></i>
                     <div class="text-white text-sm font-medium">NL &rarr; SQL</div>
@@ -291,46 +295,61 @@
                 </div>
             </div>
 
-            <!-- Bottom info -->
-            <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+            <!-- Divider: Cloud Prototype -> On-Premises -->
+            <div class="border-t border-white/10 pt-8 mb-6">
+                <div class="flex items-center justify-center gap-4 mb-6">
+                    <div class="text-center">
+                        <div class="text-gray-500 text-xs uppercase tracking-wide mb-1" data-i18n="arch_proto_label_de">Aktuell: Cloud-Prototyp</div>
+                        <div class="bg-white/5 border border-white/10 rounded-lg px-4 py-2">
+                            <span class="text-gray-400 text-sm">Claude API</span>
+                        </div>
+                    </div>
+                    <div class="text-cyan-400 text-2xl">&#10132;</div>
+                    <div class="text-center">
+                        <div class="text-cyan-400 text-xs uppercase tracking-wide mb-1 font-semibold" data-i18n="arch_target_label_de">Ziel: On-Premises</div>
+                        <div class="bg-cyan-500/10 border border-cyan-500/20 rounded-lg px-4 py-2">
+                            <span class="text-cyan-300 text-sm">Llama / Mistral lokal</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-center text-gray-500 text-sm max-w-2xl mx-auto mb-8" data-i18n="arch_transfer_de">
+                    Gleicher Code, gleiche Module &mdash; nur das KI-Modell wird ausgetauscht. Die gesamte Plattform l&auml;uft dann lokal auf Ihrem Server.
+                </p>
+            </div>
+
+            <!-- Technology Cards -->
+            <div class="grid md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-white/5 rounded-xl border border-white/10 p-5 text-center">
+                    <div class="text-3xl mb-2">&#129433;</div>
+                    <h3 class="text-base font-bold text-white mb-1">Llama</h3>
+                    <p class="text-gray-400 text-xs" data-i18n="arch_llama_de">Open Source (Meta). Lokal betreibbar, keine Cloud. EU-Zugang seit Sept. 2025.</p>
+                </div>
+                <div class="bg-white/5 rounded-xl border border-white/10 p-5 text-center">
+                    <div class="text-3xl mb-2">&#127987;</div>
+                    <h3 class="text-base font-bold text-white mb-1">Mistral</h3>
+                    <p class="text-gray-400 text-xs" data-i18n="arch_mistral_de">EU-Firma (Paris). DSGVO-konform. F&uuml;r Beh&ouml;rden geeignet.</p>
+                </div>
+                <div class="bg-white/5 rounded-xl border border-white/10 p-5 text-center">
+                    <div class="text-3xl mb-2">&#128230;</div>
+                    <h3 class="text-base font-bold text-white mb-1">Docker</h3>
+                    <p class="text-gray-400 text-xs" data-i18n="arch_docker_desc_de">Ein Befehl installiert alles: Web-App + Datenbank + KI-Modell. Auf jedem Server lauff&auml;hig.</p>
+                </div>
+            </div>
+
+            <!-- Bottom badges -->
+            <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
                 <div class="flex items-center gap-2">
                     <i class="fas fa-shield-alt text-green-400"></i>
                     <span data-i18n="arch_dsgvo_de">On-Premises = DSGVO-konform</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <i class="fas fa-lock text-green-400"></i>
-                    <span data-i18n="arch_nocloud_de">Keine Daten in die Cloud</span>
+                    <span data-i18n="arch_nocloud_de">Keine Daten verlassen das Netzwerk</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <i class="fas fa-docker text-blue-400"></i>
-                    <span data-i18n="arch_docker_de">Docker-Deployment in Minuten</span>
+                    <i class="fas fa-terminal text-blue-400"></i>
+                    <span data-i18n="arch_docker_de">docker-compose up &mdash; fertig</span>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Technology -->
-    <section class="max-w-5xl mx-auto px-4 py-12 border-t border-white/10">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="tech_title_de">Technologie</h2>
-            <p class="text-gray-400" data-i18n="tech_subtitle_de">Open Source Modelle, lokal betreibbar, für Behörden geeignet</p>
-        </div>
-
-        <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white/5 rounded-xl border border-white/10 p-6 text-center">
-                <div class="text-4xl mb-3">&#129433;</div>
-                <h3 class="text-lg font-bold text-white mb-2">Llama</h3>
-                <p class="text-gray-400 text-sm">Open Source von Meta. Lokal betreibbar, keine Cloud-Abh&auml;ngigkeit. Meta EU-Zugang seit Sept. 2025.</p>
-            </div>
-            <div class="bg-white/5 rounded-xl border border-white/10 p-6 text-center">
-                <div class="text-4xl mb-3">&#127987;</div>
-                <h3 class="text-lg font-bold text-white mb-2">Mistral</h3>
-                <p class="text-gray-400 text-sm">EU-Firma (Paris). DSGVO-konform. F&uuml;r Beh&ouml;rden geeignet.</p>
-            </div>
-            <div class="bg-white/5 rounded-xl border border-white/10 p-6 text-center">
-                <div class="text-4xl mb-3">&#128230;</div>
-                <h3 class="text-lg font-bold text-white mb-2">Docker</h3>
-                <p class="text-gray-400 text-sm">Ein Befehl zum Installieren. Self-Monitoring, automatische Updates. Auf jedem Server lauff&auml;hig.</p>
             </div>
         </div>
     </section>
@@ -387,14 +406,18 @@
                 dashboard_desc_de: 'Central overview with automatic analyses. Reporting for different departments and roles.',
                 modular_desc_de: 'Configurable per department. Same platform, different use cases. Case workers, IT, management — everyone gets their view.',
                 modular_note_de: 'Will be configured with real department data',
-                arch_title_de: 'Architecture',
-                arch_subtitle_de: 'One central entry point for all AI modules',
+                arch_title_de: 'Architecture & On-Premises',
+                arch_subtitle_de: 'From cloud prototype to local deployment — one system, fully transferable',
                 arch_mindlight_de: 'One chat connects all modules',
+                arch_proto_label_de: 'Current: Cloud Prototype',
+                arch_target_label_de: 'Target: On-Premises',
+                arch_transfer_de: 'Same code, same modules — only the AI model is swapped. The entire platform then runs locally on your server.',
+                arch_llama_de: 'Open source (Meta). Runs locally, no cloud dependency. EU access since Sept. 2025.',
+                arch_mistral_de: 'EU company (Paris). GDPR compliant. Suitable for public authorities.',
+                arch_docker_desc_de: 'One command installs everything: web app + database + AI model. Runs on any server.',
                 arch_dsgvo_de: 'On-Premises = GDPR compliant',
                 arch_nocloud_de: 'No data leaves the network',
-                arch_docker_de: 'Docker deployment in minutes',
-                tech_title_de: 'Technology',
-                tech_subtitle_de: 'Open source models, locally deployable, suitable for public authorities',
+                arch_docker_de: 'docker-compose up — done',
             }
         };
 
