@@ -1,1307 +1,433 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mastermaind - AI Tools for Marketers</title>
-    <meta name="description" content="Create better content faster with AI. Optimize prompts, generate ads, and boost your marketing with Mastermaind.">
+    <title>MastermAInd — Enterprise Analytics Platform</title>
+    <meta name="description" content="KI-gest&uuml;tzte Enterprise Analytics Plattform. On-Premises Ready, DSGVO-konform. NL&rarr;SQL, RAG, Prozessautomatisierung, MindLight AI Chat.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
-    <script src="/static/js/error-logger.js"></script>
+    <style>
+        .feature-card { transition: all 0.3s ease; }
+        .feature-card:hover { transform: translateY(-4px); }
+        .gradient-text { background: linear-gradient(135deg, #667eea 0%, #22d3ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    </style>
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">
+
     <!-- Header -->
     <header class="border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <div class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-xl">M</span>
                 </div>
                 <span class="text-white font-bold text-xl">MastermAInd</span>
-                <span class="text-xs bg-purple-500/30 text-purple-300 px-2 py-0.5 rounded-full font-medium border border-purple-500/30">BETA</span>
+                <span class="text-xs bg-cyan-500/30 text-cyan-300 px-2 py-0.5 rounded-full font-medium border border-cyan-500/30">ENTERPRISE</span>
             </div>
             <nav class="flex items-center gap-4">
-                <!-- AI Services Dropdown -->
+                <!-- Module Dropdown -->
                 <div class="relative" id="services-dropdown">
                     <button onclick="document.getElementById('services-menu').classList.toggle('hidden')" class="flex items-center gap-1 text-gray-300 hover:text-white transition">
-                        <span data-i18n="nav_services">AI Services</span>
+                        <span>Module</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
                     </button>
-                    <div id="services-menu" class="hidden absolute top-full left-0 mt-2 w-64 bg-slate-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
-                        <a href="/prompt" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition">
-                            <span class="text-2xl">&#128221;</span>
-                            <div>
-                                <div class="text-white font-medium text-sm">AI Solutions</div>
-                                <div class="text-gray-400 text-xs">Prompts, scripts, content</div>
-                            </div>
-                        </a>
-                        <a href="/ads" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
-                            <span class="text-2xl">&#127912;</span>
-                            <div>
-                                <div class="text-white font-medium text-sm">Ad Creator</div>
-                                <div class="text-gray-400 text-xs">AI images & ad copy</div>
-                            </div>
-                        </a>
-                        <a href="/agents" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
-                            <span class="text-2xl">&#129302;</span>
-                            <div>
-                                <div class="text-white font-medium text-sm">AI Agents Army</div>
-                                <div class="text-gray-400 text-xs">Custom agents for business</div>
-                            </div>
-                        </a>
-                        <div class="border-t border-white/10 my-1"></div>
-                        <a href="/mindlight" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5 bg-cyan-500/5">
+                    <div id="services-menu" class="hidden absolute top-full right-0 mt-2 w-72 bg-slate-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
+                        <a href="/mindlight" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition bg-cyan-500/5">
                             <span class="text-2xl">&#128172;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">MindLight <span class="text-xs bg-cyan-500 text-white px-1.5 py-0.5 rounded-full">AI</span></div>
-                                <div class="text-gray-400 text-xs">Unified AI Chat</div>
+                                <div class="text-gray-400 text-xs">Zentrale KI-Schnittstelle</div>
                             </div>
                         </a>
                         <a href="/rag" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#128214;</span>
                             <div>
-                                <div class="text-white font-medium text-sm" data-i18n="nav_rag">RAG Analyse</div>
-                                <div class="text-gray-400 text-xs" data-i18n="nav_rag_desc">Document Q&A</div>
+                                <div class="text-white font-medium text-sm">RAG Dokumentenanalyse</div>
+                                <div class="text-gray-400 text-xs">Intelligente Suche in Dokumenten</div>
                             </div>
                         </a>
                         <a href="/sql" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#128450;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">NL &rarr; SQL</div>
-                                <div class="text-gray-400 text-xs" data-i18n="nav_sql_desc">Natural language queries</div>
+                                <div class="text-gray-400 text-xs">Deutsche Fragen &rarr; SQL-Abfragen</div>
                             </div>
                         </a>
                         <a href="/process" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#9881;</span>
                             <div>
-                                <div class="text-white font-medium text-sm" data-i18n="nav_process">Prozesse</div>
-                                <div class="text-gray-400 text-xs" data-i18n="nav_process_desc">Process optimization</div>
+                                <div class="text-white font-medium text-sm">Prozessautomatisierung</div>
+                                <div class="text-gray-400 text-xs">Workflows analysieren &amp; optimieren</div>
                             </div>
                         </a>
                         <a href="/orchestrator" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#127891;</span>
                             <div>
-                                <div class="text-white font-medium text-sm">Orchestrator</div>
-                                <div class="text-gray-400 text-xs" data-i18n="nav_orch_desc">Multi-Agent AI</div>
+                                <div class="text-white font-medium text-sm">AI-Agent Orchestrator</div>
+                                <div class="text-gray-400 text-xs">Multi-Agent Koordination</div>
                             </div>
                         </a>
                     </div>
                 </div>
-                <a href="/pricing" class="text-gray-300 hover:text-white transition" data-i18n="nav_pricing">Pricing</a>
-                <span id="auth-buttons">
-                    <a href="/login" class="text-gray-300 hover:text-white transition" data-i18n="login_link">Log In</a>
-                </span>
                 <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
-                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white">EN</button>
-                    <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">DE</button>
+                    <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white">DE</button>
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">EN</button>
                 </div>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="max-w-6xl mx-auto px-4 py-20 text-center">
-        <h1 class="text-5xl md:text-6xl font-bold text-white mb-4" data-i18n="hero_title">
-            AI Tools for Marketers
+    <section class="max-w-5xl mx-auto px-4 pt-20 pb-12 text-center">
+        <div class="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-300 px-4 py-1.5 rounded-full text-sm mb-6 border border-cyan-500/20">
+            <i class="fas fa-shield-alt"></i>
+            <span data-i18n="hero_badge_de">On-Premises Ready &middot; DSGVO-konform</span>
+        </div>
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight" data-i18n="hero_title_de">
+            Enterprise Analytics Platform
         </h1>
-        <p class="text-xl md:text-2xl text-gray-300 italic max-w-2xl mx-auto mb-6" data-i18n="hero_tagline">
-            "AI does the work. You live your life."
+        <p class="text-xl text-gray-300 mb-4 max-w-3xl mx-auto" data-i18n="hero_subtitle_de">
+            KI-gest&uuml;tzte Datenanalyse, Dokumentensuche und Prozessoptimierung &mdash; lokal betreibbar, keine Daten in die Cloud.
         </p>
-        <p class="text-xl text-gray-300 mb-12 max-w-2xl mx-auto" data-i18n="hero_subtitle">
-            Create better content faster with artificial intelligence.
-            TikTok scripts, YouTube ideas, Instagram posts, ads and more.
+        <p class="text-base text-gray-400 mb-10 max-w-2xl mx-auto" data-i18n="hero_powered_de">
+            Powered by <strong class="text-white">Llama</strong> &amp; <strong class="text-white">Mistral</strong> &mdash; Open Source, EU-konform, On-Premises-f&auml;hig
         </p>
 
-        <!-- Tool Cards -->
-        <div class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            <!-- Prompt Engineer Card -->
-            <a href="/prompt" class="group bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 text-left hover:border-purple-500/50 hover:bg-white/10 transition-all duration-300">
-                <div class="text-5xl mb-4">&#128221;</div>
-                <h2 class="text-2xl font-bold text-white mb-2" data-i18n="prompt_title">AI Solutions Developer</h2>
-                <p class="text-gray-400 mb-6" data-i18n="prompt_desc">
-                    Create TikTok scripts, YouTube ideas, blog posts and more.
-                    Optimize prompts for ChatGPT, Claude and other AI models.
-                </p>
-                <div class="space-y-2 mb-6">
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="free_to_use">Free to use</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="no_signup">No signup required</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="instant_results">Instant results</span>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2 text-purple-400 font-semibold group-hover:text-purple-300 transition">
-                    <span data-i18n="try_prompt">Try AI Solutions</span>
-                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                </div>
-            </a>
-
-            <!-- Ad Creator Card -->
-            <a href="/ads" class="group bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 text-left hover:border-pink-500/50 hover:bg-white/10 transition-all duration-300 relative overflow-hidden">
-                <div class="absolute top-4 right-4 bg-gradient-to-r from-pink-500 to-orange-500 text-white text-xs font-bold px-3 py-1 rounded-full" data-i18n="new_badge">
-                    NEW
-                </div>
-                <div class="text-5xl mb-4">&#127912;</div>
-                <h2 class="text-2xl font-bold text-white mb-2" data-i18n="ads_title">Ad Creator</h2>
-                <p class="text-gray-400 mb-6" data-i18n="ads_desc">
-                    Generate stunning ad creatives with AI in seconds.
-                    Images and copy for Instagram, Facebook and more.
-                </p>
-                <div class="space-y-2 mb-6">
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="free_generations">3 free generations/day</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="ai_images">AI-generated images</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="headlines_copy">Headlines & copy included</span>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2 text-pink-400 font-semibold group-hover:text-pink-300 transition">
-                    <span data-i18n="create_ad">Create Ad</span>
-                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                </div>
-            </a>
-
-            <!-- Custom AI Agents Card -->
-            <a href="/agents" class="group bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-8 text-left hover:border-green-500/50 hover:bg-white/10 transition-all duration-300 relative overflow-hidden">
-                <div class="absolute top-4 right-4 bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold px-3 py-1 rounded-full">
-                    <span data-i18n="agents_badge">SERVICE</span>
-                </div>
-                <div class="text-5xl mb-4">&#129302;</div>
-                <h2 class="text-2xl font-bold text-white mb-2" data-i18n="agents_title">AI Agents Army</h2>
-                <p class="text-gray-400 mb-6" data-i18n="agents_desc">
-                    Custom AI agents for your business. Automate emails, reports, data collection and daily workflows.
-                </p>
-                <div class="space-y-2 mb-6">
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="agents_feature_1">Free prototype included</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="agents_feature_2">Built for your specific needs</span>
-                    </div>
-                    <div class="flex items-center gap-2 text-gray-300 text-sm">
-                        <svg class="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                        </svg>
-                        <span data-i18n="agents_feature_3">From 200 EUR per agent</span>
-                    </div>
-                </div>
-                <div class="flex items-center gap-2 text-green-400 font-semibold group-hover:text-green-300 transition">
-                    <span data-i18n="agents_cta">Learn More</span>
-                    <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                </div>
-            </a>
-        </div>
+        <!-- MindLight CTA -->
+        <a href="/mindlight" class="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition shadow-lg shadow-cyan-500/25">
+            <span class="text-2xl">&#128172;</span>
+            <span data-i18n="hero_cta_de">MindLight &mdash; Zentrale KI-Schnittstelle testen</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+        </a>
+        <p class="text-gray-500 text-sm mt-3" data-i18n="hero_cta_sub_de">Ein Chat vereint alle Module</p>
     </section>
 
-    <!-- Enterprise AI Lab Section -->
+    <!-- Feature Cards -->
     <section class="max-w-6xl mx-auto px-4 py-12">
-        <div class="text-center mb-8">
-            <div class="inline-flex items-center gap-2 bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full text-sm mb-4">
-                <span data-i18n="lab_badge">Enterprise AI Lab</span>
-                <span class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded-full font-bold">DEMO</span>
-            </div>
-            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="lab_title">Enterprise AI Modules</h2>
-            <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="lab_subtitle">Advanced AI capabilities for document analysis, data queries, process optimization, and multi-agent orchestration.</p>
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="features_title_de">KI-Module</h2>
+            <p class="text-gray-400" data-i18n="features_subtitle_de">Jedes Modul ist eigenst&auml;ndig nutzbar &mdash; MindLight verbindet alle in einem Chat</p>
         </div>
 
-        <div class="grid md:grid-cols-4 gap-4">
-            <!-- MindLight Featured -->
-            <a href="/mindlight" class="md:col-span-4 group bg-gradient-to-r from-cyan-500/10 to-teal-500/10 backdrop-blur-lg rounded-xl border border-cyan-500/30 p-5 text-left hover:border-cyan-500/50 hover:bg-cyan-500/10 transition-all duration-300">
-                <div class="flex items-center gap-4">
-                    <div class="text-4xl">&#128172;</div>
-                    <div class="flex-1">
-                        <h3 class="text-xl font-bold text-white mb-1" data-i18n="lab_mindlight_title">MindLight <span class="text-xs bg-cyan-500 text-white px-2 py-0.5 rounded-full font-bold ml-1">AI CHAT</span></h3>
-                        <p class="text-gray-400 text-sm" data-i18n="lab_mindlight_desc">One chat for all AI tools. Ask about SGB-II, generate SQL, analyze processes.</p>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- 1. NL → SQL -->
+            <a href="/sql" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-emerald-500/50 hover:bg-emerald-500/5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-database text-emerald-400 text-xl"></i>
                     </div>
-                    <div class="text-cyan-400 text-sm font-medium group-hover:text-cyan-300 transition flex items-center gap-1">
-                        <span data-i18n="lab_try">Try it</span>
-                        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Natural Language &rarr; SQL</h3>
+                        <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full" data-i18n="status_live">Funktioniert</span>
                     </div>
                 </div>
-            </a>
-
-            <!-- RAG -->
-            <a href="/rag" class="group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5 text-left hover:border-indigo-500/50 hover:bg-white/10 transition-all duration-300">
-                <div class="text-3xl mb-3">&#128214;</div>
-                <h3 class="text-lg font-bold text-white mb-1" data-i18n="lab_rag_title">RAG Analyse</h3>
-                <p class="text-gray-400 text-sm mb-3" data-i18n="lab_rag_desc">Search documents with natural language. DSGVO-compliant, on-premise ready.</p>
-                <div class="text-indigo-400 text-sm font-medium group-hover:text-indigo-300 transition flex items-center gap-1">
-                    <span data-i18n="lab_try">Try it</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </div>
-            </a>
-
-            <!-- NL -> SQL -->
-            <a href="/sql" class="group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5 text-left hover:border-emerald-500/50 hover:bg-white/10 transition-all duration-300">
-                <div class="text-3xl mb-3">&#128450;</div>
-                <h3 class="text-lg font-bold text-white mb-1">NL &rarr; SQL</h3>
-                <p class="text-gray-400 text-sm mb-3" data-i18n="lab_sql_desc">Ask in German, get SQL queries. Ideal for SGB-II data analysis.</p>
+                <p class="text-gray-400 text-sm mb-4" data-i18n="sql_desc_de">
+                    Fragen auf Deutsch stellen, SQL-Abfragen erhalten. Ideal f&uuml;r SGB-II Datenbanken und Berichtswesen.
+                </p>
                 <div class="text-emerald-400 text-sm font-medium group-hover:text-emerald-300 transition flex items-center gap-1">
-                    <span data-i18n="lab_try">Try it</span>
+                    <span>Demo testen</span>
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </div>
             </a>
 
-            <!-- Process -->
-            <a href="/process" class="group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5 text-left hover:border-red-500/50 hover:bg-white/10 transition-all duration-300">
-                <div class="text-3xl mb-3">&#9881;</div>
-                <h3 class="text-lg font-bold text-white mb-1" data-i18n="lab_process_title">Prozesse</h3>
-                <p class="text-gray-400 text-sm mb-3" data-i18n="lab_process_desc">Analyze processes, find bottlenecks, get AI optimization recommendations.</p>
-                <div class="text-red-400 text-sm font-medium group-hover:text-red-300 transition flex items-center gap-1">
-                    <span data-i18n="lab_try">Try it</span>
+            <!-- 2. RAG -->
+            <a href="/rag" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-indigo-500/50 hover:bg-indigo-500/5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-search text-indigo-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">RAG Dokumentenanalyse</h3>
+                        <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full" data-i18n="status_live">Funktioniert</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4" data-i18n="rag_desc_de">
+                    Intelligente Suche in E-Akte &amp; DMS. Versteht Kontext, nicht nur Stichworte. SGB-II Dokumente als Demo.
+                </p>
+                <div class="text-indigo-400 text-sm font-medium group-hover:text-indigo-300 transition flex items-center gap-1">
+                    <span>Demo testen</span>
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </div>
             </a>
 
-            <!-- Orchestrator -->
-            <a href="/orchestrator" class="group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-5 text-left hover:border-amber-500/50 hover:bg-white/10 transition-all duration-300">
-                <div class="text-3xl mb-3">&#127891;</div>
-                <h3 class="text-lg font-bold text-white mb-1">Orchestrator</h3>
-                <p class="text-gray-400 text-sm mb-3" data-i18n="lab_orch_desc">Multi-Agent AI: Opus coordinates, Sonnet and Haiku execute.</p>
+            <!-- 3. Prozessautomatisierung -->
+            <a href="/process" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-amber-500/50 hover:bg-amber-500/5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-amber-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-cogs text-amber-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Prozessautomatisierung</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full" data-i18n="status_demo">Demo</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4" data-i18n="process_desc_de">
+                    Wiederkehrende Aufgaben automatisieren. Workflows definieren, KI f&uuml;hrt aus. Wird mit echten Prozessdaten implementiert.
+                </p>
                 <div class="text-amber-400 text-sm font-medium group-hover:text-amber-300 transition flex items-center gap-1">
-                    <span data-i18n="lab_try">Try it</span>
+                    <span>Demo ansehen</span>
                     <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
                 </div>
             </a>
-        </div>
-    </section>
 
-    <!-- How It Works Section -->
-    <section class="max-w-6xl mx-auto px-4 py-16 border-t border-white/10">
-        <h2 class="text-3xl font-bold text-white text-center mb-4" data-i18n="how_title">How It Works</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="how_subtitle">Get started in 3 simple steps</p>
-
-        <div class="grid md:grid-cols-3 gap-8">
-            <!-- Step 1 -->
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
-                    1
-                </div>
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="how_step1_title">Choose Your Tool</h3>
-                <p class="text-gray-400" data-i18n="how_step1_desc">Select AI Solutions for content or Ad Creator for advertisements</p>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
-                    2
-                </div>
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="how_step2_title">Fill In the Details</h3>
-                <p class="text-gray-400" data-i18n="how_step2_desc">Answer a few simple questions about your business and goals</p>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="text-center">
-                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4 text-white text-2xl font-bold">
-                    3
-                </div>
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="how_step3_title">Get Results Instantly</h3>
-                <p class="text-gray-400" data-i18n="how_step3_desc">Receive optimized content ready to use in seconds</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Demo Section -->
-    <section class="max-w-6xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-white text-center mb-4" data-i18n="demo_title">See It In Action</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="demo_subtitle">Real examples of what Mastermaind can do for you</p>
-
-        <!-- Prompt Engineer Demo -->
-        <div class="mb-16 bg-gradient-to-br from-purple-900/20 to-pink-900/20 rounded-3xl p-8 border border-purple-500/20">
-            <h3 class="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                <span class="text-5xl">&#128221;</span>
-                <span data-i18n="demo_prompt_title">AI Solutions Demo</span>
-            </h3>
-
-            <!-- Demo Tabs -->
-            <div class="flex flex-wrap gap-2 mb-6">
-                <button onclick="showDemo('coffee')" id="tab-coffee" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-purple-500 text-white">
-                    Marketing
-                </button>
-                <button onclick="showDemo('tiktok')" id="tab-tiktok" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
-                    TikTok Script
-                </button>
-                <button onclick="showDemo('product')" id="tab-product" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
-                    E-Commerce
-                </button>
-                <button onclick="showDemo('code')" id="tab-code" class="demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white">
-                    Code
-                </button>
-            </div>
-
-            <!-- Demo 1: Coffee/Marketing -->
-            <div id="demo-coffee" class="demo-content">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-red-400 font-semibold">Before</span>
-                            <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Weak prompt</span>
-                        </div>
-                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
-                            Write me something about coffee for my cafe
-                        </p>
-                    </div>
-                    <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-green-400 font-semibold">After</span>
-                            <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Optimized</span>
-                        </div>
-                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
-                            You are an expert barista and coffee copywriter. Write a compelling 150-word description for a specialty coffee shop's new seasonal menu. Include sensory details about aroma and taste. Target audience: urban professionals aged 25-40. Tone: warm, sophisticated, inviting. Mention the origin of beans (Ethiopian) and brewing method (pour-over).
-                        </p>
-                    </div>
-                </div>
-                <div class="mt-4 text-center">
-                    <span class="text-gray-500 text-sm">Result: 85% more detailed AI responses, specific to your business</span>
-                </div>
-            </div>
-
-            <!-- Demo 2: TikTok Script -->
-            <div id="demo-tiktok" class="demo-content hidden">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-red-400 font-semibold">Before</span>
-                            <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Weak prompt</span>
-                        </div>
-                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
-                            Write a TikTok video script about fitness
-                        </p>
-                    </div>
-                    <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-green-400 font-semibold">After</span>
-                            <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Optimized</span>
-                        </div>
-                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
-                            Create a 60-second TikTok script about home workouts for busy professionals. Format: Hook (3 sec) - shocking stat about desk jobs. Problem (10 sec) - relatable struggle. Solution (40 sec) - 3 quick exercises with no equipment. CTA (7 sec) - follow for part 2. Style: energetic, Gen-Z friendly, use trending phrases. Include text overlay suggestions and transition cues.
-                        </p>
-                    </div>
-                </div>
-                <div class="mt-4 text-center">
-                    <span class="text-gray-500 text-sm">Result: Ready-to-film script with hooks, timing, and viral elements</span>
-                </div>
-            </div>
-
-            <!-- Demo 3: E-Commerce Product -->
-            <div id="demo-product" class="demo-content hidden">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-red-400 font-semibold">Before</span>
-                            <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Weak prompt</span>
-                        </div>
-                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
-                            Write a product description for wireless headphones
-                        </p>
-                    </div>
-                    <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-green-400 font-semibold">After</span>
-                            <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Optimized</span>
-                        </div>
-                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
-                            Write an Amazon-optimized product description for premium wireless noise-canceling headphones ($199). Include: Benefit-focused headline (max 200 chars), 5 bullet points with features AND benefits, emotional trigger words. Target: remote workers and commuters. Highlight: 30hr battery, ANC technology, comfort for 8hr wear. Tone: premium but accessible. Include SEO keywords naturally.
-                        </p>
-                    </div>
-                </div>
-                <div class="mt-4 text-center">
-                    <span class="text-gray-500 text-sm">Result: SEO-optimized, conversion-focused product copy</span>
-                </div>
-            </div>
-
-            <!-- Demo 4: Code -->
-            <div id="demo-code" class="demo-content hidden">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="bg-red-500/10 border border-red-500/30 rounded-xl p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-red-400 font-semibold">Before</span>
-                            <span class="text-xs bg-red-500/20 text-red-300 px-2 py-1 rounded">Weak prompt</span>
-                        </div>
-                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
-                            Write a function to validate email
-                        </p>
-                    </div>
-                    <div class="bg-green-500/10 border border-green-500/30 rounded-xl p-6">
-                        <div class="flex items-center gap-2 mb-3">
-                            <span class="text-green-400 font-semibold">After</span>
-                            <span class="text-xs bg-green-500/20 text-green-300 px-2 py-1 rounded">Optimized</span>
-                        </div>
-                        <p class="text-gray-300 font-mono text-sm bg-black/30 p-4 rounded-lg">
-                            Write a TypeScript function to validate email addresses. Requirements: RFC 5322 compliant regex, handle edge cases (plus addressing, subdomains), return object with { isValid: boolean, error?: string }. Include: JSDoc comments, unit tests with Jest (valid, invalid, edge cases). Consider: XSS prevention, max length check (254 chars). Export as ES module.
-                        </p>
-                    </div>
-                </div>
-                <div class="mt-4 text-center">
-                    <span class="text-gray-500 text-sm">Result: Production-ready code with tests and error handling</span>
-                </div>
-            </div>
-
-            <!-- Try it button -->
-            <div class="mt-8 text-center">
-                <a href="/prompt" class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition">
-                    <span>Try Prompt Optimizer</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-
-        <!-- Ad Creator Demo -->
-        <div class="bg-gradient-to-br from-pink-900/20 to-orange-900/20 rounded-3xl p-8 border border-pink-500/20">
-            <h3 class="text-3xl font-bold text-white mb-8 flex items-center gap-3">
-                <span class="text-5xl">&#127912;</span>
-                <span data-i18n="demo_ad_title">Ad Creator Demo</span>
-            </h3>
-
-            <!-- Three Demo Examples Grid -->
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Demo 1: Real Estate -->
-                <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-5 hover:border-blue-500/50 hover:shadow-2xl hover:shadow-blue-500/20 transition-all duration-300 hover:-translate-y-1">
-                    <div class="bg-black/30 rounded-lg p-3 space-y-1 text-sm mb-4">
-                        <p><span class="text-blue-400 font-semibold">Business:</span> <span class="text-white">Prime Properties</span></p>
-                        <p><span class="text-blue-400 font-semibold">Product:</span> <span class="text-white">Luxury apartments</span></p>
-                        <p><span class="text-blue-400 font-semibold">Audience:</span> <span class="text-white">Home buyers</span></p>
-                    </div>
-                    <div class="bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl p-4 border border-blue-500/30 shadow-lg">
-                        <div class="aspect-square rounded-lg mb-4 overflow-hidden bg-blue-500/10">
-                            <img src="/static/images/demo-realestate.png" alt="Prime Properties - AI Generated Ad" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <div class="bg-black/40 rounded-lg p-3 border-l-4 border-blue-400">
-                            <p class="text-blue-300 text-xs font-medium uppercase tracking-wide mb-1">AI-Generated Headline</p>
-                            <h4 class="text-white font-bold text-lg leading-tight">Find Your Dream Home Today!</h4>
-                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">Discover premium properties in the best locations. Your perfect home awaits.</p>
-                        </div>
-                        <div class="flex gap-1 mt-3">
-                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#realestate</span>
-                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#property</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Demo 2: Restaurant -->
-                <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-5 hover:border-orange-500/50 hover:shadow-2xl hover:shadow-orange-500/20 transition-all duration-300 hover:-translate-y-1">
-                    <div class="bg-black/30 rounded-lg p-3 space-y-1 text-sm mb-4">
-                        <p><span class="text-orange-400 font-semibold">Business:</span> <span class="text-white">Mario's Pizzeria</span></p>
-                        <p><span class="text-orange-400 font-semibold">Product:</span> <span class="text-white">Wood-fired pizza</span></p>
-                        <p><span class="text-orange-400 font-semibold">Audience:</span> <span class="text-white">Food lovers</span></p>
-                    </div>
-                    <div class="bg-gradient-to-br from-orange-500/20 to-red-500/20 rounded-xl p-4 border border-orange-500/30 shadow-lg">
-                        <div class="aspect-square rounded-lg mb-4 overflow-hidden bg-orange-500/10">
-                            <img src="/static/images/demo-pizza.jpg" alt="Mario's Pizzeria - AI Generated Ad" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <div class="bg-black/40 rounded-lg p-3 border-l-4 border-orange-400">
-                            <p class="text-orange-300 text-xs font-medium uppercase tracking-wide mb-1">AI-Generated Headline</p>
-                            <h4 class="text-white font-bold text-lg leading-tight">Taste Naples in Every Bite!</h4>
-                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">Authentic Italian pizza from our wood-fired oven. Family recipes since 1985.</p>
-                        </div>
-                        <div class="flex gap-1 mt-3">
-                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#pizza</span>
-                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#italian</span>
-                        </div>
-                    </div>
-                </div>
-                <!-- Demo 3: Fitness -->
-                <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-5 hover:border-green-500/50 hover:shadow-2xl hover:shadow-green-500/20 transition-all duration-300 hover:-translate-y-1">
-                    <div class="bg-black/30 rounded-lg p-3 space-y-1 text-sm mb-4">
-                        <p><span class="text-green-400 font-semibold">Business:</span> <span class="text-white">PowerFit Gym</span></p>
-                        <p><span class="text-green-400 font-semibold">Product:</span> <span class="text-white">Personal training</span></p>
-                        <p><span class="text-green-400 font-semibold">Audience:</span> <span class="text-white">Fitness enthusiasts</span></p>
-                    </div>
-                    <div class="bg-gradient-to-br from-green-500/20 to-emerald-500/20 rounded-xl p-4 border border-green-500/30 shadow-lg">
-                        <div class="aspect-square rounded-lg mb-4 overflow-hidden bg-green-500/10">
-                            <img src="/static/images/mastermaind-ad-fitness.png" alt="PowerFit Gym - AI Generated Ad" class="w-full h-full object-cover hover:scale-105 transition-transform duration-300">
-                        </div>
-                        <div class="bg-black/40 rounded-lg p-3 border-l-4 border-green-400">
-                            <p class="text-green-300 text-xs font-medium uppercase tracking-wide mb-1">AI-Generated Headline</p>
-                            <h4 class="text-white font-bold text-lg leading-tight">Transform Your Body Today!</h4>
-                            <p class="text-gray-300 text-sm mt-2 leading-relaxed">Expert trainers, state-of-the-art equipment. First week free!</p>
-                        </div>
-                        <div class="flex gap-1 mt-3">
-                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#fitness</span>
-                            <span class="text-xs bg-white/10 text-gray-300 px-2 py-0.5 rounded">#gym</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mt-6 text-center">
-                <a href="/ads" class="inline-flex items-center gap-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition">
-                    <span data-i18n="demo_try_now">Try It Yourself</span>
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Use Cases Section -->
-    <section class="max-w-6xl mx-auto px-4 py-16 border-t border-white/10">
-        <h2 class="text-3xl font-bold text-white text-center mb-4" data-i18n="usecases_title">What You Can Create</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="usecases_subtitle">Optimize prompts for any task - marketing, coding, writing, and more</p>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <!-- Marketing -->
-            <div class="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-purple-500/50 transition">
+            <!-- 4. Troubleshooting -->
+            <a href="/agents" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-red-500/50 hover:bg-red-500/5">
                 <div class="flex items-center gap-3 mb-3">
-                    <span class="text-2xl">&#128230;</span>
-                    <h3 class="text-lg font-semibold text-white" data-i18n="uc_marketing">Marketing & Ads</h3>
+                    <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-bug text-red-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Troubleshooting</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full" data-i18n="status_demo">Demo</span>
+                    </div>
                 </div>
-                <ul class="text-gray-400 text-sm space-y-1">
-                    <li data-i18n="uc_marketing_1">• Ad copy & headlines</li>
-                    <li data-i18n="uc_marketing_2">• Product descriptions</li>
-                    <li data-i18n="uc_marketing_3">• Email campaigns</li>
-                    <li data-i18n="uc_marketing_4">• Landing page text</li>
-                </ul>
+                <p class="text-gray-400 text-sm mb-4" data-i18n="troubleshoot_desc_de">
+                    Systemfehler analysieren &amp; l&ouml;sen. KI analysiert Logs, schl&auml;gt L&ouml;sungen vor. Wird mit echten System-Logs implementiert.
+                </p>
+                <div class="text-red-400 text-sm font-medium group-hover:text-red-300 transition flex items-center gap-1">
+                    <span>Demo ansehen</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </div>
+            </a>
+
+            <!-- 5. Dashboard & Reports -->
+            <a href="/dashboard" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-purple-500/50 hover:bg-purple-500/5">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-chart-bar text-purple-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Dashboard &amp; Reports</h3>
+                        <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full" data-i18n="status_demo">Demo</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4" data-i18n="dashboard_desc_de">
+                    Zentrale &Uuml;bersicht mit automatischen Analysen. Reporting f&uuml;r verschiedene Abteilungen und Rollen.
+                </p>
+                <div class="text-purple-400 text-sm font-medium group-hover:text-purple-300 transition flex items-center gap-1">
+                    <span>Demo ansehen</span>
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </div>
+            </a>
+
+            <!-- 6. Modular & Anpassbar -->
+            <div class="feature-card bg-gradient-to-br from-cyan-500/10 to-teal-500/10 backdrop-blur-lg rounded-xl border border-cyan-500/20 p-6 text-left">
+                <div class="flex items-center gap-3 mb-3">
+                    <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-puzzle-piece text-cyan-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white">Modular &amp; Anpassbar</h3>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4" data-i18n="modular_desc_de">
+                    Je nach Abteilung konfigurierbar. Gleiche Plattform, verschiedene Use Cases. Sachbearbeitung, IT, Leitung &mdash; jeder bekommt seine Sicht.
+                </p>
+                <div class="text-cyan-400 text-sm font-medium flex items-center gap-2">
+                    <i class="fas fa-check-circle"></i>
+                    <span data-i18n="modular_note_de">Wird mit echten Abteilungsdaten konfiguriert</span>
+                </div>
             </div>
 
-            <!-- Code -->
-            <div class="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-purple-500/50 transition">
-                <div class="flex items-center gap-3 mb-3">
-                    <span class="text-2xl">&#128187;</span>
-                    <h3 class="text-lg font-semibold text-white" data-i18n="uc_code">Code & Technical</h3>
-                </div>
-                <ul class="text-gray-400 text-sm space-y-1">
-                    <li data-i18n="uc_code_1">• Code generation</li>
-                    <li data-i18n="uc_code_2">• Bug fixing prompts</li>
-                    <li data-i18n="uc_code_3">• Documentation</li>
-                    <li data-i18n="uc_code_4">• API integration</li>
-                </ul>
-            </div>
-
-            <!-- Content -->
-            <div class="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-purple-500/50 transition">
-                <div class="flex items-center gap-3 mb-3">
-                    <span class="text-2xl">&#9997;</span>
-                    <h3 class="text-lg font-semibold text-white" data-i18n="uc_content">Content Writing</h3>
-                </div>
-                <ul class="text-gray-400 text-sm space-y-1">
-                    <li data-i18n="uc_content_1">• Blog posts & articles</li>
-                    <li data-i18n="uc_content_2">• SEO content</li>
-                    <li data-i18n="uc_content_3">• Website copy</li>
-                    <li data-i18n="uc_content_4">• Press releases</li>
-                </ul>
-            </div>
-
-            <!-- Social Media -->
-            <div class="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-purple-500/50 transition">
-                <div class="flex items-center gap-3 mb-3">
-                    <span class="text-2xl">&#128241;</span>
-                    <h3 class="text-lg font-semibold text-white" data-i18n="uc_social">Social Media</h3>
-                </div>
-                <ul class="text-gray-400 text-sm space-y-1">
-                    <li data-i18n="uc_social_1">• Instagram captions</li>
-                    <li data-i18n="uc_social_2">• LinkedIn posts</li>
-                    <li data-i18n="uc_social_3">• Twitter/X threads</li>
-                    <li data-i18n="uc_social_4">• TikTok scripts</li>
-                </ul>
-            </div>
-
-            <!-- Business -->
-            <div class="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-purple-500/50 transition">
-                <div class="flex items-center gap-3 mb-3">
-                    <span class="text-2xl">&#128188;</span>
-                    <h3 class="text-lg font-semibold text-white" data-i18n="uc_business">Business</h3>
-                </div>
-                <ul class="text-gray-400 text-sm space-y-1">
-                    <li data-i18n="uc_business_1">• Business plans</li>
-                    <li data-i18n="uc_business_2">• Proposals & pitches</li>
-                    <li data-i18n="uc_business_3">• Reports & analysis</li>
-                    <li data-i18n="uc_business_4">• Meeting summaries</li>
-                </ul>
-            </div>
-
-            <!-- Creative -->
-            <div class="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-purple-500/50 transition">
-                <div class="flex items-center gap-3 mb-3">
-                    <span class="text-2xl">&#127912;</span>
-                    <h3 class="text-lg font-semibold text-white" data-i18n="uc_creative">Creative</h3>
-                </div>
-                <ul class="text-gray-400 text-sm space-y-1">
-                    <li data-i18n="uc_creative_1">• AI image prompts</li>
-                    <li data-i18n="uc_creative_2">• Story ideas</li>
-                    <li data-i18n="uc_creative_3">• Video scripts</li>
-                    <li data-i18n="uc_creative_4">• Brainstorming</li>
-                </ul>
-            </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="max-w-6xl mx-auto px-4 py-16">
-        <h2 class="text-3xl font-bold text-white text-center mb-12" data-i18n="why_mastermaind">Why Mastermaind?</h2>
-        <div class="grid md:grid-cols-3 gap-8">
-            <div class="text-center">
-                <div class="w-16 h-16 bg-purple-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="feature_fast">Lightning Fast</h3>
-                <p class="text-gray-400" data-i18n="feature_fast_desc">Generate content in seconds, not hours. Save time and focus on what matters.</p>
-            </div>
-            <div class="text-center">
-                <div class="w-16 h-16 bg-pink-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-pink-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="feature_ai">AI-Powered</h3>
-                <p class="text-gray-400" data-i18n="feature_ai_desc">Powered by Claude AI and FLUX Pro for best-in-class results.</p>
-            </div>
-            <div class="text-center">
-                <div class="w-16 h-16 bg-green-500/20 rounded-xl flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                    </svg>
-                </div>
-                <h3 class="text-xl font-semibold text-white mb-2" data-i18n="feature_free">Free to Start</h3>
-                <p class="text-gray-400" data-i18n="feature_free_desc">No credit card required. Start creating for free today.</p>
-            </div>
+    <!-- Architecture / How it works -->
+    <section class="max-w-5xl mx-auto px-4 py-12 border-t border-white/10">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="arch_title_de">Architektur</h2>
+            <p class="text-gray-400" data-i18n="arch_subtitle_de">Ein zentraler Einstiegspunkt f&uuml;r alle KI-Module</p>
         </div>
-    </section>
 
-    <!-- FAQ Section -->
-    <section class="max-w-4xl mx-auto px-4 py-16 border-t border-white/10">
-        <h2 class="text-3xl font-bold text-white text-center mb-4" data-i18n="faq_title">Frequently Asked Questions</h2>
-        <p class="text-gray-400 text-center mb-12 max-w-2xl mx-auto" data-i18n="faq_subtitle">Everything you need to know about Mastermaind</p>
-
-        <div class="space-y-4">
-            <!-- FAQ 1 -->
-            <details class="bg-white/5 rounded-xl border border-white/10 group">
-                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
-                    <span data-i18n="faq_q1">Is it really free?</span>
-                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </summary>
-                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a1">Yes! AI Solutions and Ad Creator both have free tiers. You get 10 prompt optimizations and 3 ad creations per day for free, no credit card required.</p>
-            </details>
-
-            <!-- FAQ 2 -->
-            <details class="bg-white/5 rounded-xl border border-white/10 group">
-                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
-                    <span data-i18n="faq_q2">What AI technology is used?</span>
-                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </summary>
-                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a2">We use Claude AI by Anthropic for text generation and optimization, and FLUX for image generation. These are among the best AI models available today.</p>
-            </details>
-
-            <!-- FAQ 3 -->
-            <details class="bg-white/5 rounded-xl border border-white/10 group">
-                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
-                    <span data-i18n="faq_q3">How long are generated images available?</span>
-                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </summary>
-                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a3">Generated images are available for download for 1 hour. Make sure to download them right away! We recommend saving all images immediately after generation.</p>
-            </details>
-
-            <!-- FAQ 4 -->
-            <details class="bg-white/5 rounded-xl border border-white/10 group">
-                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
-                    <span data-i18n="faq_q4">Can I use the results commercially?</span>
-                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </summary>
-                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a4">Yes! All content you create with Mastermaind is yours to use. You can use generated images and text for your business, ads, social media, and any commercial purpose.</p>
-            </details>
-
-            <!-- FAQ 5 -->
-            <details class="bg-white/5 rounded-xl border border-white/10 group">
-                <summary class="p-6 cursor-pointer flex justify-between items-center text-white font-semibold hover:text-purple-400 transition">
-                    <span data-i18n="faq_q5">Do I need an account?</span>
-                    <svg class="w-5 h-5 transform group-open:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
-                    </svg>
-                </summary>
-                <p class="px-6 pb-6 text-gray-400" data-i18n="faq_a5">No account is required for free usage! You can start creating right away. An account is only needed if you want to upgrade to Pro for higher limits.</p>
-            </details>
-        </div>
-    </section>
-
-    <!-- Pro Plan CTA -->
-    <section class="max-w-5xl mx-auto px-4 py-16 border-t border-white/10">
-        <div class="bg-gradient-to-r from-purple-600/30 to-pink-600/30 border-2 border-purple-500/50 rounded-2xl p-8 md:p-12">
-            <div class="grid md:grid-cols-2 gap-8 items-center">
-                <div>
-                    <span class="inline-block bg-purple-500 text-white text-sm font-bold px-3 py-1 rounded-full mb-4" data-i18n="pro_badge">PRO</span>
-                    <h2 class="text-3xl font-bold text-white mb-4" data-i18n="pro_cta_title">Unlock Your Full Potential</h2>
-                    <p class="text-gray-300 mb-6" data-i18n="pro_cta_desc">Get 10x more power with Pro. Perfect for marketers, agencies, and content creators who need more.</p>
-                    <ul class="space-y-3 mb-6">
-                        <li class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                            </svg>
-                            <span data-i18n="pro_feature_1">50 prompts per day (vs 10 free)</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                            </svg>
-                            <span data-i18n="pro_feature_2">50 ad creations per month</span>
-                        </li>
-                        <li class="flex items-center gap-3 text-gray-300">
-                            <svg class="w-5 h-5 text-purple-400 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
-                            </svg>
-                            <span data-i18n="pro_feature_3">Pro quality (3-step AI refinement)</span>
-                        </li>
-                    </ul>
-                </div>
-                <div class="text-center md:text-right">
-                    <div class="inline-block bg-white/10 rounded-2xl p-6">
-                        <div class="text-gray-400 text-sm mb-2" data-i18n="pro_only">Only</div>
-                        <div class="text-5xl font-bold text-white mb-1">9<span class="text-2xl">EUR</span></div>
-                        <div class="text-gray-400 text-sm mb-4" data-i18n="pro_per_month">per month</div>
-                        <a href="/pricing" class="inline-block w-full bg-gradient-to-r from-purple-500 to-pink-500 text-white px-8 py-3 rounded-lg font-semibold hover:opacity-90 transition" data-i18n="pro_cta_btn">
-                            View Plans
-                        </a>
-                        <p class="text-gray-500 text-xs mt-3" data-i18n="pro_cancel">Cancel anytime</p>
+        <div class="bg-white/5 rounded-2xl border border-white/10 p-8">
+            <!-- MindLight Center -->
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500/20 to-teal-500/20 px-6 py-3 rounded-xl border border-cyan-500/30">
+                    <span class="text-3xl">&#128172;</span>
+                    <div class="text-left">
+                        <div class="text-white font-bold text-lg">MindLight</div>
+                        <div class="text-cyan-300 text-sm" data-i18n="arch_mindlight_de">Ein Chat vereint alle Module</div>
                     </div>
                 </div>
             </div>
+
+            <!-- Arrows -->
+            <div class="flex justify-center mb-6">
+                <div class="grid grid-cols-5 gap-4 max-w-xl">
+                    <div class="text-center text-gray-500">&#8595;</div>
+                    <div class="text-center text-gray-500">&#8595;</div>
+                    <div class="text-center text-gray-500">&#8595;</div>
+                    <div class="text-center text-gray-500">&#8595;</div>
+                    <div class="text-center text-gray-500">&#8595;</div>
+                </div>
+            </div>
+
+            <!-- Modules -->
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-3">
+                <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3 text-center">
+                    <i class="fas fa-database text-emerald-400 text-lg mb-1"></i>
+                    <div class="text-white text-sm font-medium">NL &rarr; SQL</div>
+                </div>
+                <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-3 text-center">
+                    <i class="fas fa-search text-indigo-400 text-lg mb-1"></i>
+                    <div class="text-white text-sm font-medium">RAG</div>
+                </div>
+                <div class="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-center">
+                    <i class="fas fa-cogs text-amber-400 text-lg mb-1"></i>
+                    <div class="text-white text-sm font-medium">Prozesse</div>
+                </div>
+                <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-center">
+                    <i class="fas fa-bug text-red-400 text-lg mb-1"></i>
+                    <div class="text-white text-sm font-medium">Troubleshoot</div>
+                </div>
+                <div class="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 text-center">
+                    <i class="fas fa-chart-bar text-purple-400 text-lg mb-1"></i>
+                    <div class="text-white text-sm font-medium">Dashboard</div>
+                </div>
+            </div>
+
+            <!-- Bottom info -->
+            <div class="mt-8 flex flex-wrap justify-center gap-6 text-sm text-gray-400">
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-shield-alt text-green-400"></i>
+                    <span data-i18n="arch_dsgvo_de">On-Premises = DSGVO-konform</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-lock text-green-400"></i>
+                    <span data-i18n="arch_nocloud_de">Keine Daten in die Cloud</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <i class="fas fa-docker text-blue-400"></i>
+                    <span data-i18n="arch_docker_de">Docker-Deployment in Minuten</span>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Email Subscription -->
-    <section class="max-w-4xl mx-auto px-4 py-16 border-t border-white/10">
-        <div class="text-center">
-            <h2 class="text-3xl font-bold text-white mb-4" data-i18n="newsletter_title">Stay Updated</h2>
-            <p class="text-gray-400 mb-8" data-i18n="newsletter_desc">Get tips, updates, and exclusive offers. No spam, unsubscribe anytime.</p>
-            <form id="newsletter-form" class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                <input type="email" id="newsletter-email" required placeholder="your@email.com"
-                    class="flex-1 bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition">
-                <button type="submit" class="bg-gradient-to-r from-purple-500 to-pink-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition whitespace-nowrap" data-i18n="newsletter_btn">
-                    Subscribe
-                </button>
-            </form>
-            <p id="newsletter-success" class="hidden text-green-400 mt-4" data-i18n="newsletter_success">Thanks for subscribing!</p>
-            <p id="newsletter-error" class="hidden text-red-400 mt-4" data-i18n="newsletter_error">Something went wrong. Please try again.</p>
+    <!-- Technology -->
+    <section class="max-w-5xl mx-auto px-4 py-12 border-t border-white/10">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="tech_title_de">Technologie</h2>
+            <p class="text-gray-400" data-i18n="tech_subtitle_de">Open Source Modelle, EU-konform, lokal betreibbar</p>
         </div>
-    </section>
 
-    <!-- CTA Section -->
-    <section class="max-w-4xl mx-auto px-4 py-16 text-center">
-        <div class="bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-500/30 rounded-2xl p-8">
-            <h2 class="text-3xl font-bold text-white mb-4" data-i18n="cta_title">Ready to Create?</h2>
-            <p class="text-gray-300 mb-6" data-i18n="cta_subtitle">Choose a tool above and start creating amazing content with AI.</p>
-            <div class="flex justify-center gap-4 flex-wrap">
-                <a href="/prompt" class="bg-gradient-to-r from-purple-500 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition" data-i18n="cta_prompts">
-                    Optimize Prompts
-                </a>
-                <a href="/ads" class="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition" data-i18n="cta_ads">
-                    Create Ads
-                </a>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white/5 rounded-xl border border-white/10 p-6 text-center">
+                <div class="text-4xl mb-3">&#129433;</div>
+                <h3 class="text-lg font-bold text-white mb-2">Llama</h3>
+                <p class="text-gray-400 text-sm">Open Source von Meta. Lokal betreibbar, keine Cloud-Abh&auml;ngigkeit. EU-Zugang seit Sept. 2025.</p>
+            </div>
+            <div class="bg-white/5 rounded-xl border border-white/10 p-6 text-center">
+                <div class="text-4xl mb-3">&#127987;</div>
+                <h3 class="text-lg font-bold text-white mb-2">Mistral</h3>
+                <p class="text-gray-400 text-sm">EU-Firma aus Paris. DSGVO-konform, EU-only Hosting. Ideal f&uuml;r Beh&ouml;rden und &ouml;ffentlichen Dienst.</p>
+            </div>
+            <div class="bg-white/5 rounded-xl border border-white/10 p-6 text-center">
+                <div class="text-4xl mb-3">&#128230;</div>
+                <h3 class="text-lg font-bold text-white mb-2">Docker</h3>
+                <p class="text-gray-400 text-sm">Ein Befehl zum Installieren. Self-Monitoring, automatische Updates. Auf jedem Server lauff&auml;hig.</p>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 py-8">
-        <div class="max-w-6xl mx-auto px-4 text-center text-gray-500">
-            <div class="flex justify-center gap-6 mb-4">
-                <a href="/impressum" class="hover:text-gray-300 transition" data-i18n="impressum">Impressum</a>
-                <a href="/datenschutz" class="hover:text-gray-300 transition" data-i18n="privacy">Privacy Policy</a>
-                <a href="/terms" class="hover:text-gray-300 transition" data-i18n="terms">Terms</a>
+    <footer class="border-t border-white/10 mt-12">
+        <div class="max-w-6xl mx-auto px-4 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">M</span>
+                    </div>
+                    <span class="text-gray-400 text-sm">&copy; 2026 MastermAInd. Enterprise Analytics Platform.</span>
+                </div>
+                <div class="flex items-center gap-6 text-sm text-gray-400">
+                    <a href="/impressum" class="hover:text-white transition">Impressum</a>
+                    <a href="/datenschutz" class="hover:text-white transition">Datenschutz</a>
+                    <a href="/terms" class="hover:text-white transition">AGB</a>
+                </div>
             </div>
-            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
-            <p class="text-gray-600 text-sm mt-2">Built with Python, FastAPI, Tailwind CSS, Supabase & Anthropic API</p>
         </div>
     </footer>
 
+    <!-- Minimal JS: Dropdown close on outside click, Language switcher -->
     <script>
-        // Close dropdown when clicking outside
+        // Close dropdown on outside click
         document.addEventListener('click', function(e) {
             const dropdown = document.getElementById('services-dropdown');
             const menu = document.getElementById('services-menu');
-            if (dropdown && menu && !dropdown.contains(e.target)) {
+            if (dropdown && !dropdown.contains(e.target)) {
                 menu.classList.add('hidden');
             }
         });
 
-        let currentLanguage = localStorage.getItem('mastermaind_lang') || 'en';
+        // Language switcher (basic)
+        let currentLang = localStorage.getItem('lang') || 'de';
 
         const translations = {
             en: {
-                hero_title: "AI Tools for Marketers",
-                hero_tagline: "\"AI does the work. You live your life.\"",
-                hero_subtitle: "Create better content faster with artificial intelligence. TikTok scripts, YouTube ideas, Instagram posts, ads and more.",
-                prompt_title: "AI Solutions Developer",
-                prompt_desc: "Create TikTok scripts, YouTube ideas, blog posts and more. Optimize prompts for ChatGPT, Claude and other AI models.",
-                free_to_use: "Free to use",
-                no_signup: "No signup required",
-                instant_results: "Instant results",
-                try_prompt: "Try AI Solutions",
-                new_badge: "NEW",
-                ads_title: "Ad Creator",
-                ads_desc: "Generate stunning ad creatives with AI in seconds. Images and copy for Instagram, Facebook and more.",
-                free_generations: "3 free generations/day",
-                ai_images: "AI-generated images",
-                headlines_copy: "Headlines & copy included",
-                create_ad: "Create Ad",
-                agents_badge: "SERVICE",
-                agents_title: "AI Agents Army",
-                agents_desc: "Custom AI agents for your business. Automate emails, reports, data collection and daily workflows.",
-                agents_feature_1: "Free prototype included",
-                agents_feature_2: "Built for your specific needs",
-                agents_feature_3: "From 200 EUR per agent",
-                agents_cta: "Learn More",
-                why_mastermaind: "Why Mastermaind?",
-                feature_fast: "Lightning Fast",
-                feature_fast_desc: "Generate content in seconds, not hours. Save time and focus on what matters.",
-                feature_ai: "AI-Powered",
-                feature_ai_desc: "Powered by Claude AI and FLUX Pro for best-in-class results.",
-                feature_free: "Free to Start",
-                feature_free_desc: "No credit card required. Start creating for free today.",
-                cta_title: "Ready to Create?",
-                cta_subtitle: "Choose a tool above and start creating amazing content with AI.",
-                cta_prompts: "Optimize Prompts",
-                cta_ads: "Create Ads",
-                impressum: "Impressum",
-                privacy: "Privacy Policy",
-                terms: "Terms",
-                login_link: "Log In",
-                dashboard_link: "Dashboard",
-                nav_pricing: "Pricing",
-                nav_rag: "RAG Analyse",
-                nav_rag_desc: "Document Q&A",
-                nav_sql_desc: "Natural language queries",
-                nav_process: "Processes",
-                nav_process_desc: "Process optimization",
-                nav_orch_desc: "Multi-Agent AI",
-                lab_badge: "Enterprise AI Lab",
-                lab_title: "Enterprise AI Modules",
-                lab_subtitle: "Advanced AI capabilities for document analysis, data queries, process optimization, and multi-agent orchestration.",
-                lab_mindlight_title: "MindLight",
-                lab_mindlight_desc: "One chat for all AI tools. Ask about SGB-II, generate SQL, analyze processes.",
-                lab_rag_title: "RAG Analysis",
-                lab_rag_desc: "Search documents with natural language. DSGVO-compliant, on-premise ready.",
-                lab_sql_desc: "Ask in German, get SQL queries. Ideal for SGB-II data analysis.",
-                lab_process_title: "Processes",
-                lab_process_desc: "Analyze processes, find bottlenecks, get AI optimization recommendations.",
-                lab_orch_desc: "Multi-Agent AI: Opus coordinates, Sonnet and Haiku execute.",
-                lab_try: "Try it",
-                demo_title: "See It In Action",
-                demo_subtitle: "Real examples of what Mastermaind can do for you",
-                demo_prompt_title: "AI Solutions Demo",
-                demo_before: "Before",
-                demo_after: "After",
-                demo_weak: "Weak prompt",
-                demo_optimized: "Optimized",
-                demo_prompt_before: "Write me something about coffee for my cafe",
-                demo_prompt_after: "You are an expert barista and coffee copywriter. Write a compelling 150-word description for a specialty coffee shop's new seasonal menu. Include sensory details about aroma and taste. Target audience: urban professionals aged 25-40. Tone: warm, sophisticated, inviting. Mention the origin of beans (Ethiopian) and brewing method (pour-over).",
-                demo_prompt_result: "Result: 85% more detailed AI responses, specific to your business",
-                demo_ad_title: "Ad Creator Demo",
-                demo_ad_input_label: "Input:",
-                demo_business: "Business:",
-                demo_product: "Product:",
-                demo_product_value: "Authentic Italian pizza, wood-fired oven",
-                demo_audience: "Audience:",
-                demo_audience_value: "Families, food lovers",
-                demo_usp: "USP:",
-                demo_usp_value: "Traditional recipes from Naples",
-                demo_image_text: "AI-generated image",
-                demo_ad_headline: "Taste Naples in Every Bite!",
-                demo_ad_copy: "Authentic Italian pizza baked in our traditional wood-fired oven. Family recipes passed down through generations. Visit Mario's Pizzeria today!",
-                demo_try_now: "Try It Yourself",
-                usecases_title: "What You Can Create",
-                usecases_subtitle: "Optimize prompts for any task - marketing, coding, writing, and more",
-                uc_marketing: "Marketing & Ads",
-                uc_marketing_1: "• Ad copy & headlines",
-                uc_marketing_2: "• Product descriptions",
-                uc_marketing_3: "• Email campaigns",
-                uc_marketing_4: "• Landing page text",
-                uc_code: "Code & Technical",
-                uc_code_1: "• Code generation",
-                uc_code_2: "• Bug fixing prompts",
-                uc_code_3: "• Documentation",
-                uc_code_4: "• API integration",
-                uc_content: "Content Writing",
-                uc_content_1: "• Blog posts & articles",
-                uc_content_2: "• SEO content",
-                uc_content_3: "• Website copy",
-                uc_content_4: "• Press releases",
-                uc_social: "Social Media",
-                uc_social_1: "• Instagram captions",
-                uc_social_2: "• LinkedIn posts",
-                uc_social_3: "• Twitter/X threads",
-                uc_social_4: "• TikTok scripts",
-                uc_business: "Business",
-                uc_business_1: "• Business plans",
-                uc_business_2: "• Proposals & pitches",
-                uc_business_3: "• Reports & analysis",
-                uc_business_4: "• Meeting summaries",
-                uc_creative: "Creative",
-                uc_creative_1: "• AI image prompts",
-                uc_creative_2: "• Story ideas",
-                uc_creative_3: "• Video scripts",
-                uc_creative_4: "• Brainstorming",
-                pro_badge: "PRO",
-                pro_cta_title: "Unlock Your Full Potential",
-                pro_cta_desc: "Get 10x more power with Pro. Perfect for marketers, agencies, and content creators who need more.",
-                pro_feature_1: "50 prompts per day (vs 10 free)",
-                pro_feature_2: "50 ad creations per month",
-                pro_feature_3: "Pro quality (3-step AI refinement)",
-                pro_only: "Only",
-                pro_per_month: "per month",
-                pro_cta_btn: "View Plans",
-                pro_cancel: "Cancel anytime",
-                newsletter_title: "Stay Updated",
-                newsletter_desc: "Get tips, updates, and exclusive offers. No spam, unsubscribe anytime.",
-                newsletter_btn: "Subscribe",
-                newsletter_success: "Thanks for subscribing!",
-                newsletter_error: "Something went wrong. Please try again.",
-                how_title: "How It Works",
-                how_subtitle: "Get started in 3 simple steps",
-                how_step1_title: "Choose Your Tool",
-                how_step1_desc: "Select AI Solutions for content or Ad Creator for advertisements",
-                how_step2_title: "Fill In the Details",
-                how_step2_desc: "Answer a few simple questions about your business and goals",
-                how_step3_title: "Get Results Instantly",
-                how_step3_desc: "Receive optimized content ready to use in seconds",
-                faq_title: "Frequently Asked Questions",
-                faq_subtitle: "Everything you need to know about Mastermaind",
-                faq_q1: "Is it really free?",
-                faq_a1: "Yes! AI Solutions and Ad Creator both have free tiers. You get 10 prompt optimizations and 3 ad creations per day for free, no credit card required.",
-                faq_q2: "What AI technology is used?",
-                faq_a2: "We use Claude AI by Anthropic for text generation and optimization, and FLUX for image generation. These are among the best AI models available today.",
-                faq_q3: "How long are generated images available?",
-                faq_a3: "Generated images are available for download for 1 hour. Make sure to download them right away! We recommend saving all images immediately after generation.",
-                faq_q4: "Can I use the results commercially?",
-                faq_a4: "Yes! All content you create with Mastermaind is yours to use. You can use generated images and text for your business, ads, social media, and any commercial purpose.",
-                faq_q5: "Do I need an account?",
-                faq_a5: "No account is required for free usage! You can start creating right away. An account is only needed if you want to upgrade to Pro for higher limits."
-            },
-            de: {
-                hero_title: "KI-Tools für Marketer",
-                hero_tagline: "KI erledigt die Arbeit. Du lebst dein Leben.",
-                hero_subtitle: "Erstelle bessere Inhalte schneller mit künstlicher Intelligenz. TikTok-Skripte, YouTube-Ideen, Instagram-Posts, Werbung und mehr.",
-                prompt_title: "AI Solutions Developer",
-                prompt_desc: "Erstelle TikTok-Skripte, YouTube-Ideen, Blogposts und mehr. Optimiere Prompts für ChatGPT, Claude und andere KI-Modelle.",
-                free_to_use: "Kostenlos nutzbar",
-                no_signup: "Keine Anmeldung nötig",
-                instant_results: "Sofortige Ergebnisse",
-                try_prompt: "AI Solutions testen",
-                new_badge: "NEU",
-                ads_title: "Ad Creator",
-                ads_desc: "Erstelle beeindruckende Werbeanzeigen mit KI in Sekunden. Bilder und Texte für Instagram, Facebook und mehr.",
-                free_generations: "3 kostenlose Generierungen/Tag",
-                ai_images: "KI-generierte Bilder",
-                headlines_copy: "Überschriften & Texte inklusive",
-                create_ad: "Anzeige erstellen",
-                agents_badge: "SERVICE",
-                agents_title: "KI-Agenten Armee",
-                agents_desc: "Maßgeschneiderte KI-Agenten für dein Unternehmen. Automatisiere E-Mails, Berichte, Datenerfassung und tägliche Arbeitsabläufe.",
-                agents_feature_1: "Kostenloser Prototyp inklusive",
-                agents_feature_2: "Für deine spezifischen Bedürfnisse gebaut",
-                agents_feature_3: "Ab 200 EUR pro Agent",
-                agents_cta: "Mehr erfahren",
-                why_mastermaind: "Warum Mastermaind?",
-                feature_fast: "Blitzschnell",
-                feature_fast_desc: "Erstelle Inhalte in Sekunden, nicht Stunden. Spare Zeit und konzentriere dich auf das Wesentliche.",
-                feature_ai: "KI-gestützt",
-                feature_ai_desc: "Angetrieben von Claude AI und FLUX Pro für erstklassige Ergebnisse.",
-                feature_free: "Kostenlos starten",
-                feature_free_desc: "Keine Kreditkarte erforderlich. Starte noch heute kostenlos.",
-                cta_title: "Bereit loszulegen?",
-                cta_subtitle: "Wähle oben ein Tool und beginne mit der Erstellung großartiger Inhalte mit KI.",
-                cta_prompts: "Prompts optimieren",
-                cta_ads: "Anzeigen erstellen",
-                impressum: "Impressum",
-                privacy: "Datenschutz",
-                terms: "AGB",
-                login_link: "Anmelden",
-                dashboard_link: "Dashboard",
-                nav_pricing: "Preise",
-                nav_rag: "RAG-Analyse",
-                nav_rag_desc: "Dokument-Q&A",
-                nav_sql_desc: "Natürlichsprachige Abfragen",
-                nav_process: "Prozesse",
-                nav_process_desc: "Prozessoptimierung",
-                nav_orch_desc: "Multi-Agent KI",
-                lab_badge: "Enterprise AI Lab",
-                lab_title: "Enterprise KI-Module",
-                lab_subtitle: "Erweiterte KI-Funktionen für Dokumentenanalyse, Datenabfragen, Prozessoptimierung und Multi-Agent-Orchestrierung.",
-                lab_mindlight_title: "MindLight",
-                lab_mindlight_desc: "Ein Chat für alle KI-Tools. Fragen zu SGB-II, SQL generieren, Prozesse analysieren.",
-                lab_rag_title: "RAG-Analyse",
-                lab_rag_desc: "Dokumente mit natürlicher Sprache durchsuchen. DSGVO-konform, On-Premise-fähig.",
-                lab_sql_desc: "Fragen auf Deutsch stellen, SQL-Abfragen erhalten. Ideal für SGB-II-Datenauswertung.",
-                lab_process_title: "Prozesse",
-                lab_process_desc: "Prozesse analysieren, Engpässe finden, KI-Optimierungsempfehlungen erhalten.",
-                lab_orch_desc: "Multi-Agent KI: Opus koordiniert, Sonnet und Haiku arbeiten.",
-                lab_try: "Ausprobieren",
-                demo_title: "Live Demo",
-                demo_subtitle: "Echte Beispiele, was Mastermaind für dich tun kann",
-                demo_prompt_title: "AI Solutions Demo",
-                demo_before: "Vorher",
-                demo_after: "Nachher",
-                demo_weak: "Schwacher Prompt",
-                demo_optimized: "Optimiert",
-                demo_prompt_before: "Schreib mir was über Kaffee für mein Café",
-                demo_prompt_after: "Du bist ein erfahrener Barista und Kaffee-Texter. Schreibe eine überzeugende 150-Wörter-Beschreibung für das neue saisonale Menü eines Spezialitäten-Cafés. Füge sensorische Details über Aroma und Geschmack hinzu. Zielgruppe: urbane Berufstätige, 25-40 Jahre. Ton: warm, anspruchsvoll, einladend. Erwähne die Herkunft der Bohnen (Äthiopien) und die Brühmethode (Pour-Over).",
-                demo_prompt_result: "Ergebnis: 85% detailliertere KI-Antworten, spezifisch für dein Business",
-                demo_ad_title: "Ad Creator Demo",
-                demo_ad_input_label: "Eingabe:",
-                demo_business: "Geschäft:",
-                demo_product: "Produkt:",
-                demo_product_value: "Authentische italienische Pizza, Holzofen",
-                demo_audience: "Zielgruppe:",
-                demo_audience_value: "Familien, Feinschmecker",
-                demo_usp: "USP:",
-                demo_usp_value: "Traditionelle Rezepte aus Neapel",
-                demo_image_text: "KI-generiertes Bild",
-                demo_ad_headline: "Schmecke Neapel in jedem Bissen!",
-                demo_ad_copy: "Authentische italienische Pizza aus unserem traditionellen Holzofen. Familienrezepte über Generationen weitergegeben. Besuche Mario's Pizzeria noch heute!",
-                demo_try_now: "Jetzt ausprobieren",
-                usecases_title: "Was du erstellen kannst",
-                usecases_subtitle: "Optimiere Prompts für jede Aufgabe - Marketing, Programmierung, Texte und mehr",
-                uc_marketing: "Marketing & Werbung",
-                uc_marketing_1: "• Werbetexte & Headlines",
-                uc_marketing_2: "• Produktbeschreibungen",
-                uc_marketing_3: "• E-Mail-Kampagnen",
-                uc_marketing_4: "• Landing Page Texte",
-                uc_code: "Code & Technik",
-                uc_code_1: "• Code-Generierung",
-                uc_code_2: "• Bug-Fixing Prompts",
-                uc_code_3: "• Dokumentation",
-                uc_code_4: "• API-Integration",
-                uc_content: "Content & Texte",
-                uc_content_1: "• Blogbeiträge & Artikel",
-                uc_content_2: "• SEO-Inhalte",
-                uc_content_3: "• Website-Texte",
-                uc_content_4: "• Pressemitteilungen",
-                uc_social: "Social Media",
-                uc_social_1: "• Instagram Captions",
-                uc_social_2: "• LinkedIn Posts",
-                uc_social_3: "• Twitter/X Threads",
-                uc_social_4: "• TikTok Skripte",
-                uc_business: "Business",
-                uc_business_1: "• Geschäftspläne",
-                uc_business_2: "• Angebote & Pitches",
-                uc_business_3: "• Berichte & Analysen",
-                uc_business_4: "• Meeting-Zusammenfassungen",
-                uc_creative: "Kreativ",
-                uc_creative_1: "• KI-Bild Prompts",
-                uc_creative_2: "• Story-Ideen",
-                uc_creative_3: "• Video-Skripte",
-                uc_creative_4: "• Brainstorming",
-                pro_badge: "PRO",
-                pro_cta_title: "Entfalte dein volles Potenzial",
-                pro_cta_desc: "10x mehr Power mit Pro. Perfekt für Marketer, Agenturen und Content Creator, die mehr brauchen.",
-                pro_feature_1: "100 Prompts pro Tag (vs 10 kostenlos)",
-                pro_feature_2: "50 Anzeigen pro Monat",
-                pro_feature_3: "Pro-Qualität (3-Stufen KI-Verfeinerung)",
-                pro_only: "Nur",
-                pro_per_month: "pro Monat",
-                pro_cta_btn: "Pläne ansehen",
-                pro_cancel: "Jederzeit kündbar",
-                newsletter_title: "Bleib auf dem Laufenden",
-                newsletter_desc: "Erhalte Tipps, Updates und exklusive Angebote. Kein Spam, jederzeit abbestellbar.",
-                newsletter_btn: "Abonnieren",
-                newsletter_success: "Danke fürs Abonnieren!",
-                newsletter_error: "Etwas ist schiefgelaufen. Bitte versuche es erneut.",
-                how_title: "So funktioniert's",
-                how_subtitle: "In 3 einfachen Schritten starten",
-                how_step1_title: "Wähle dein Tool",
-                how_step1_desc: "AI Solutions für Inhalte oder Ad Creator für Werbung",
-                how_step2_title: "Fülle die Details aus",
-                how_step2_desc: "Beantworte ein paar einfache Fragen zu deinem Business",
-                how_step3_title: "Erhalte sofort Ergebnisse",
-                how_step3_desc: "Optimierte Inhalte, sofort einsatzbereit",
-                faq_title: "Häufig gestellte Fragen",
-                faq_subtitle: "Alles was du über Mastermaind wissen musst",
-                faq_q1: "Ist es wirklich kostenlos?",
-                faq_a1: "Ja! AI Solutions und Ad Creator haben beide kostenlose Stufen. Du bekommst 10 Prompt-Optimierungen und 3 Anzeigen-Erstellungen pro Tag kostenlos, keine Kreditkarte erforderlich.",
-                faq_q2: "Welche KI-Technologie wird verwendet?",
-                faq_a2: "Wir verwenden Claude AI von Anthropic für Textgenerierung und -optimierung sowie FLUX für Bildgenerierung. Das sind einige der besten heute verfügbaren KI-Modelle.",
-                faq_q3: "Wie lange sind generierte Bilder verfügbar?",
-                faq_a3: "Generierte Bilder stehen 1 Stunde zum Download bereit. Lade sie sofort herunter! Wir empfehlen, alle Bilder direkt nach der Generierung zu speichern.",
-                faq_q4: "Kann ich die Ergebnisse kommerziell nutzen?",
-                faq_a4: "Ja! Alle Inhalte, die du mit Mastermaind erstellst, gehören dir. Du kannst generierte Bilder und Texte für dein Business, Werbung, Social Media und jeden kommerziellen Zweck nutzen.",
-                faq_q5: "Brauche ich einen Account?",
-                faq_a5: "Für die kostenlose Nutzung ist kein Account erforderlich! Du kannst sofort loslegen. Ein Account wird nur benötigt, wenn du auf Pro upgraden möchtest."
+                hero_badge_de: 'On-Premises Ready · GDPR Compliant',
+                hero_title_de: 'Enterprise Analytics Platform',
+                hero_subtitle_de: 'AI-powered data analysis, document search and process optimization — runs locally, no data leaves your network.',
+                hero_powered_de: 'Powered by <strong class="text-white">Llama</strong> & <strong class="text-white">Mistral</strong> — Open Source, EU-compliant, on-premises capable',
+                hero_cta_de: 'MindLight — Try the Central AI Interface',
+                hero_cta_sub_de: 'One chat connects all modules',
+                features_title_de: 'AI Modules',
+                features_subtitle_de: 'Each module works independently — MindLight connects them all in one chat',
+                status_live: 'Working',
+                status_demo: 'Demo',
+                sql_desc_de: 'Ask questions in German, get SQL queries. Ideal for SGB-II databases and reporting.',
+                rag_desc_de: 'Intelligent search in e-files & DMS. Understands context, not just keywords. SGB-II documents as demo.',
+                process_desc_de: 'Automate recurring tasks. Define workflows, AI executes. Will be implemented with real process data.',
+                troubleshoot_desc_de: 'Analyze & solve system errors. AI analyzes logs, suggests solutions. Will be implemented with real system logs.',
+                dashboard_desc_de: 'Central overview with automatic analyses. Reporting for different departments and roles.',
+                modular_desc_de: 'Configurable per department. Same platform, different use cases. Case workers, IT, management — everyone gets their view.',
+                modular_note_de: 'Will be configured with real department data',
+                arch_title_de: 'Architecture',
+                arch_subtitle_de: 'One central entry point for all AI modules',
+                arch_mindlight_de: 'One chat connects all modules',
+                arch_dsgvo_de: 'On-Premises = GDPR compliant',
+                arch_nocloud_de: 'No data leaves the network',
+                arch_docker_de: 'Docker deployment in minutes',
+                tech_title_de: 'Technology',
+                tech_subtitle_de: 'Open source models, EU-compliant, locally deployable',
             }
         };
 
         function setLanguage(lang) {
-            currentLanguage = lang;
-            localStorage.setItem('mastermaind_lang', lang);
-            applyLanguage(lang);
+            currentLang = lang;
+            localStorage.setItem('lang', lang);
 
-            // Update button styles
-            const enBtn = document.getElementById('lang-en');
-            const deBtn = document.getElementById('lang-de');
-            if (lang === 'en') {
-                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
-                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
-            } else {
-                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
-                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
-            }
-        }
+            document.getElementById('lang-de').className = lang === 'de'
+                ? 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white'
+                : 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
+            document.getElementById('lang-en').className = lang === 'en'
+                ? 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white'
+                : 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
 
-        function applyLanguage(lang) {
-            const t = translations[lang];
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (t[key]) {
-                    el.textContent = t[key];
-                }
-            });
-        }
-
-        // Update auth buttons based on login status
-        function updateAuthButtons() {
-            const t = translations[currentLanguage];
-            const authButtons = document.getElementById('auth-buttons');
-
-            if (window.auth && window.auth.isLoggedIn()) {
-                authButtons.innerHTML = `<a href="/dashboard" class="text-gray-300 hover:text-white transition" data-i18n="dashboard_link">${t.dashboard_link}</a>`;
-            } else {
-                authButtons.innerHTML = `<a href="/login" class="text-gray-300 hover:text-white transition" data-i18n="login_link">${t.login_link}</a>`;
-            }
-        }
-
-        // Newsletter form handler
-        async function handleNewsletter(e) {
-            e.preventDefault();
-            const email = document.getElementById('newsletter-email').value;
-            const successEl = document.getElementById('newsletter-success');
-            const errorEl = document.getElementById('newsletter-error');
-            const form = document.getElementById('newsletter-form');
-            const submitBtn = form.querySelector('button[type="submit"]');
-
-            // Simple email validation
-            if (!email || !email.includes('@')) {
-                errorEl.classList.remove('hidden');
-                successEl.classList.add('hidden');
-                return;
-            }
-
-            // Disable button during submission
-            submitBtn.disabled = true;
-            submitBtn.textContent = '...';
-
-            try {
-                // Send to backend API
-                const response = await fetch('/api/newsletter/subscribe', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email: email })
+            if (lang === 'en' && translations.en) {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations.en[key]) {
+                        el.innerHTML = translations.en[key];
+                    }
                 });
-
-                const result = await response.json();
-
-                if (response.ok) {
-                    successEl.classList.remove('hidden');
-                    errorEl.classList.add('hidden');
-                    form.reset();
-                } else {
-                    throw new Error(result.detail || 'Subscription failed');
+            } else {
+                // Reload to get original DE content
+                if (lang === 'de' && currentLang !== 'de') {
+                    location.reload();
                 }
-            } catch (error) {
-                console.error('Newsletter error:', error);
-                errorEl.classList.remove('hidden');
-                successEl.classList.add('hidden');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = translations[currentLanguage].newsletter_btn;
             }
         }
 
-        // Demo tab switching (Prompt Optimizer)
-        function showDemo(demoId) {
-            // Hide all demo content
-            document.querySelectorAll('.demo-content').forEach(el => {
-                el.classList.add('hidden');
-            });
-            // Reset all tabs
-            document.querySelectorAll('.demo-tab').forEach(el => {
-                el.className = 'demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white';
-            });
-            // Show selected demo
-            document.getElementById('demo-' + demoId).classList.remove('hidden');
-            // Highlight selected tab
-            document.getElementById('tab-' + demoId).className = 'demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-purple-500 text-white';
+        // Apply saved language on load
+        if (currentLang === 'en') {
+            setLanguage('en');
         }
-
-        // Ad Demo tab switching
-        function showAdDemo(demoId) {
-            // Hide all ad demo content
-            document.querySelectorAll('.ad-demo-content').forEach(el => {
-                el.classList.add('hidden');
-            });
-            // Reset all ad tabs
-            document.querySelectorAll('.ad-demo-tab').forEach(el => {
-                el.className = 'ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-white/10 text-gray-400 hover:text-white';
-            });
-            // Show selected ad demo
-            document.getElementById('ad-demo-' + demoId).classList.remove('hidden');
-            // Highlight selected tab
-            document.getElementById('ad-tab-' + demoId).className = 'ad-demo-tab px-4 py-2 rounded-lg text-sm font-medium transition bg-pink-500 text-white';
-        }
-
-        // Apply saved language on page load
-        document.addEventListener('DOMContentLoaded', function() {
-            setLanguage(currentLanguage);
-            // Wait for auth to initialize
-            setTimeout(updateAuthButtons, 500);
-
-            // Newsletter form
-            const newsletterForm = document.getElementById('newsletter-form');
-            if (newsletterForm) {
-                newsletterForm.addEventListener('submit', handleNewsletter);
-            }
-        });
     </script>
-    <script src="/static/js/auth.js"></script>
-    <script src="/static/js/cookies.js"></script>
 </body>
 </html>

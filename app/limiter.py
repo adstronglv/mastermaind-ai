@@ -30,10 +30,6 @@ class Limiter:
             return {
                 "prompt": 50,
                 "prompt_period": "day",
-                "ad": 50,
-                "ad_period": "month",
-                "regenerate": 100,
-                "regenerate_period": "month",
                 "rag": 50,
                 "rag_period": "day",
                 "sql": 50,
@@ -49,10 +45,6 @@ class Limiter:
         return {
             "prompt": 10,
             "prompt_period": "day",
-            "ad": 3,
-            "ad_period": "day",
-            "regenerate": 5,
-            "regenerate_period": "day",
             "rag": 5,
             "rag_period": "day",
             "sql": 5,
@@ -172,7 +164,7 @@ class Limiter:
         supabase = get_supabase()
 
         usage = {}
-        for action in ["prompt", "ad", "regenerate", "rag", "sql", "process", "orchestrate", "chat"]:
+        for action in ["prompt", "rag", "sql", "process", "orchestrate", "chat"]:
             period = limits.get(f"{action}_period", "day")
             period_start = self.get_period_start(period)
 
