@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brand DNA Analyzer | Mastermaind</title>
+    <meta name="description" content="Analyze your brand identity, extract core values, and generate consistent messaging with AI.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+    <!-- Header -->
+    <header class="border-b border-white/10">
+        <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2">
+                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                    <span class="text-white font-bold text-xl">M</span>
+                </div>
+                <span class="text-white font-bold text-xl">MastermAInd</span>
+            </a>
+            <nav class="flex items-center gap-4">
+                <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="max-w-4xl mx-auto px-4 pt-8 pb-4 text-center">
+        <div class="inline-flex items-center gap-2 bg-violet-500/20 text-violet-300 px-3 py-1 rounded-full text-sm mb-3">
+            <span>&#129504;</span>
+            <span data-i18n="badge">Brand DNA Analyzer</span>
+            <span class="bg-amber-500 text-white text-xs px-2 py-0.5 rounded-full font-bold" data-i18n="demo_badge">DEMO</span>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold text-white mb-3" data-i18n="hero_title">
+            Discover Your Brand DNA
+        </h1>
+        <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="hero_subtitle">
+            AI-powered brand analysis to extract your core values, personality, and messaging strategy.
+        </p>
+    </section>
+
+    <!-- Main Content -->
+    <section class="max-w-4xl mx-auto px-4 pb-12">
+        <div class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 md:p-8">
+            <!-- Input Form -->
+            <div id="input-form" class="space-y-6">
+                <div>
+                    <label class="block text-white font-semibold mb-2" data-i18n="label_brand">Brand Name</label>
+                    <input type="text" id="brand-name" placeholder="e.g., Nike, Apple, Tesla"
+                        class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-violet-500">
+                </div>
+
+                <div>
+                    <label class="block text-white font-semibold mb-2" data-i18n="label_industry">Industry</label>
+                    <input type="text" id="industry" placeholder="e.g., Fashion, Technology, Food"
+                        class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-violet-500">
+                </div>
+
+                <div>
+                    <label class="block text-white font-semibold mb-2" data-i18n="label_description">Brand Description</label>
+                    <textarea id="brand-description" rows="4" placeholder="Describe your brand, mission, target audience, and what makes you unique..."
+                        class="w-full bg-white/10 border border-white/20 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:outline-none focus:border-violet-500"></textarea>
+                </div>
+
+                <button onclick="analyzeBrand()"
+                    class="w-full bg-gradient-to-r from-violet-500 to-purple-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 transition">
+                    <span data-i18n="btn_analyze">Analyze Brand DNA</span>
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loading" class="hidden text-center py-12">
+                <div class="inline-block animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-violet-500 mb-4"></div>
+                <p class="text-gray-400" data-i18n="analyzing">Analyzing your brand DNA...</p>
+            </div>
+
+            <!-- Results -->
+            <div id="results" class="hidden space-y-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-white" data-i18n="results_title">Brand DNA Analysis</h2>
+                    <button onclick="resetForm()" class="text-violet-400 hover:text-violet-300 text-sm">
+                        <span data-i18n="btn_new">New Analysis</span>
+                    </button>
+                </div>
+
+                <div class="bg-white/5 rounded-xl p-5 border border-violet-500/30">
+                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <span>&#127775;</span>
+                        <span data-i18n="section_values">Core Values</span>
+                    </h3>
+                    <div id="core-values" class="text-gray-300 space-y-2"></div>
+                </div>
+
+                <div class="bg-white/5 rounded-xl p-5 border border-violet-500/30">
+                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <span>&#127912;</span>
+                        <span data-i18n="section_personality">Brand Personality</span>
+                    </h3>
+                    <div id="personality" class="text-gray-300"></div>
+                </div>
+
+                <div class="bg-white/5 rounded-xl p-5 border border-violet-500/30">
+                    <h3 class="text-lg font-semibold text-white mb-3 flex items-center gap-2">
+                        <span>&#128172;</span>
+                        <span data-i18n="section_messaging">Messaging Strategy</span>
+                    </h3>
+                    <div id="messaging" class="text-gray-300"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Demo Notice -->
+        <div class="mt-6 bg-amber-500/10 border border-amber-500/30 rounded-xl p-4">
+            <p class="text-amber-300 text-sm text-center" data-i18n="demo_notice">
+                <strong>DEMO:</strong> This is a demonstration version. Full AI analysis coming soon. Current version shows example results.
+            </p>
+        </div>
+    </section>
+
+    <script>
+        function analyzeBrand() {
+            const brandName = document.getElementById('brand-name').value;
+            const industry = document.getElementById('industry').value;
+            const description = document.getElementById('brand-description').value;
+
+            if (!brandName || !industry || !description) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            // Show loading
+            document.getElementById('input-form').classList.add('hidden');
+            document.getElementById('loading').classList.remove('hidden');
+
+            // Simulate AI processing (DEMO - 30-50% functionality)
+            setTimeout(() => {
+                document.getElementById('loading').classList.add('hidden');
+                document.getElementById('results').classList.remove('hidden');
+
+                // Show demo results
+                document.getElementById('core-values').innerHTML = `
+                    <div class="flex items-start gap-2"><span class="text-violet-400">•</span><span><strong>Innovation:</strong> Pushing boundaries and embracing new technologies</span></div>
+                    <div class="flex items-start gap-2"><span class="text-violet-400">•</span><span><strong>Quality:</strong> Excellence in every detail and customer experience</span></div>
+                    <div class="flex items-start gap-2"><span class="text-violet-400">•</span><span><strong>Authenticity:</strong> Genuine connections with your audience</span></div>
+                    <div class="flex items-start gap-2"><span class="text-violet-400">•</span><span><strong>Sustainability:</strong> Long-term thinking for people and planet</span></div>
+                `;
+
+                document.getElementById('personality').innerHTML = `
+                    <p>Your brand embodies a <strong class="text-violet-400">bold and innovative</strong> personality. You're seen as a <strong class="text-violet-400">trusted leader</strong> in ${industry}, combining professional expertise with approachable, human communication.</p>
+                    <p class="mt-2">Key traits: <span class="text-violet-400">Confident, Forward-thinking, Reliable, Customer-focused</span></p>
+                `;
+
+                document.getElementById('messaging').innerHTML = `
+                    <p class="mb-2"><strong>Tone of Voice:</strong> Professional yet friendly, confident but not arrogant</p>
+                    <p class="mb-2"><strong>Key Message:</strong> "${brandName} delivers ${industry} solutions that combine innovation with reliability."</p>
+                    <p><strong>Target Emotion:</strong> Trust, Inspiration, Confidence</p>
+                `;
+            }, 2000);
+        }
+
+        function resetForm() {
+            document.getElementById('input-form').classList.remove('hidden');
+            document.getElementById('results').classList.add('hidden');
+            document.getElementById('brand-name').value = '';
+            document.getElementById('industry').value = '';
+            document.getElementById('brand-description').value = '';
+        }
+    </script>
+</body>
+</html>
