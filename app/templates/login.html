@@ -9,7 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">
     <!-- Header -->
     <header class="border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -22,7 +22,7 @@
             <nav class="flex items-center gap-4">
                 <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
                 <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
-                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white">EN</button>
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white">EN</button>
                     <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">DE</button>
                 </div>
             </nav>
@@ -49,14 +49,14 @@
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="email_label">Email</label>
                     <input type="email" id="email" name="email" required
-                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
                         placeholder="your@email.com">
                 </div>
 
                 <div>
                     <label for="password" class="block text-sm font-medium text-gray-300 mb-2" data-i18n="password_label">Password</label>
                     <input type="password" id="password" name="password" required
-                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500"
+                        class="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500"
                         placeholder="••••••••">
                 </div>
 
@@ -74,7 +74,7 @@
 
             <div class="mt-6 text-center">
                 <p class="text-gray-400">
-                    <a href="/" class="text-purple-400 hover:text-purple-300 font-medium">Back to Home</a>
+                    <a href="/" class="text-cyan-400 hover:text-cyan-300 font-medium">Back to Home</a>
                 </p>
             </div>
 
@@ -92,7 +92,7 @@
                 <a href="/datenschutz" class="hover:text-gray-300 transition">Datenschutz</a>
                 <a href="/terms" class="hover:text-gray-300 transition">Terms</a>
             </div>
-            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
+            <p>&copy; 2026 MastermAInd. Enterprise Analytics Platform.</p>
         </div>
     </footer>
 
@@ -135,10 +135,10 @@
             const enBtn = document.getElementById('lang-en');
             const deBtn = document.getElementById('lang-de');
             if (lang === 'en') {
-                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
+                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white';
                 deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
             } else {
-                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
+                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white';
                 enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
             }
         }

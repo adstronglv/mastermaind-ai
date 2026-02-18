@@ -8,7 +8,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body class="bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 min-h-screen">
+<body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">
     <!-- Header -->
     <header class="border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -21,7 +21,7 @@
             <nav class="flex items-center gap-4">
                 <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
                 <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
-                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white">EN</button>
+                    <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white">EN</button>
                     <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">DE</button>
                 </div>
             </nav>
@@ -119,7 +119,7 @@
                     <h2 class="text-xl font-semibold text-white mb-4">8. Contact</h2>
                     <p class="text-gray-300 leading-relaxed">
                         For questions about these Terms, please contact:<br>
-                        <a href="mailto:info@mastermaind.ai" class="text-purple-400 hover:text-purple-300">info@mastermaind.ai</a>
+                        <a href="mailto:info@mastermaind.ai" class="text-cyan-400 hover:text-cyan-300">info@mastermaind.ai</a>
                     </p>
                 </section>
 
@@ -221,7 +221,7 @@
                     <h2 class="text-xl font-semibold text-white mb-4">8. Kontakt</h2>
                     <p class="text-gray-300 leading-relaxed">
                         Bei Fragen zu diesen Bedingungen kontaktieren Sie bitte:<br>
-                        <a href="mailto:info@mastermaind.ai" class="text-purple-400 hover:text-purple-300">info@mastermaind.ai</a>
+                        <a href="mailto:info@mastermaind.ai" class="text-cyan-400 hover:text-cyan-300">info@mastermaind.ai</a>
                     </p>
                 </section>
 
@@ -244,7 +244,7 @@
                 <a href="/datenschutz" class="hover:text-gray-300 transition">Datenschutz</a>
                 <a href="/terms" class="hover:text-gray-300 transition">Terms</a>
             </div>
-            <p>&copy; 2026 Mastermaind. Powered by Claude AI.</p>
+            <p>&copy; 2026 MastermAInd. Enterprise Analytics Platform.</p>
         </div>
     </footer>
 
@@ -261,12 +261,12 @@
             const termsDe = document.getElementById('terms-de');
 
             if (lang === 'en') {
-                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
+                enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white';
                 deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
                 termsEn.classList.remove('hidden');
                 termsDe.classList.add('hidden');
             } else {
-                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-pink-500 text-white';
+                deBtn.className = 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white';
                 enBtn.className = 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
                 termsEn.classList.add('hidden');
                 termsDe.classList.remove('hidden');
