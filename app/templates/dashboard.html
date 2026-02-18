@@ -14,7 +14,7 @@
     <header class="border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <a href="/" class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-xl">M</span>
                 </div>
                 <span class="text-white font-bold text-xl">MastermAInd</span>
@@ -74,7 +74,7 @@
                     <span id="prompts-count" class="text-gray-400">0 / 10</span>
                 </div>
                 <div class="w-full bg-white/10 rounded-full h-3">
-                    <div id="prompts-bar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    <div id="prompts-bar" class="bg-gradient-to-r from-indigo-500 to-cyan-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
 
@@ -85,7 +85,7 @@
                     <span id="ads-count" class="text-gray-400">0 / 3</span>
                 </div>
                 <div class="w-full bg-white/10 rounded-full h-3">
-                    <div id="ads-bar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    <div id="ads-bar" class="bg-gradient-to-r from-indigo-500 to-cyan-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
                 <p id="ads-period" class="text-xs text-gray-500 mt-1"></p>
             </div>
@@ -97,7 +97,7 @@
                     <span id="regenerate-count" class="text-gray-400">0 / 5</span>
                 </div>
                 <div class="w-full bg-white/10 rounded-full h-3">
-                    <div id="regenerate-bar" class="bg-gradient-to-r from-purple-500 to-pink-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                    <div id="regenerate-bar" class="bg-gradient-to-r from-indigo-500 to-cyan-500 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
         </div>
@@ -106,7 +106,7 @@
         <div class="grid md:grid-cols-2 gap-6">
             <a href="/prompt" class="bg-white/5 backdrop-blur-lg rounded-2xl border border-white/10 p-6 hover:bg-white/10 transition group">
                 <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center text-2xl">
+                    <div class="w-12 h-12 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center text-2xl">
                         &#128221;
                     </div>
                     <div>
@@ -292,7 +292,7 @@
             // Plan badge
             if (plan === 'pro') {
                 planBadge.textContent = t.plan_pro;
-                planBadge.className = 'px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-purple-500 to-pink-500 text-white';
+                planBadge.className = 'px-3 py-1 rounded-full text-sm font-medium bg-gradient-to-r from-indigo-500 to-cyan-500 text-white';
                 planStatus.textContent = userData?.subscription_status === 'cancelled_pending' ? t.status_cancelled : t.status_active;
             } else {
                 planBadge.textContent = t.plan_free;

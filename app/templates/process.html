@@ -14,7 +14,7 @@
     <header class="border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
             <a href="/" class="flex items-center gap-2">
-                <div class="w-10 h-10 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+                <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-xl">M</span>
                 </div>
                 <span class="text-white font-bold text-xl">MastermAInd</span>
@@ -23,18 +23,17 @@
                 <a href="/" class="text-gray-300 hover:text-white transition">Home</a>
                 <div class="relative" id="services-dropdown">
                     <button onclick="document.getElementById('services-menu').classList.toggle('hidden')" class="flex items-center gap-1 text-gray-300 hover:text-white transition">
-                        <span>AI Services</span>
+                        <span>Module</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                     </button>
-                    <div id="services-menu" class="hidden absolute top-full right-0 mt-2 w-64 bg-slate-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
-                        <a href="/prompt" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition"><span class="text-2xl">&#128221;</span><div><div class="text-white font-medium text-sm">AI Solutions</div><div class="text-gray-400 text-xs">Prompts, scripts, content</div></div></a>
-                        <a href="/agents" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#129302;</span><div><div class="text-white font-medium text-sm">AI Agents</div><div class="text-gray-400 text-xs">Troubleshooting</div></div></a>
-                        <div class="border-t border-white/10 my-1"></div>
-                        <a href="/mindlight" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5 bg-cyan-500/5"><span class="text-2xl">&#128172;</span><div><div class="text-white font-medium text-sm">MindLight <span class="text-xs bg-cyan-500 text-white px-1.5 py-0.5 rounded-full">AI</span></div><div class="text-gray-400 text-xs">Unified AI Chat</div></div></a>
-                        <a href="/rag" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#128214;</span><div><div class="text-white font-medium text-sm">RAG Analyse</div><div class="text-gray-400 text-xs">Document Q&A</div></div></a>
-                        <a href="/sql" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#128450;</span><div><div class="text-white font-medium text-sm">NL &rarr; SQL</div><div class="text-gray-400 text-xs">Natural language queries</div></div></a>
-                        <a href="/process" class="flex items-center gap-3 px-4 py-3 bg-white/10 border-t border-white/5"><span class="text-2xl">&#9881;</span><div><div class="text-white font-medium text-sm">Prozesse</div><div class="text-gray-400 text-xs">Process optimization</div></div></a>
-                        <a href="/orchestrator" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#127891;</span><div><div class="text-white font-medium text-sm">Orchestrator</div><div class="text-gray-400 text-xs">Multi-Agent AI</div></div></a>
+                    <div id="services-menu" class="hidden absolute top-full right-0 mt-2 w-72 bg-slate-800 border border-white/10 rounded-xl shadow-2xl overflow-hidden z-50">
+                        <a href="/mindlight" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition bg-cyan-500/5"><span class="text-2xl">&#128172;</span><div><div class="text-white font-medium text-sm">MindLight <span class="text-xs bg-cyan-500 text-white px-1.5 py-0.5 rounded-full">AI</span></div><div class="text-gray-400 text-xs">Zentrale KI-Schnittstelle</div></div></a>
+                        <a href="/rag" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#128214;</span><div><div class="text-white font-medium text-sm">RAG Dokumentenanalyse</div><div class="text-gray-400 text-xs">Intelligente Suche in Dokumenten</div></div></a>
+                        <a href="/sql" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#128450;</span><div><div class="text-white font-medium text-sm">NL &rarr; SQL</div><div class="text-gray-400 text-xs">Deutsche Fragen &rarr; SQL-Abfragen</div></div></a>
+                        <a href="/process" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#9881;</span><div><div class="text-white font-medium text-sm">Prozessautomatisierung</div><div class="text-gray-400 text-xs">Workflows analysieren &amp; optimieren</div></div></a>
+                        <a href="/orchestrator" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#127891;</span><div><div class="text-white font-medium text-sm">AI-Agent Orchestrator</div><div class="text-gray-400 text-xs">Multi-Agent Koordination</div></div></a>
+                        <a href="/prompt" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5"><span class="text-2xl">&#128221;</span><div><div class="text-white font-medium text-sm">Prompt Engineer</div><div class="text-gray-400 text-xs">KI-Prompts optimieren</div></div></a>
+                        <a href="/support" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5 bg-green-500/5"><span class="text-2xl">&#127897;</span><div><div class="text-white font-medium text-sm">First-Level-Support <span class="text-xs bg-green-500 text-white px-1.5 py-0.5 rounded-full">NEU</span></div><div class="text-gray-400 text-xs">KI-B&uuml;rgerservice Demo</div></div></a>
                     </div>
                 </div>
                 <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">

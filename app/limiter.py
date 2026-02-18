@@ -40,6 +40,8 @@ class Limiter:
                 "orchestrate_period": "day",
                 "chat": 50,
                 "chat_period": "day",
+                "support": 50,
+                "support_period": "day",
             }
         # Free plan
         return {
@@ -55,6 +57,8 @@ class Limiter:
             "orchestrate_period": "day",
             "chat": 10,
             "chat_period": "day",
+            "support": 10,
+            "support_period": "day",
         }
 
     def get_anonymous_id(self, request: Request) -> str:

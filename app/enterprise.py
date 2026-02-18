@@ -133,6 +133,11 @@ class ChatRequest(BaseModel):
     history: list = []
 
 
+class SupportRequest(BaseModel):
+    message: str
+    history: list = []
+
+
 # --- Helpers ---
 
 def get_anthropic_client():
@@ -633,3 +638,104 @@ Regeln:
         raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Chat failed: {str(e)}")
+
+
+# --- First-Level-Support Endpoint ---
+
+@router.post("/support")
+async def first_level_support(
+    req: SupportRequest,
+    request: Request,
+    user: Optional[dict] = Depends(get_current_user)
+):
+    """AI First-Level-Support - citizen-facing FAQ chat for SGB-II questions."""
+    if not req.message or len(req.message) < 2:
+        raise HTTPException(status_code=400, detail="Nachricht zu kurz (min 2 Zeichen)")
+
+    try:
+        used, limit = await check_enterprise_limit("support", request, user)
+
+        client = get_anthropic_client()
+
+        system_prompt = f"""Du bist der KI-Assistent im Buergerservice eines Jobcenters (SGB II).
+Du beantwortest Fragen von Buergerinnen und Buergern zu Buergergeld, Antraegen und Leistungen.
+
+WICHTIGE REGELN:
+- Sprich freundlich, verstaendlich und in einfacher Sprache (kein Beamtendeutsch)
+- Beantworte Fragen basierend auf dem folgenden Wissen
+- Wenn du etwas nicht sicher weisst, sage ehrlich: "Dazu kann ich keine verbindliche Auskunft geben. Bitte wenden Sie sich an Ihren Sachbearbeiter."
+- Gib immer konkrete naechste Schritte an
+- Nenne relevante Paragraphen nur wenn hilfreich, nicht als Hauptantwort
+
+DEIN WISSEN (SGB II):
+
+{SGB2_DOCUMENTS}
+
+ZUSAETZLICHES WISSEN:
+
+Antragstellung Buergergeld:
+- Antrag beim zustaendigen Jobcenter stellen (persoenlich, online oder per Post)
+- Benoetigte Unterlagen: Personalausweis, Mietvertrag, Kontoauszuege der letzten 3 Monate, Einkommensnachweise, Krankenversicherungsnachweis
+- Bearbeitungszeit: in der Regel 2-4 Wochen
+- Bewilligungszeitraum: in der Regel 12 Monate
+- Bei dringendem Bedarf: Vorschuss moeglich
+
+Regelbedarf 2026 (Richtwerte):
+- Alleinstehende: ca. 563 Euro
+- Paare: ca. 506 Euro pro Person
+- Kinder 0-5: ca. 357 Euro
+- Kinder 6-13: ca. 390 Euro
+- Kinder 14-17: ca. 471 Euro
+- Jugendliche 18-24 (im Haushalt): ca. 451 Euro
+
+Oeffnungszeiten Jobcenter (typisch):
+- Mo-Fr: 08:00-12:00 Uhr (ohne Termin)
+- Nachmittags: nur mit Termin
+- Terminvereinbarung: telefonisch oder online
+
+Antwortformat als JSON:
+{{
+    "category": "antrag" oder "leistungen" oder "dokumente" oder "rechte" oder "termin" oder "allgemein",
+    "answer": "Deine freundliche, verstaendliche Antwort",
+    "next_steps": ["Konkreter Schritt 1", "Konkreter Schritt 2"],
+    "relevant_info": "Optionaler Hinweis auf Paragraph oder Zusatzinfo"
+}}
+
+Antworte IMMER auf Deutsch und IMMER als JSON."""
+
+        messages = []
+        for msg in (req.history or [])[-10:]:
+            if isinstance(msg, dict) and "role" in msg and "content" in msg:
+                messages.append({"role": msg["role"], "content": msg["content"]})
+        messages.append({"role": "user", "content": req.message})
+
+        response = client.messages.create(
+            model="claude-3-haiku-20240307",
+            max_tokens=1500,
+            system=system_prompt,
+            messages=messages
+        )
+
+        result = parse_json_response(response.content[0].text)
+
+        if not result:
+            result = {
+                "category": "allgemein",
+                "answer": response.content[0].text,
+                "next_steps": [],
+                "relevant_info": ""
+            }
+
+        if "answer" not in result:
+            result["answer"] = response.content[0].text
+
+        return {
+            "status": "success",
+            "usage": {"used": used, "limit": limit},
+            **result
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Support-Anfrage fehlgeschlagen: {str(e)}")

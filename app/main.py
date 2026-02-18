@@ -264,6 +264,12 @@ async def mindlight_page(request: Request):
     return templates.TemplateResponse("mindlight.html", {"request": request})
 
 
+@app.get("/support", response_class=HTMLResponse)
+async def support_page(request: Request):
+    """Render AI First-Level-Support page."""
+    return templates.TemplateResponse("support.html", {"request": request})
+
+
 @app.get("/impressum", response_class=HTMLResponse)
 async def impressum(request: Request):
     """Render impressum page."""
