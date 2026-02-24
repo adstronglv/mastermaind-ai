@@ -210,8 +210,14 @@ async function analyzeDocument() {
         });
 
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.detail || 'Analysis failed');
+            let errorMsg = 'Analysis failed';
+            try {
+                const error = await response.json();
+                errorMsg = error.detail || errorMsg;
+            } catch {
+                errorMsg = `Server error (${response.status})`;
+            }
+            throw new Error(errorMsg);
         }
 
         const result = await response.json();

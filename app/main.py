@@ -169,7 +169,7 @@ Provide your analysis in JSON format."""
 
     try:
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1500,
             system=system_prompt,
             messages=[{"role": "user", "content": user_message}]

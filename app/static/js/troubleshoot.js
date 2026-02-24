@@ -262,8 +262,14 @@ async function analyzeLog() {
         });
 
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.detail || t.error_generic);
+            let errorMsg = t.error_generic;
+            try {
+                const error = await response.json();
+                errorMsg = error.detail || errorMsg;
+            } catch {
+                errorMsg = `Server error (${response.status})`;
+            }
+            throw new Error(errorMsg);
         }
 
         const result = await response.json();

@@ -223,7 +223,7 @@ Analysiere das Dokument und beantworte die Frage. Antwort als JSON."""
 
     try:
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1500,
             system=system_prompt,
             messages=[{"role": "user", "content": user_message}]
@@ -291,7 +291,7 @@ Generiere eine PostgreSQL-Abfrage. Antwort als JSON."""
 
     try:
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1000,
             system=system_prompt,
             messages=[{"role": "user", "content": user_message}]
@@ -359,7 +359,7 @@ Analysiere diesen Prozess und liefere Optimierungsvorschlaege. Antwort als JSON.
 
     try:
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5-20251001",
             max_tokens=2000,
             system=system_prompt,
             messages=[{"role": "user", "content": user_message}]
@@ -432,7 +432,7 @@ Analysiere diese Fehlermeldung und liefere Troubleshooting-Ergebnisse. Antwort a
 
     try:
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5-20251001",
             max_tokens=2000,
             system=system_prompt,
             messages=[{"role": "user", "content": user_message}]
@@ -516,7 +516,7 @@ Zerlege diese Aufgabe, weise sie den optimalen Modellen zu, fuehre sie aus und s
 
     try:
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5-20251001",
             max_tokens=3000,
             system=system_prompt,
             messages=[{"role": "user", "content": user_message}]
@@ -611,7 +611,7 @@ Regeln:
         messages.append({"role": "user", "content": req.message})
 
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5-20251001",
             max_tokens=2000,
             system=system_prompt,
             messages=messages
@@ -710,7 +710,7 @@ Antworte IMMER auf Deutsch und IMMER als JSON."""
         messages.append({"role": "user", "content": req.message})
 
         response = client.messages.create(
-            model="claude-3-haiku-20240307",
+            model="claude-haiku-4-5-20251001",
             max_tokens=1500,
             system=system_prompt,
             messages=messages
