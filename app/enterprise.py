@@ -163,21 +163,28 @@ def parse_json_response(text: str) -> dict:
 
 async def check_enterprise_limit(action: str, request: Request, user: Optional[dict]) -> tuple:
     """Check rate limit for enterprise modules."""
-    user_id = str(user["id"]) if user else None
-    anon_id = limiter.get_anonymous_id(request) if not user else None
-    plan = user.get("plan", "free") if user else "free"
+    try:
+        user_id = str(user["id"]) if user else None
+        anon_id = limiter.get_anonymous_id(request) if not user else None
+        plan = user.get("plan", "free") if user else "free"
 
-    allowed, used, limit = await limiter.check_and_increment(
-        action=action, plan=plan, user_id=user_id, anon_id=anon_id
-    )
-
-    if not allowed:
-        raise HTTPException(
-            status_code=429,
-            detail=f"Daily limit reached ({used}/{limit}). Upgrade to Pro for more."
+        allowed, used, limit = await limiter.check_and_increment(
+            action=action, plan=plan, user_id=user_id, anon_id=anon_id
         )
 
-    return used, limit
+        if not allowed:
+            raise HTTPException(
+                status_code=429,
+                detail=f"Daily limit reached ({used}/{limit}). Upgrade to Pro for more."
+            )
+
+        return used, limit
+    except HTTPException:
+        raise
+    except Exception as e:
+        import logging
+        logging.getLogger(__name__).warning(f"Limiter unavailable for {action}: {e}")
+        return 0, 999
 
 
 # --- RAG Endpoint ---
