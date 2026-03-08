@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MastermAInd — Enterprise Analytics Platform</title>
-    <meta name="description" content="KI-gest&uuml;tzte Enterprise Analytics Plattform. Llama/Mistral-ready. On-Premises-fähig, DSGVO-konform by Design. NL&rarr;SQL, RAG, Prozessautomatisierung, MindLight AI Chat.">
+    <meta name="description" content="KI-gest&uuml;tzte Enterprise Analytics Plattform. Getestet mit Qwen3 (14B), kompatibel mit Llama, Mistral und weiteren Modellen. DSGVO-konform by Design. NL&rarr;SQL, RAG, Prozessautomatisierung, MindLight AI Chat.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -108,7 +108,7 @@
             KI-gest&uuml;tzte Datenanalyse, Dokumentensuche und Prozessoptimierung &mdash; lokal betreibbar, keine Daten in die Cloud.
         </p>
         <p class="text-base text-gray-400 mb-10 max-w-2xl mx-auto" data-i18n="hero_powered_de">
-            Llama/Mistral-ready &mdash; Open Source, lokal betreibbar. Alle Module on-premise-f&auml;hig. <strong class="text-white">F&uuml;r Beh&ouml;rden geeignet.</strong>
+            Getestet mit Qwen3 (14B) auf lokaler Hardware &mdash; das Gleiche funktioniert auch mit Llama, Mistral oder anderen Open-Source-Modellen. <strong class="text-white">DSGVO-konform, ohne externe Daten&uuml;bertragung.</strong>
         </p>
 
         <!-- MindLight CTA -->
@@ -342,7 +342,7 @@
                     <div class="text-center">
                         <div class="text-cyan-400 text-xs uppercase tracking-wide mb-1 font-semibold" data-i18n="arch_target_label_de">Ziel: On-Premises</div>
                         <div class="bg-cyan-500/10 border border-cyan-500/20 rounded-lg px-4 py-2">
-                            <span class="text-cyan-300 text-sm">Llama / Mistral lokal</span>
+                            <span class="text-cyan-300 text-sm">Qwen3 / Llama / Mistral lokal</span>
                         </div>
                     </div>
                 </div>
@@ -352,11 +352,16 @@
             </div>
 
             <!-- Technology Cards -->
-            <div class="grid md:grid-cols-3 gap-4 mb-8">
+            <div class="grid md:grid-cols-4 gap-4 mb-8">
+                <div class="bg-cyan-500/5 rounded-xl border border-cyan-500/20 p-5 text-center">
+                    <div class="text-3xl mb-2">&#129302;</div>
+                    <h3 class="text-base font-bold text-cyan-300 mb-1">Qwen3 (14B)</h3>
+                    <p class="text-gray-400 text-xs">Open Source (Alibaba). <strong class="text-cyan-400">Getestet &amp; verifiziert</strong> auf lokaler Hardware (RTX 5070 Ti). DSGVO-konform.</p>
+                </div>
                 <div class="bg-white/5 rounded-xl border border-white/10 p-5 text-center">
                     <div class="text-3xl mb-2">&#129433;</div>
                     <h3 class="text-base font-bold text-white mb-1">Llama</h3>
-                    <p class="text-gray-400 text-xs" data-i18n="arch_llama_de">Open Source (Meta). Lokal betreibbar, keine Cloud. EU-Zugang seit Sept. 2025.</p>
+                    <p class="text-gray-400 text-xs" data-i18n="arch_llama_de">Open Source (Meta). Lokal betreibbar, keine Cloud.</p>
                 </div>
                 <div class="bg-white/5 rounded-xl border border-white/10 p-5 text-center">
                     <div class="text-3xl mb-2">&#127987;</div>
@@ -426,7 +431,7 @@
                 hero_badge_de: 'On-Premises Capable · GDPR Compliant by Design',
                 hero_title_de: 'Enterprise Analytics Platform',
                 hero_subtitle_de: 'AI-powered data analysis, document search and process optimization — runs locally, no data leaves your network.',
-                hero_powered_de: 'Llama/Mistral-ready — Open source, locally deployable. All modules on-premises capable. <strong class="text-white">Suitable for public authorities.</strong>',
+                hero_powered_de: 'Tested with Qwen3 (14B) on local hardware — same works with Llama, Mistral or other open-source models. <strong class="text-white">GDPR compliant, no external data transfer.</strong>',
                 hero_cta_de: 'MindLight — Try the Central AI Interface',
                 hero_cta_sub_de: 'One chat connects all modules',
                 features_title_de: 'AI Modules',
@@ -446,7 +451,7 @@
                 arch_proto_label_de: 'Current: Cloud Prototype',
                 arch_target_label_de: 'Target: On-Premises',
                 arch_transfer_de: 'Same code, same modules — only the AI model is swapped. The entire platform then runs locally on your server.',
-                arch_llama_de: 'Open source (Meta). Runs locally, no cloud dependency. EU access since Sept. 2025.',
+                arch_llama_de: 'Open source (Meta). Runs locally, no cloud dependency.',
                 arch_mistral_de: 'EU company (Paris). GDPR compliant. Suitable for public authorities.',
                 arch_docker_desc_de: 'One command installs everything: web app + database + AI model. Runs on any server.',
                 arch_dsgvo_de: 'On-Premises = GDPR compliant',

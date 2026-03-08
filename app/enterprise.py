@@ -140,17 +140,8 @@ class SupportRequest(BaseModel):
 
 # --- Helpers ---
 
-def get_anthropic_client():
-    """Get Anthropic client."""
-    import anthropic
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
-        raise HTTPException(status_code=500, detail="API key not configured")
-    return anthropic.Anthropic(api_key=api_key)
-
-
 def parse_json_response(text: str) -> dict:
-    """Extract JSON from Claude's response."""
+    """Extract JSON from LLM response."""
     try:
         start = text.find("{")
         end = text.rfind("}") + 1
@@ -205,7 +196,7 @@ async def rag_analyze(
 
     used, limit = await check_enterprise_limit("rag", request, user)
 
-    client = get_anthropic_client()
+    from app.llm import chat
 
     system_prompt = """Du bist ein RAG-Dokumentenanalyst. Deine Aufgabe:
 1. Beantworte die Frage AUSSCHLIESSLICH auf Basis des bereitgestellten Dokuments
@@ -229,18 +220,17 @@ FRAGE:
 Analysiere das Dokument und beantworte die Frage. Antwort als JSON."""
 
     try:
-        response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=1500,
+        response_text = chat(
             system=system_prompt,
-            messages=[{"role": "user", "content": user_message}]
+            messages=[{"role": "user", "content": user_message}],
+            max_tokens=1500
         )
 
-        result = parse_json_response(response.content[0].text)
+        result = parse_json_response(response_text)
 
         if not result:
             result = {
-                "answer": response.content[0].text,
+                "answer": response_text,
                 "sources": [],
                 "confidence": "medium"
             }
@@ -273,7 +263,7 @@ async def nl_to_sql(
 
     used, limit = await check_enterprise_limit("sql", request, user)
 
-    client = get_anthropic_client()
+    from app.llm import chat
 
     system_prompt = """Du bist ein SQL-Experte. Deine Aufgabe:
 1. Generiere eine PostgreSQL-Abfrage basierend auf der Frage und dem Datenbankschema
@@ -297,19 +287,18 @@ FRAGE:
 Generiere eine PostgreSQL-Abfrage. Antwort als JSON."""
 
     try:
-        response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=1000,
+        response_text = chat(
             system=system_prompt,
-            messages=[{"role": "user", "content": user_message}]
+            messages=[{"role": "user", "content": user_message}],
+            max_tokens=1000
         )
 
-        result = parse_json_response(response.content[0].text)
+        result = parse_json_response(response_text)
 
         if not result:
             result = {
                 "sql": "-- Konnte keine Abfrage generieren",
-                "explanation": response.content[0].text,
+                "explanation": response_text,
                 "tables_used": []
             }
 
@@ -339,7 +328,7 @@ async def process_analyze(
 
     used, limit = await check_enterprise_limit("process", request, user)
 
-    client = get_anthropic_client()
+    from app.llm import chat
 
     system_prompt = """Du bist ein Experte fuer Geschaeftsprozessanalyse und KI-Optimierung. Deine Aufgabe:
 1. Analysiere den beschriebenen Geschaeftsprozess (Ist-Analyse)
@@ -365,18 +354,17 @@ BRANCHE: {req.industry}
 Analysiere diesen Prozess und liefere Optimierungsvorschlaege. Antwort als JSON."""
 
     try:
-        response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=2000,
+        response_text = chat(
             system=system_prompt,
-            messages=[{"role": "user", "content": user_message}]
+            messages=[{"role": "user", "content": user_message}],
+            max_tokens=2000
         )
 
-        result = parse_json_response(response.content[0].text)
+        result = parse_json_response(response_text)
 
         if not result:
             result = {
-                "analysis": response.content[0].text,
+                "analysis": response_text,
                 "weaknesses": [],
                 "ai_recommendations": [],
                 "mermaid_diagram": ""
@@ -410,7 +398,7 @@ async def troubleshoot_analyze(
 
     used, limit = await check_enterprise_limit("troubleshoot", request, user)
 
-    client = get_anthropic_client()
+    from app.llm import chat
 
     system_prompt = """Du bist ein IT-Troubleshooting-Experte fuer oeffentliche Verwaltung und Unternehmen. Deine Aufgabe:
 1. Analysiere die bereitgestellten Logs/Fehlermeldungen
@@ -438,20 +426,19 @@ SYSTEMTYP: {req.system_type}
 Analysiere diese Fehlermeldung und liefere Troubleshooting-Ergebnisse. Antwort als JSON."""
 
     try:
-        response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=2000,
+        response_text = chat(
             system=system_prompt,
-            messages=[{"role": "user", "content": user_message}]
+            messages=[{"role": "user", "content": user_message}],
+            max_tokens=2000
         )
 
-        result = parse_json_response(response.content[0].text)
+        result = parse_json_response(response_text)
 
         if not result:
             result = {
                 "severity": "medium",
                 "root_cause": "Konnte nicht automatisch bestimmt werden",
-                "analysis": response.content[0].text,
+                "analysis": response_text,
                 "solutions": [],
                 "prevention": []
             }
@@ -482,7 +469,7 @@ async def orchestrate(
 
     used, limit = await check_enterprise_limit("orchestrate", request, user)
 
-    client = get_anthropic_client()
+    from app.llm import chat
 
     system_prompt = """Du bist der Opus-Koordinator in einem Multi-Agent-System. Du orchestrierst drei KI-Modelle:
 - Haiku (schnell, guenstig): Einfache Aufgaben, Datenextraktion, Formatierung
@@ -522,20 +509,19 @@ Antwortformat als JSON:
 Zerlege diese Aufgabe, weise sie den optimalen Modellen zu, fuehre sie aus und synthetisiere die Ergebnisse. Antwort als JSON."""
 
     try:
-        response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=3000,
+        response_text = chat(
             system=system_prompt,
-            messages=[{"role": "user", "content": user_message}]
+            messages=[{"role": "user", "content": user_message}],
+            max_tokens=3000
         )
 
-        result = parse_json_response(response.content[0].text)
+        result = parse_json_response(response_text)
 
         if not result:
             result = {
                 "subtasks": [],
                 "results": [],
-                "synthesis": response.content[0].text,
+                "synthesis": response_text,
                 "cost_comparison": {
                     "all_opus": "$0.45",
                     "orchestrated": "$0.12",
@@ -570,7 +556,7 @@ async def mindlight_chat(
     try:
         used, limit = await check_enterprise_limit("chat", request, user)
 
-        client = get_anthropic_client()
+        from app.llm import chat
 
         system_prompt = f"""Du bist MindLight, der intelligente KI-Assistent von mastermaind.ai.
 Du hilfst Sachbearbeitern in der oeffentlichen Verwaltung (SGB II / Jobcenter).
@@ -617,23 +603,22 @@ Regeln:
                 messages.append({"role": msg["role"], "content": msg["content"]})
         messages.append({"role": "user", "content": req.message})
 
-        response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=2000,
+        response_text = chat(
             system=system_prompt,
-            messages=messages
+            messages=messages,
+            max_tokens=2000
         )
 
-        result = parse_json_response(response.content[0].text)
+        result = parse_json_response(response_text)
 
         if not result:
             result = {
                 "tool_used": "general",
-                "message": response.content[0].text
+                "message": response_text
             }
 
         if "message" not in result:
-            result["message"] = response.content[0].text
+            result["message"] = response_text
 
         return {
             "status": "success",
@@ -662,7 +647,7 @@ async def first_level_support(
     try:
         used, limit = await check_enterprise_limit("support", request, user)
 
-        client = get_anthropic_client()
+        from app.llm import chat
 
         system_prompt = f"""Du bist der KI-Assistent im Buergerservice eines Jobcenters (SGB II).
 Du beantwortest Fragen von Buergerinnen und Buergern zu Buergergeld, Antraegen und Leistungen.
@@ -716,25 +701,24 @@ Antworte IMMER auf Deutsch und IMMER als JSON."""
                 messages.append({"role": msg["role"], "content": msg["content"]})
         messages.append({"role": "user", "content": req.message})
 
-        response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=1500,
+        response_text = chat(
             system=system_prompt,
-            messages=messages
+            messages=messages,
+            max_tokens=1500
         )
 
-        result = parse_json_response(response.content[0].text)
+        result = parse_json_response(response_text)
 
         if not result:
             result = {
                 "category": "allgemein",
-                "answer": response.content[0].text,
+                "answer": response_text,
                 "next_steps": [],
                 "relevant_info": ""
             }
 
         if "answer" not in result:
-            result["answer"] = response.content[0].text
+            result["answer"] = response_text
 
         return {
             "status": "success",

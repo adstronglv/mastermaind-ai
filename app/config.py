@@ -7,8 +7,13 @@ from functools import lru_cache
 
 
 class Settings(BaseSettings):
+    # LLM Provider
+    llm_provider: str = "anthropic"  # "anthropic" or "ollama"
+    ollama_url: str = "http://localhost:11434"
+    ollama_model: str = "qwen3:14b"
+
     # Existing API keys
-    anthropic_api_key: str
+    anthropic_api_key: str = ""
     fal_api_key: str = ""
 
     # Supabase

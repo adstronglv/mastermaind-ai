@@ -87,18 +87,9 @@ class OptimizationResult(BaseModel):
 
 
 
-def get_anthropic_client():
-    """Get Anthropic client."""
-    import anthropic
-    api_key = os.getenv("ANTHROPIC_API_KEY")
-    if not api_key:
-        raise HTTPException(status_code=500, detail="API key not configured")
-    return anthropic.Anthropic(api_key=api_key)
-
-
 async def optimize_prompt(prompt: str, task_type: str, is_further_optimization: bool = False) -> dict[str, Any]:
-    """Optimize a prompt using Claude."""
-    client = get_anthropic_client()
+    """Optimize a prompt using the configured LLM."""
+    from app.llm import chat
 
     if is_further_optimization:
         system_prompt = """You are an expert prompt engineer doing a SECOND PASS optimization on an already-optimized prompt.
@@ -168,15 +159,11 @@ Context: {task_context.get(task_type, task_context["general"])}
 Provide your analysis in JSON format."""
 
     try:
-        response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
-            max_tokens=1500,
+        result_text = chat(
             system=system_prompt,
-            messages=[{"role": "user", "content": user_message}]
+            messages=[{"role": "user", "content": user_message}],
+            max_tokens=1500
         )
-
-        import json
-        result_text = response.content[0].text
 
         # Try to parse JSON from response
         try:
@@ -413,6 +400,13 @@ async def get_tips():
             },
         ]
     }
+
+
+@app.get("/api/llm-info")
+async def llm_info():
+    """Return current LLM provider info."""
+    from app.llm import get_provider_info
+    return get_provider_info()
 
 
 @app.get("/health")
