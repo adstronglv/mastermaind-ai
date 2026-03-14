@@ -462,6 +462,7 @@
         };
 
         function setLanguage(lang) {
+            const prevLang = currentLang;
             currentLang = lang;
             localStorage.setItem('lang', lang);
 
@@ -481,7 +482,7 @@
                 });
             } else {
                 // Reload to get original DE content
-                if (lang === 'de' && currentLang !== 'de') {
+                if (lang === 'de' && prevLang !== 'de') {
                     location.reload();
                 }
             }
