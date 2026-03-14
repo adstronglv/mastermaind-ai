@@ -424,8 +424,14 @@
             }
         });
 
-        // Language switcher (basic)
+        // Language switcher
         let currentLang = localStorage.getItem('lang') || 'de';
+
+        // Cache original DE texts on first load
+        const deOriginals = {};
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            deOriginals[el.getAttribute('data-i18n')] = el.innerHTML;
+        });
 
         const translations = {
             en: {
@@ -480,11 +486,11 @@
                         el.innerHTML = translations.en[key];
                     }
                 });
-            } else {
-                // Reload to get original DE content
-                if (lang === 'de' && prevLang !== 'de') {
-                    location.reload();
-                }
+            } else if (lang === 'de') {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (deOriginals[key]) el.innerHTML = deOriginals[key];
+                });
             }
         }
 
