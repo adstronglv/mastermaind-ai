@@ -257,6 +257,12 @@ async def support_page(request: Request):
     return templates.TemplateResponse("support.html", {"request": request})
 
 
+@app.get("/about", response_class=HTMLResponse)
+async def about(request: Request):
+    """Render about page."""
+    return templates.TemplateResponse("about.html", {"request": request})
+
+
 @app.get("/impressum", response_class=HTMLResponse)
 async def impressum(request: Request):
     """Render impressum page."""
