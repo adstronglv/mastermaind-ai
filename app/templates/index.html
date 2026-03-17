@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MastermAInd — Enterprise Analytics Platform</title>
-    <meta name="description" content="KI-gest&uuml;tzte Enterprise Analytics Plattform. Getestet mit Qwen3 (14B), kompatibel mit Llama, Mistral und weiteren Modellen. DSGVO-konform by Design. NL&rarr;SQL, RAG, Prozessautomatisierung, MindLight AI Chat.">
+    <title>Alex — AI Developer & Solutions Architect</title>
+    <meta name="description" content="Alex — AI Developer & Solutions Architect. Multi-Agent-Pipelines, NL-SQL, RAG-Systeme, autonome Intelligence-Agents. Echte AI-Systeme f&uuml;r echte Gesch&auml;ftsprobleme.">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
@@ -12,6 +12,9 @@
         .feature-card { transition: all 0.3s ease; }
         .feature-card:hover { transform: translateY(-4px); }
         .gradient-text { background: linear-gradient(135deg, #667eea 0%, #22d3ee 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .project-card { transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1); }
+        .project-card:hover { border-color: rgba(99, 102, 241, 0.4); transform: translateY(-2px); }
+        .tech-tag { font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 9999px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #94a3b8; }
     </style>
 </head>
 <body class="bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 min-h-screen">
@@ -19,18 +22,19 @@
     <!-- Header -->
     <header class="border-b border-white/10">
         <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-2">
+            <a href="/" class="flex items-center gap-2">
                 <div class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
                     <span class="text-white font-bold text-xl">M</span>
                 </div>
                 <span class="text-white font-bold text-xl">MastermAInd</span>
-                <span class="text-xs bg-cyan-500/30 text-cyan-300 px-2 py-0.5 rounded-full font-medium border border-cyan-500/30">ENTERPRISE</span>
-            </div>
+                <span class="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full font-medium border border-cyan-500/30">PORTFOLIO</span>
+                <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-medium border border-indigo-500/30">ENTERPRISE-READY</span>
+            </a>
             <nav class="flex items-center gap-4">
-                <!-- Module Dropdown -->
+                <!-- Module Dropdown (Live Demos) -->
                 <div class="relative" id="services-dropdown">
                     <button onclick="document.getElementById('services-menu').classList.toggle('hidden')" class="flex items-center gap-1 text-gray-300 hover:text-white transition">
-                        <span>Module</span>
+                        <span data-i18n="nav_demos">Live Demos</span>
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                         </svg>
@@ -40,368 +44,341 @@
                             <span class="text-2xl">&#128172;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">MindLight <span class="text-xs bg-cyan-500 text-white px-1.5 py-0.5 rounded-full">AI</span></div>
-                                <div class="text-gray-400 text-xs">Zentrale KI-Schnittstelle</div>
+                                <div class="text-gray-400 text-xs" data-i18n="nav_mindlight_desc">Zentrale KI-Schnittstelle</div>
                             </div>
                         </a>
                         <a href="/rag" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#128214;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">RAG Dokumentenanalyse</div>
-                                <div class="text-gray-400 text-xs">Intelligente Suche in Dokumenten</div>
+                                <div class="text-gray-400 text-xs" data-i18n="nav_rag_desc">Intelligente Suche in Dokumenten</div>
                             </div>
                         </a>
                         <a href="/sql" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#128450;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">NL &rarr; SQL</div>
-                                <div class="text-gray-400 text-xs">Deutsche Fragen &rarr; SQL-Abfragen</div>
+                                <div class="text-gray-400 text-xs" data-i18n="nav_sql_desc">Deutsche Fragen &rarr; SQL-Abfragen</div>
                             </div>
                         </a>
                         <a href="/process" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#9881;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">Prozessautomatisierung</div>
-                                <div class="text-gray-400 text-xs">Workflows analysieren &amp; optimieren</div>
+                                <div class="text-gray-400 text-xs" data-i18n="nav_process_desc">Workflows analysieren &amp; optimieren</div>
                             </div>
                         </a>
                         <a href="/orchestrator" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#127891;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">AI-Agent Orchestrator</div>
-                                <div class="text-gray-400 text-xs">Multi-Agent Koordination</div>
+                                <div class="text-gray-400 text-xs" data-i18n="nav_orchestrator_desc">Multi-Agent Koordination</div>
                             </div>
                         </a>
                         <a href="/support" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5 bg-green-500/5">
                             <span class="text-2xl">&#127897;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">First-Level-Support <span class="text-xs bg-green-500 text-white px-1.5 py-0.5 rounded-full">NEU</span></div>
-                                <div class="text-gray-400 text-xs">KI-B&uuml;rgerservice Demo</div>
+                                <div class="text-gray-400 text-xs" data-i18n="nav_support_desc">KI-B&uuml;rgerservice Demo</div>
                             </div>
                         </a>
                         <a href="/troubleshoot" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition border-t border-white/5">
                             <span class="text-2xl">&#128295;</span>
                             <div>
                                 <div class="text-white font-medium text-sm">Troubleshooting</div>
-                                <div class="text-gray-400 text-xs">IT-Probleme systematisch l&ouml;sen</div>
+                                <div class="text-gray-400 text-xs" data-i18n="nav_troubleshoot_desc">IT-Probleme systematisch l&ouml;sen</div>
                             </div>
                         </a>
                     </div>
                 </div>
+                <!-- Language Switcher -->
                 <div class="flex items-center gap-1 ml-4 bg-white/10 rounded-lg p-1">
                     <button onclick="setLanguage('de')" id="lang-de" class="px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white">DE</button>
                     <button onclick="setLanguage('en')" id="lang-en" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">EN</button>
+                    <button onclick="setLanguage('ru')" id="lang-ru" class="px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white">RU</button>
                 </div>
             </nav>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="max-w-5xl mx-auto px-4 pt-20 pb-12 text-center">
-        <div class="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-300 px-4 py-1.5 rounded-full text-sm mb-6 border border-cyan-500/20">
-            <i class="fas fa-shield-alt"></i>
-            <span data-i18n="hero_badge_de">On-Premises-f&auml;hig &middot; DSGVO-konform by Design</span>
-        </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight" data-i18n="hero_title_de">
-            Enterprise Analytics Platform
+    <section class="max-w-5xl mx-auto px-4 pt-20 pb-16 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+            Alex <span class="text-gray-500">&mdash;</span> <span class="gradient-text" data-i18n="hero_title">AI Developer &amp; Solutions Architect</span>
         </h1>
-        <p class="text-xl text-gray-300 mb-4 max-w-3xl mx-auto" data-i18n="hero_subtitle_de">
-            KI-gest&uuml;tzte Datenanalyse, Dokumentensuche und Prozessoptimierung &mdash; lokal betreibbar, keine Daten in die Cloud.
-        </p>
-        <p class="text-base text-gray-400 mb-10 max-w-2xl mx-auto" data-i18n="hero_powered_de">
-            Getestet mit Qwen3 (14B) auf lokaler Hardware &mdash; das Gleiche funktioniert auch mit Llama, Mistral oder anderen Open-Source-Modellen. <strong class="text-white">DSGVO-konform, ohne externe Daten&uuml;bertragung.</strong>
+        <p class="text-xl text-gray-300 mb-8 max-w-3xl mx-auto leading-relaxed" data-i18n="hero_subtitle">
+            Ich baue AI-Systeme die echte Gesch&auml;ftsprobleme l&ouml;sen &mdash; von Multi-Agent-Pipelines &uuml;ber Natural Language SQL bis hin zu autonomen Intelligence-Agents. Kein Chatbot-Wrapper. Echte Integration.
         </p>
 
-        <!-- MindLight CTA -->
-        <a href="/mindlight" class="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500 to-teal-500 text-white px-8 py-4 rounded-xl font-semibold text-lg hover:opacity-90 transition shadow-lg shadow-cyan-500/25">
-            <span class="text-2xl">&#128172;</span>
-            <span data-i18n="hero_cta_de">MindLight &mdash; Zentrale KI-Schnittstelle testen</span>
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-        </a>
-        <p class="text-gray-500 text-sm mt-3" data-i18n="hero_cta_sub_de">Ein Chat vereint alle Module</p>
+        <!-- Tech Stack Tags -->
+        <div class="flex flex-wrap justify-center gap-2 mb-10">
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Anthropic API</span>
+            <span class="tech-tag">Claude Opus</span>
+            <span class="tech-tag">RAG</span>
+            <span class="tech-tag">NL-SQL</span>
+            <span class="tech-tag">Multi-Agent</span>
+            <span class="tech-tag">FastAPI</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">On-Premises</span>
+            <span class="tech-tag">DSGVO-konform</span>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="flex flex-wrap justify-center gap-4">
+            <a href="#projekte" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-500 to-cyan-500 text-white px-6 py-3 rounded-xl font-semibold hover:opacity-90 transition shadow-lg shadow-indigo-500/25">
+                <i class="fas fa-code"></i>
+                <span data-i18n="hero_cta_projects">Projekte ansehen</span>
+            </a>
+            <a href="#kontakt" class="inline-flex items-center gap-2 bg-white/10 text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/20 transition border border-white/10">
+                <i class="fas fa-envelope"></i>
+                <span data-i18n="hero_cta_contact">Kontakt aufnehmen</span>
+            </a>
+            <a href="https://github.com/adstronglv" target="_blank" class="inline-flex items-center gap-2 bg-white/10 text-white px-6 py-3 rounded-xl font-semibold hover:bg-white/20 transition border border-white/10">
+                <i class="fab fa-github"></i>
+                <span>GitHub</span>
+            </a>
+        </div>
     </section>
 
-    <!-- Feature Cards -->
-    <section class="max-w-6xl mx-auto px-4 py-12">
-        <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="features_title_de">KI-Module</h2>
-            <p class="text-gray-400" data-i18n="features_subtitle_de">Jedes Modul ist eigenst&auml;ndig nutzbar &mdash; MindLight verbindet alle in einem Chat</p>
+    <!-- Projekte Section -->
+    <section id="projekte" class="max-w-6xl mx-auto px-4 py-16 border-t border-white/10">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-white mb-3" data-i18n="projects_title">Was ich gebaut habe</h2>
+            <p class="text-gray-400 max-w-2xl mx-auto" data-i18n="projects_subtitle">Jedes Projekt l&auml;uft produktiv. Kein Tutorial-Code, keine Spielerei &mdash; echte Systeme die echte Probleme l&ouml;sen.</p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 gap-6">
 
-            <!-- 1. NL → SQL -->
-            <a href="/sql" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-emerald-500/50 hover:bg-emerald-500/5">
-                <div class="flex items-center gap-3 mb-3">
+            <!-- Projekt 1: Multi-Agent Pipeline -->
+            <div class="project-card bg-white/5 backdrop-blur-lg rounded-xl p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-robot text-cyan-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white" data-i18n="p1_title">Multi-Agent AI News Pipeline</h3>
+                        <span class="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full" data-i18n="status_production">Produktiv</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4 leading-relaxed" data-i18n="p1_desc">
+                    Ein autonomes Multi-Agent-System das t&auml;glich Nachrichten aus &uuml;ber einem Dutzend Quellen aggregiert, nach Relevanz filtert und strukturierte Intelligence Reports generiert. Mehrere spezialisierte AI-Agents arbeiten zusammen &mdash; Recherche, Analyse, Zusammenfassung, Qualit&auml;tskontrolle. L&auml;uft produktiv seit Monaten.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Anthropic API</span>
+                    <span class="tech-tag">Model Routing</span>
+                    <span class="tech-tag">Prompt Caching</span>
+                    <span class="tech-tag">Multi-Agent</span>
+                </div>
+                <p class="text-cyan-400 text-xs" data-i18n="p1_why">
+                    <i class="fas fa-arrow-right mr-1"></i> Zeigt kostenoptimiertes Model-Routing, autonome Agent-Koordination und produktiven Dauerbetrieb
+                </p>
+            </div>
+
+            <!-- Projekt 2: NL-SQL -->
+            <div class="project-card bg-white/5 backdrop-blur-lg rounded-xl p-6">
+                <div class="flex items-center gap-3 mb-4">
                     <div class="w-12 h-12 bg-emerald-500/20 rounded-lg flex items-center justify-center">
                         <i class="fas fa-database text-emerald-400 text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white">Natural Language &rarr; SQL</h3>
-                        <span class="text-xs bg-emerald-500/20 text-emerald-300 px-2 py-0.5 rounded-full" data-i18n="status_live">Funktioniert</span>
+                        <h3 class="text-lg font-bold text-white" data-i18n="p2_title">Natural Language SQL Engine</h3>
+                        <span class="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full" data-i18n="status_working">Funktioniert</span>
                     </div>
                 </div>
-                <p class="text-gray-400 text-sm mb-4" data-i18n="sql_desc_de">
-                    Fragen auf Deutsch stellen, SQL-Abfragen erhalten. Ideal f&uuml;r SGB-II Datenbanken und Berichtswesen.
+                <p class="text-gray-400 text-sm mb-4 leading-relaxed" data-i18n="p2_desc">
+                    Nat&uuml;rliche Sprache direkt in SQL-Queries &uuml;bersetzen &mdash; gegen echte Unternehmensdatenbanken. Benutzer stellen Fragen in Alltagssprache, das System generiert pr&auml;zise SQL-Abfragen, f&uuml;hrt sie aus und pr&auml;sentiert die Ergebnisse verst&auml;ndlich.
                 </p>
-                <div class="text-emerald-400 text-sm font-medium group-hover:text-emerald-300 transition flex items-center gap-1">
-                    <span>Demo testen</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Claude API</span>
+                    <span class="tech-tag">Schema-Analyse</span>
+                    <span class="tech-tag">Query Validation</span>
                 </div>
-            </a>
+                <p class="text-emerald-400 text-xs" data-i18n="p2_why">
+                    <i class="fas fa-arrow-right mr-1"></i> Einer der h&auml;ufigsten Enterprise-Anwendungsf&auml;lle &mdash; reale Business-Probleme mit AI l&ouml;sen
+                </p>
+            </div>
 
-            <!-- 2. RAG -->
-            <a href="/rag" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-indigo-500/50 hover:bg-indigo-500/5">
-                <div class="flex items-center gap-3 mb-3">
+            <!-- Projekt 3: RAG -->
+            <div class="project-card bg-white/5 backdrop-blur-lg rounded-xl p-6">
+                <div class="flex items-center gap-3 mb-4">
                     <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center">
                         <i class="fas fa-search text-indigo-400 text-xl"></i>
                     </div>
                     <div>
-                        <h3 class="text-lg font-bold text-white">RAG Dokumentenanalyse</h3>
-                        <span class="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full" data-i18n="status_live">Funktioniert</span>
+                        <h3 class="text-lg font-bold text-white" data-i18n="p3_title">RAG-System (Retrieval Augmented Generation)</h3>
+                        <span class="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full" data-i18n="status_working">Funktioniert</span>
                     </div>
                 </div>
-                <p class="text-gray-400 text-sm mb-4" data-i18n="rag_desc_de">
-                    Intelligente Suche in E-Akte &amp; DMS. Versteht Kontext, nicht nur Stichworte. SGB-II Dokumente als Demo.
+                <p class="text-gray-400 text-sm mb-4 leading-relaxed" data-i18n="p3_desc">
+                    Firmeneigene Dokumente intelligent durchsuchbar machen. Das System indexiert Unternehmenswissen, findet relevante Passagen und generiert pr&auml;zise Antworten mit Quellenangaben. Funktioniert mit PDFs, internen Wikis, Datenbanken &mdash; alles on-premises, nichts verl&auml;sst das Firmennetz.
                 </p>
-                <div class="text-indigo-400 text-sm font-medium group-hover:text-indigo-300 transition flex items-center gap-1">
-                    <span>Demo testen</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Vector Database</span>
+                    <span class="tech-tag">Document Processing</span>
+                    <span class="tech-tag">Claude API</span>
+                    <span class="tech-tag">DSGVO-konform</span>
                 </div>
-            </a>
-
-            <!-- 3. Prozessautomatisierung -->
-            <a href="/process" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-amber-500/50 hover:bg-amber-500/5">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-12 h-12 bg-amber-500/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-cogs text-amber-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">Prozessautomatisierung</h3>
-                        <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full" data-i18n="status_demo">Demo</span>
-                    </div>
-                </div>
-                <p class="text-gray-400 text-sm mb-4" data-i18n="process_desc_de">
-                    Wiederkehrende Aufgaben automatisieren. Workflows definieren, KI f&uuml;hrt aus. Wird mit echten Prozessdaten implementiert.
+                <p class="text-indigo-400 text-xs" data-i18n="p3_why">
+                    <i class="fas fa-arrow-right mr-1"></i> RAG ist der Goldstandard f&uuml;r Enterprise AI &mdash; On-Premises-F&auml;higkeit ist das Killer-Argument
                 </p>
-                <div class="text-amber-400 text-sm font-medium group-hover:text-amber-300 transition flex items-center gap-1">
-                    <span>Demo ansehen</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </div>
-            </a>
-
-            <!-- 4. Troubleshooting -->
-            <a href="/troubleshoot" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-red-500/50 hover:bg-red-500/5">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-12 h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-bug text-red-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">Troubleshooting</h3>
-                        <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full" data-i18n="status_demo">Demo</span>
-                    </div>
-                </div>
-                <p class="text-gray-400 text-sm mb-4" data-i18n="troubleshoot_desc_de">
-                    Systemfehler analysieren &amp; l&ouml;sen. KI analysiert Logs, schl&auml;gt L&ouml;sungen vor. Wird mit echten System-Logs implementiert.
-                </p>
-                <div class="text-red-400 text-sm font-medium group-hover:text-red-300 transition flex items-center gap-1">
-                    <span>Demo ansehen</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </div>
-            </a>
-
-            <!-- 5. First-Level-Support -->
-            <a href="/support" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-green-500/50 hover:bg-green-500/5">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-headset text-green-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">KI First-Level-Support</h3>
-                        <span class="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full" data-i18n="status_demo_support">Demo</span>
-                    </div>
-                </div>
-                <p class="text-gray-400 text-sm mb-4" data-i18n="support_desc_de">
-                    KI-gest&uuml;tzter B&uuml;rgerservice. B&uuml;rger stellen Fragen zu B&uuml;rgergeld, Antr&auml;gen und Leistungen &mdash; die KI antwortet sofort und verst&auml;ndlich.
-                </p>
-                <div class="text-green-400 text-sm font-medium group-hover:text-green-300 transition flex items-center gap-1">
-                    <span>Demo testen</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </div>
-            </a>
-
-            <!-- 6. Dashboard & Reports -->
-            <a href="/reports" class="feature-card group bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-6 text-left hover:border-purple-500/50 hover:bg-purple-500/5">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-chart-bar text-purple-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">Dashboard &amp; Reports</h3>
-                        <span class="text-xs bg-amber-500/20 text-amber-300 px-2 py-0.5 rounded-full" data-i18n="status_demo">Demo</span>
-                    </div>
-                </div>
-                <p class="text-gray-400 text-sm mb-4" data-i18n="dashboard_desc_de">
-                    Zentrale &Uuml;bersicht mit automatischen Analysen. Reporting f&uuml;r verschiedene Abteilungen und Rollen.
-                </p>
-                <div class="text-purple-400 text-sm font-medium group-hover:text-purple-300 transition flex items-center gap-1">
-                    <span>Demo ansehen</span>
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
-                </div>
-            </a>
-
-            <!-- 6. Modular & Anpassbar -->
-            <div class="feature-card bg-gradient-to-br from-cyan-500/10 to-teal-500/10 backdrop-blur-lg rounded-xl border border-cyan-500/20 p-6 text-left">
-                <div class="flex items-center gap-3 mb-3">
-                    <div class="w-12 h-12 bg-cyan-500/20 rounded-lg flex items-center justify-center">
-                        <i class="fas fa-puzzle-piece text-cyan-400 text-xl"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-lg font-bold text-white">Modular &amp; Anpassbar</h3>
-                    </div>
-                </div>
-                <p class="text-gray-400 text-sm mb-4" data-i18n="modular_desc_de">
-                    Je nach Abteilung konfigurierbar. Gleiche Plattform, verschiedene Use Cases. Sachbearbeitung, IT, Leitung &mdash; jeder bekommt seine Sicht.
-                </p>
-                <div class="text-cyan-400 text-sm font-medium flex items-center gap-2">
-                    <i class="fas fa-check-circle"></i>
-                    <span data-i18n="modular_note_de">Wird mit echten Abteilungsdaten konfiguriert</span>
-                </div>
             </div>
 
+            <!-- Projekt 4: Daily Intelligence -->
+            <div class="project-card bg-white/5 backdrop-blur-lg rounded-xl p-6">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-amber-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-globe text-amber-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white" data-i18n="p4_title">Daily World Intelligence Report</h3>
+                        <span class="text-xs bg-green-500/20 text-green-300 px-2 py-0.5 rounded-full" data-i18n="status_production">Produktiv</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4 leading-relaxed" data-i18n="p4_desc">
+                    Ein vollst&auml;ndig autonomer Intelligence-Agent der jeden Tag AI-Entwicklungen, geopolitische Trends und wirtschaftliche Signale aus multiplen Quellen sammelt, analysiert und als strukturierten Report aufbereitet. L&auml;uft ohne manuellen Eingriff &mdash; morgens liegt der Report bereit.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">Multi-Source Scraping</span>
+                    <span class="tech-tag">Claude API</span>
+                    <span class="tech-tag">Automated Scheduling</span>
+                    <span class="tech-tag">Report Generation</span>
+                </div>
+                <p class="text-amber-400 text-xs" data-i18n="p4_why">
+                    <i class="fas fa-arrow-right mr-1"></i> Autonome AI jenseits von Chat &mdash; ein System das eigenst&auml;ndig arbeitet und Ergebnisse liefert
+                </p>
+            </div>
+
+            <!-- Projekt 5: Enterprise Platform (full width) -->
+            <div class="project-card bg-white/5 backdrop-blur-lg rounded-xl p-6 md:col-span-2">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-layer-group text-purple-400 text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-lg font-bold text-white" data-i18n="p5_title">Enterprise Analytics Platform (diese Seite)</h3>
+                        <span class="text-xs bg-cyan-500/20 text-cyan-300 px-2 py-0.5 rounded-full" data-i18n="status_live">Live Demo</span>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4 leading-relaxed max-w-3xl" data-i18n="p5_desc">
+                    Eine vollst&auml;ndige Enterprise-Demo die zeigt wie alle Module zusammenspielen &mdash; NL-SQL, RAG, Multi-Agent-Analyse &mdash; in einer einheitlichen, DSGVO-konformen Oberfl&auml;che. Gebaut als Proof of Concept daf&uuml;r, dass diese Technologie f&uuml;r Beh&ouml;rden und Unternehmen produktionsreif ist.
+                </p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="tech-tag">Python</span>
+                    <span class="tech-tag">FastAPI</span>
+                    <span class="tech-tag">PostgreSQL</span>
+                    <span class="tech-tag">Claude API</span>
+                    <span class="tech-tag">On-Premises Architecture</span>
+                    <span class="tech-tag">Qwen3 (lokales LLM)</span>
+                </div>
+                <div class="flex flex-wrap gap-3">
+                    <a href="/mindlight" class="inline-flex items-center gap-2 text-cyan-400 text-sm font-medium hover:text-cyan-300 transition">
+                        <i class="fas fa-play-circle"></i>
+                        <span data-i18n="p5_cta">Live Demo ausprobieren</span>
+                    </a>
+                    <span class="text-gray-600">|</span>
+                    <p class="text-purple-400 text-xs flex items-center" data-i18n="p5_why">
+                        <i class="fas fa-arrow-right mr-1"></i> System-Denken &mdash; nicht nur Features bauen, sondern eine ganze Plattform architektonisch durchdenken
+                    </p>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Architektur & On-Premises Deployment -->
-    <section class="max-w-5xl mx-auto px-4 py-12 border-t border-white/10">
+    <!-- &Uuml;ber mich Section -->
+    <section id="ueber-mich" class="max-w-4xl mx-auto px-4 py-16 border-t border-white/10">
         <div class="text-center mb-10">
-            <h2 class="text-3xl font-bold text-white mb-2" data-i18n="arch_title_de">Architektur &amp; On-Premises</h2>
-            <p class="text-gray-400" data-i18n="arch_subtitle_de">Vom Cloud-Prototyp zur lokalen Installation &mdash; ein System, komplett &uuml;bertragbar</p>
+            <h2 class="text-3xl font-bold text-white mb-3" data-i18n="about_title">&Uuml;ber mich</h2>
         </div>
 
-        <div class="bg-white/5 rounded-2xl border border-white/10 p-8">
-
-            <!-- Step 1: Architecture Diagram -->
-            <div class="text-center mb-3">
-                <span class="text-xs font-semibold tracking-widest text-gray-500 uppercase">Zentrale KI-Schnittstelle</span>
-            </div>
-            <div class="text-center mb-6">
-                <div class="inline-flex items-center gap-3 bg-gradient-to-r from-cyan-500/20 to-teal-500/20 px-6 py-3 rounded-xl border border-cyan-500/30">
-                    <span class="text-3xl">&#128172;</span>
-                    <div class="text-left">
-                        <div class="text-white font-bold text-lg">MindLight</div>
-                        <div class="text-cyan-300 text-sm" data-i18n="arch_mindlight_de">Ein Chat vereint alle Module</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Arrows -->
-            <div class="flex justify-center mb-4">
-                <div class="grid grid-cols-5 gap-4 max-w-xl">
-                    <div class="text-center text-gray-500">&#8595;</div>
-                    <div class="text-center text-gray-500">&#8595;</div>
-                    <div class="text-center text-gray-500">&#8595;</div>
-                    <div class="text-center text-gray-500">&#8595;</div>
-                    <div class="text-center text-gray-500">&#8595;</div>
-                </div>
-            </div>
-
-            <!-- Modules -->
-            <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mb-8">
-                <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-lg p-3 text-center">
-                    <i class="fas fa-database text-emerald-400 text-lg mb-1"></i>
-                    <div class="text-white text-sm font-medium">NL &rarr; SQL</div>
-                </div>
-                <div class="bg-indigo-500/10 border border-indigo-500/20 rounded-lg p-3 text-center">
-                    <i class="fas fa-search text-indigo-400 text-lg mb-1"></i>
-                    <div class="text-white text-sm font-medium">RAG</div>
-                </div>
-                <div class="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3 text-center">
-                    <i class="fas fa-cogs text-amber-400 text-lg mb-1"></i>
-                    <div class="text-white text-sm font-medium">Prozesse</div>
-                </div>
-                <div class="bg-red-500/10 border border-red-500/20 rounded-lg p-3 text-center">
-                    <i class="fas fa-bug text-red-400 text-lg mb-1"></i>
-                    <div class="text-white text-sm font-medium">Troubleshoot</div>
-                </div>
-                <div class="bg-purple-500/10 border border-purple-500/20 rounded-lg p-3 text-center">
-                    <i class="fas fa-chart-bar text-purple-400 text-lg mb-1"></i>
-                    <div class="text-white text-sm font-medium">Dashboard</div>
-                </div>
-            </div>
-
-            <!-- Divider: Cloud Prototype -> On-Premises -->
-            <div class="border-t border-white/10 pt-8 mb-6">
-                <div class="flex items-center justify-center gap-4 mb-6">
-                    <div class="text-center">
-                        <div class="text-gray-500 text-xs uppercase tracking-wide mb-1" data-i18n="arch_proto_label_de">Aktuell: Cloud-Prototyp</div>
-                        <div class="bg-white/5 border border-white/10 rounded-lg px-4 py-2">
-                            <span class="text-gray-400 text-sm">Claude API</span>
-                        </div>
-                    </div>
-                    <div class="text-cyan-400 text-2xl">&#10132;</div>
-                    <div class="text-center">
-                        <div class="text-cyan-400 text-xs uppercase tracking-wide mb-1 font-semibold" data-i18n="arch_target_label_de">Ziel: On-Premises</div>
-                        <div class="bg-cyan-500/10 border border-cyan-500/20 rounded-lg px-4 py-2">
-                            <span class="text-cyan-300 text-sm">Qwen3 / Llama / Mistral lokal</span>
-                        </div>
-                    </div>
-                </div>
-                <p class="text-center text-gray-500 text-sm max-w-2xl mx-auto mb-8" data-i18n="arch_transfer_de">
-                    Gleicher Code, gleiche Module &mdash; nur das KI-Modell wird ausgetauscht. Die gesamte Plattform l&auml;uft dann lokal auf Ihrem Server.
+        <div class="bg-white/5 backdrop-blur-lg rounded-xl border border-white/10 p-8">
+            <div class="space-y-5 text-gray-300 leading-relaxed">
+                <p class="text-lg" data-i18n="about_p1">
+                    Ich bin Alex &mdash; AI Developer und Builder.
+                </p>
+                <p data-i18n="about_p2">
+                    Mit einem IT-Hintergrund in Anwendungsentwicklung (ILS) habe ich mich Mitte 2025 voll auf K&uuml;nstliche Intelligenz fokussiert. Seitdem habe ich mehrere produktive AI-Systeme gebaut &mdash; von Multi-Agent-Pipelines &uuml;ber Natural Language SQL und RAG-Systeme bis hin zu autonomen Intelligence-Agents. Nicht als Hobby, sondern mit dem Ziel, reale Gesch&auml;ftsprobleme zu l&ouml;sen.
+                </p>
+                <p data-i18n="about_p3">
+                    <strong class="text-white">Mein Ansatz:</strong> Ich baue nicht nach Tutorial. Ich identifiziere ein Problem, recherchiere die beste L&ouml;sung und implementiere sie &mdash; von der Architektur bis zum produktiven Betrieb. Jedes Projekt auf dieser Seite l&auml;uft. Kein Prototyp, kein Proof of Concept &mdash; echte Systeme.
+                </p>
+                <p data-i18n="about_p4">
+                    <strong class="text-white">Was ich suche:</strong> Eine Position in der ich AI-Systeme baue die echten Gesch&auml;ftswert schaffen &mdash; keine Chatbot-Wrapper, sondern intelligente Integration von AI in bestehende Gesch&auml;ftsprozesse und Dateninfrastrukturen.
                 </p>
             </div>
 
-            <!-- Technology Cards -->
-            <div class="grid md:grid-cols-4 gap-4 mb-8">
-                <div class="bg-cyan-500/5 rounded-xl border border-cyan-500/20 p-5 text-center">
-                    <div class="text-3xl mb-2">&#129302;</div>
-                    <h3 class="text-base font-bold text-cyan-300 mb-1">Qwen3 (14B)</h3>
-                    <p class="text-gray-400 text-xs">Open Source (Alibaba). <strong class="text-cyan-400">Getestet &amp; verifiziert</strong> auf lokaler Hardware (RTX 5070 Ti). DSGVO-konform.</p>
-                </div>
-                <div class="bg-white/5 rounded-xl border border-white/10 p-5 text-center">
-                    <div class="text-3xl mb-2">&#129433;</div>
-                    <h3 class="text-base font-bold text-white mb-1">Llama</h3>
-                    <p class="text-gray-400 text-xs" data-i18n="arch_llama_de">Open Source (Meta). Lokal betreibbar, keine Cloud.</p>
-                </div>
-                <div class="bg-white/5 rounded-xl border border-white/10 p-5 text-center">
-                    <div class="text-3xl mb-2">&#127987;</div>
-                    <h3 class="text-base font-bold text-white mb-1">Mistral</h3>
-                    <p class="text-gray-400 text-xs" data-i18n="arch_mistral_de">EU-Firma (Paris). DSGVO-konform. F&uuml;r Beh&ouml;rden geeignet.</p>
-                </div>
-                <div class="bg-white/5 rounded-xl border border-white/10 p-5 text-center">
-                    <div class="text-3xl mb-2">&#128230;</div>
-                    <h3 class="text-base font-bold text-white mb-1">Docker</h3>
-                    <p class="text-gray-400 text-xs" data-i18n="arch_docker_desc_de">Ein Befehl installiert alles: Web-App + Datenbank + KI-Modell. Auf jedem Server lauff&auml;hig.</p>
+            <!-- Languages -->
+            <div class="mt-8 pt-6 border-t border-white/10">
+                <p class="text-gray-500 text-sm mb-3" data-i18n="about_languages_label">Sprachen</p>
+                <div class="flex flex-wrap gap-3">
+                    <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-gray-300">
+                        <span>&#127465;&#127466;</span> Deutsch
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-gray-300">
+                        <span>&#127468;&#127463;</span> English
+                    </span>
+                    <span class="inline-flex items-center gap-2 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-sm text-gray-300">
+                        <span>&#127479;&#127482;</span> &#1056;&#1091;&#1089;&#1089;&#1082;&#1080;&#1081;
+                    </span>
                 </div>
             </div>
 
-            <!-- Bottom badges -->
-            <div class="flex flex-wrap justify-center gap-6 text-sm text-gray-400">
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-shield-alt text-green-400"></i>
-                    <span data-i18n="arch_dsgvo_de">On-Premises = DSGVO-konform</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-lock text-green-400"></i>
-                    <span data-i18n="arch_nocloud_de">Keine Daten verlassen das Netzwerk</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <i class="fas fa-terminal text-blue-400"></i>
-                    <span data-i18n="arch_docker_de">docker-compose up &mdash; fertig</span>
-                </div>
+            <div class="mt-6">
+                <a href="/about" class="text-cyan-400 text-sm font-medium hover:text-cyan-300 transition inline-flex items-center gap-1">
+                    <span data-i18n="about_more">Mehr &uuml;ber mich &amp; meine Werte</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
             </div>
+        </div>
+    </section>
+
+    <!-- Kontakt Section -->
+    <section id="kontakt" class="max-w-4xl mx-auto px-4 py-16 border-t border-white/10">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-white mb-3" data-i18n="contact_title">Kontakt</h2>
+            <p class="text-gray-400 max-w-xl mx-auto" data-i18n="contact_subtitle">
+                Ob Sie einen AI Developer f&uuml;r Ihr Team suchen, ein Projekt besprechen m&ouml;chten oder einfach Fragen haben &mdash; ich freue mich auf Ihre Nachricht.
+            </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <a href="mailto:info@mastermaind.ai" class="bg-white/5 border border-white/10 rounded-xl p-5 text-center hover:border-cyan-500/30 hover:bg-cyan-500/5 transition group">
+                <i class="fas fa-envelope text-cyan-400 text-2xl mb-3 group-hover:scale-110 transition-transform"></i>
+                <div class="text-white font-medium text-sm mb-1">E-Mail</div>
+                <div class="text-gray-400 text-xs">info@mastermaind.ai</div>
+            </a>
+            <a href="https://github.com/adstronglv" target="_blank" class="bg-white/5 border border-white/10 rounded-xl p-5 text-center hover:border-indigo-500/30 hover:bg-indigo-500/5 transition group">
+                <i class="fab fa-github text-indigo-400 text-2xl mb-3 group-hover:scale-110 transition-transform"></i>
+                <div class="text-white font-medium text-sm mb-1">GitHub</div>
+                <div class="text-gray-400 text-xs">adstronglv</div>
+            </a>
+            <a href="https://www.linkedin.com/in/aliaksandr-belafostau-a793393aa" target="_blank" class="bg-white/5 border border-white/10 rounded-xl p-5 text-center hover:border-blue-500/30 hover:bg-blue-500/5 transition group">
+                <i class="fab fa-linkedin text-blue-400 text-2xl mb-3 group-hover:scale-110 transition-transform"></i>
+                <div class="text-white font-medium text-sm mb-1">LinkedIn</div>
+                <div class="text-gray-400 text-xs">Aliaksandr Belafostau</div>
+            </a>
+            <a href="/mindlight" class="bg-white/5 border border-white/10 rounded-xl p-5 text-center hover:border-purple-500/30 hover:bg-purple-500/5 transition group">
+                <i class="fas fa-play-circle text-purple-400 text-2xl mb-3 group-hover:scale-110 transition-transform"></i>
+                <div class="text-white font-medium text-sm mb-1" data-i18n="contact_demo">Live Demo</div>
+                <div class="text-gray-400 text-xs">mastermaind.ai</div>
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-white/10 mt-12">
+    <footer class="border-t border-white/10 mt-8">
         <div class="max-w-6xl mx-auto px-4 py-8">
             <div class="flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="flex items-center gap-2">
                     <div class="w-8 h-8 bg-gradient-to-r from-indigo-500 to-cyan-500 rounded-lg flex items-center justify-center">
                         <span class="text-white font-bold text-sm">M</span>
                     </div>
-                    <span class="text-gray-400 text-sm">&copy; 2026 MastermAInd. Enterprise Analytics Platform.</span>
+                    <span class="text-gray-400 text-sm">&copy; 2026 MastermAInd &mdash; Alex, AI Developer &amp; Solutions Architect</span>
                 </div>
                 <div class="flex items-center gap-6 text-sm text-gray-400">
                     <a href="/about" class="hover:text-white transition">About</a>
@@ -413,7 +390,7 @@
         </div>
     </footer>
 
-    <!-- Minimal JS: Dropdown close on outside click, Language switcher -->
+    <!-- JS: Dropdown, Language Switcher (DE/EN/RU) -->
     <script>
         // Close dropdown on outside click
         document.addEventListener('click', function(e) {
@@ -424,7 +401,7 @@
             }
         });
 
-        // Language switcher
+        // Language system
         let currentLang = localStorage.getItem('lang') || 'de';
 
         // Cache original DE texts on first load
@@ -435,68 +412,131 @@
 
         const translations = {
             en: {
-                hero_badge_de: 'On-Premises Capable · GDPR Compliant by Design',
-                hero_title_de: 'Enterprise Analytics Platform',
-                hero_subtitle_de: 'AI-powered data analysis, document search and process optimization — runs locally, no data leaves your network.',
-                hero_powered_de: 'Tested with Qwen3 (14B) on local hardware — same works with Llama, Mistral or other open-source models. <strong class="text-white">GDPR compliant, no external data transfer.</strong>',
-                hero_cta_de: 'MindLight — Try the Central AI Interface',
-                hero_cta_sub_de: 'One chat connects all modules',
-                features_title_de: 'AI Modules',
-                features_subtitle_de: 'Each module works independently — MindLight connects them all in one chat',
-                status_live: 'Working',
-                status_demo: 'Demo',
-                sql_desc_de: 'Ask questions in German, get SQL queries. Ideal for SGB-II databases and reporting.',
-                rag_desc_de: 'Intelligent search in e-files & DMS. Understands context, not just keywords. SGB-II documents as demo.',
-                process_desc_de: 'Automate recurring tasks. Define workflows, AI executes. Will be implemented with real process data.',
-                troubleshoot_desc_de: 'Analyze & solve system errors. AI analyzes logs, suggests solutions. Will be implemented with real system logs.',
-                dashboard_desc_de: 'Central overview with automatic analyses. Reporting for different departments and roles.',
-                modular_desc_de: 'Configurable per department. Same platform, different use cases. Case workers, IT, management — everyone gets their view.',
-                modular_note_de: 'Will be configured with real department data',
-                arch_title_de: 'Architecture & On-Premises',
-                arch_subtitle_de: 'From cloud prototype to local deployment — one system, fully transferable',
-                arch_mindlight_de: 'One chat connects all modules',
-                arch_proto_label_de: 'Current: Cloud Prototype',
-                arch_target_label_de: 'Target: On-Premises',
-                arch_transfer_de: 'Same code, same modules — only the AI model is swapped. The entire platform then runs locally on your server.',
-                arch_llama_de: 'Open source (Meta). Runs locally, no cloud dependency.',
-                arch_mistral_de: 'EU company (Paris). GDPR compliant. Suitable for public authorities.',
-                arch_docker_desc_de: 'One command installs everything: web app + database + AI model. Runs on any server.',
-                arch_dsgvo_de: 'On-Premises = GDPR compliant',
-                arch_nocloud_de: 'No data leaves the network',
-                arch_docker_de: 'docker-compose up — done',
+                nav_demos: 'Live Demos',
+                nav_mindlight_desc: 'Central AI Interface',
+                nav_rag_desc: 'Intelligent Document Search',
+                nav_sql_desc: 'German Questions → SQL Queries',
+                nav_process_desc: 'Analyze & Optimize Workflows',
+                nav_orchestrator_desc: 'Multi-Agent Coordination',
+                nav_support_desc: 'AI Citizen Service Demo',
+                nav_troubleshoot_desc: 'Solve IT Problems Systematically',
+                hero_title: 'AI Developer & Solutions Architect',
+                hero_subtitle: 'I build AI systems that solve real business problems — from multi-agent pipelines to natural language SQL to autonomous intelligence agents. No chatbot wrappers. Real integration.',
+                hero_cta_projects: 'View Projects',
+                hero_cta_contact: 'Get in Touch',
+                projects_title: 'What I\'ve Built',
+                projects_subtitle: 'Every project runs in production. No tutorial code, no toys — real systems solving real problems.',
+                p1_title: 'Multi-Agent AI News Pipeline',
+                p1_desc: 'An autonomous multi-agent system that daily aggregates news from over a dozen sources, filters by relevance and generates structured intelligence reports. Multiple specialized AI agents work together — research, analysis, summarization, quality control. Running in production for months.',
+                p1_why: '→ Demonstrates cost-optimized model routing, autonomous agent coordination and production uptime',
+                p2_title: 'Natural Language SQL Engine',
+                p2_desc: 'Translate natural language directly into SQL queries — against real enterprise databases. Users ask questions in everyday language, the system generates precise SQL queries, executes them and presents results clearly.',
+                p2_why: '→ One of the most common enterprise use cases — solving real business problems with AI',
+                p3_title: 'RAG System (Retrieval Augmented Generation)',
+                p3_desc: 'Make company documents intelligently searchable. The system indexes enterprise knowledge, finds relevant passages and generates precise answers with source citations. Works with PDFs, internal wikis, databases — all on-premises, nothing leaves the company network.',
+                p3_why: '→ RAG is the gold standard for enterprise AI — on-premises capability is the killer argument',
+                p4_title: 'Daily World Intelligence Report',
+                p4_desc: 'A fully autonomous intelligence agent that daily collects AI developments, geopolitical trends and economic signals from multiple sources, analyzes and compiles them into a structured report. Runs without manual intervention — the report is ready every morning.',
+                p4_why: '→ Autonomous AI beyond chat — a system that works independently and delivers results',
+                p5_title: 'Enterprise Analytics Platform (this website)',
+                p5_desc: 'A complete enterprise demo showing how all modules work together — NL-SQL, RAG, multi-agent analysis — in a unified, GDPR-compliant interface. Built as proof of concept that this technology is production-ready for government agencies and enterprises.',
+                p5_why: '→ Systems thinking — not just building features, but architecting an entire platform',
+                p5_cta: 'Try Live Demo',
+                status_production: 'Production',
+                status_working: 'Working',
+                status_live: 'Live Demo',
+                about_title: 'About Me',
+                about_p1: 'I\'m Alex — AI Developer and Builder.',
+                about_p2: 'With an IT background in application development (ILS), I fully focused on artificial intelligence from mid-2025. Since then I\'ve built multiple production AI systems — from multi-agent pipelines to natural language SQL and RAG systems to autonomous intelligence agents. Not as a hobby, but with the goal of solving real business problems.',
+                about_p3: '<strong class="text-white">My approach:</strong> I don\'t build from tutorials. I identify a problem, research the best solution and implement it — from architecture to production deployment. Every project on this page runs. No prototype, no proof of concept — real systems.',
+                about_p4: '<strong class="text-white">What I\'m looking for:</strong> A position where I build AI systems that create real business value — no chatbot wrappers, but intelligent integration of AI into existing business processes and data infrastructures.',
+                about_languages_label: 'Languages',
+                about_more: 'More about me & my values',
+                contact_title: 'Contact',
+                contact_subtitle: 'Whether you\'re looking for an AI developer for your team, want to discuss a project, or simply have questions — I look forward to hearing from you.',
+                contact_linkedin_soon: 'Link profile',
+                contact_demo: 'Live Demo',
+            },
+            ru: {
+                nav_demos: '\u0414\u0435\u043c\u043e',
+                nav_mindlight_desc: '\u0426\u0435\u043d\u0442\u0440\u0430\u043b\u044c\u043d\u044b\u0439 AI-\u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441',
+                nav_rag_desc: '\u0418\u043d\u0442\u0435\u043b\u043b\u0435\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u043e\u0438\u0441\u043a \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u043e\u0432',
+                nav_sql_desc: '\u0412\u043e\u043f\u0440\u043e\u0441\u044b \u2192 SQL-\u0437\u0430\u043f\u0440\u043e\u0441\u044b',
+                nav_process_desc: '\u0410\u043d\u0430\u043b\u0438\u0437 \u0438 \u043e\u043f\u0442\u0438\u043c\u0438\u0437\u0430\u0446\u0438\u044f \u043f\u0440\u043e\u0446\u0435\u0441\u0441\u043e\u0432',
+                nav_orchestrator_desc: '\u041a\u043e\u043e\u0440\u0434\u0438\u043d\u0430\u0446\u0438\u044f \u043c\u0443\u043b\u044c\u0442\u0438-\u0430\u0433\u0435\u043d\u0442\u043e\u0432',
+                nav_support_desc: 'AI-\u0441\u0435\u0440\u0432\u0438\u0441 \u0434\u043b\u044f \u0433\u0440\u0430\u0436\u0434\u0430\u043d',
+                nav_troubleshoot_desc: '\u0421\u0438\u0441\u0442\u0435\u043c\u0430\u0442\u0438\u0447\u0435\u0441\u043a\u043e\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435 IT-\u043f\u0440\u043e\u0431\u043b\u0435\u043c',
+                hero_title: 'AI Developer & Solutions Architect',
+                hero_subtitle: '\u042f \u0441\u043e\u0437\u0434\u0430\u044e AI-\u0441\u0438\u0441\u0442\u0435\u043c\u044b, \u043a\u043e\u0442\u043e\u0440\u044b\u0435 \u0440\u0435\u0448\u0430\u044e\u0442 \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0431\u0438\u0437\u043d\u0435\u0441-\u043f\u0440\u043e\u0431\u043b\u0435\u043c\u044b \u2014 \u043e\u0442 \u043c\u0443\u043b\u044c\u0442\u0438-\u0430\u0433\u0435\u043d\u0442\u043d\u044b\u0445 \u043f\u0430\u0439\u043f\u043b\u0430\u0439\u043d\u043e\u0432 \u0434\u043e Natural Language SQL \u0438 \u0430\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u044b\u0445 Intelligence-\u0430\u0433\u0435\u043d\u0442\u043e\u0432. \u041d\u0435 \u043e\u0431\u0451\u0440\u0442\u043a\u0430 \u0434\u043b\u044f \u0447\u0430\u0442\u0431\u043e\u0442\u043e\u0432. \u041d\u0430\u0441\u0442\u043e\u044f\u0449\u0430\u044f \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f.',
+                hero_cta_projects: '\u041f\u0440\u043e\u0435\u043a\u0442\u044b',
+                hero_cta_contact: '\u0421\u0432\u044f\u0437\u0430\u0442\u044c\u0441\u044f',
+                projects_title: '\u0427\u0442\u043e \u044f \u043f\u043e\u0441\u0442\u0440\u043e\u0438\u043b',
+                projects_subtitle: '\u041a\u0430\u0436\u0434\u044b\u0439 \u043f\u0440\u043e\u0435\u043a\u0442 \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0432 \u043f\u0440\u043e\u0434\u0430\u043a\u0448\u043d\u0435. \u041d\u0438\u043a\u0430\u043a\u043e\u0433\u043e \u0442\u0443\u0442\u043e\u0440\u0438\u0430\u043b\u044c\u043d\u043e\u0433\u043e \u043a\u043e\u0434\u0430 \u2014 \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u0441\u0438\u0441\u0442\u0435\u043c\u044b, \u0440\u0435\u0448\u0430\u044e\u0449\u0438\u0435 \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u0435 \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u044b.',
+                p1_title: '\u041c\u0443\u043b\u044c\u0442\u0438-\u0430\u0433\u0435\u043d\u0442\u043d\u044b\u0439 AI News \u043f\u0430\u0439\u043f\u043b\u0430\u0439\u043d',
+                p1_desc: '\u0410\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u0430\u044f \u043c\u0443\u043b\u044c\u0442\u0438-\u0430\u0433\u0435\u043d\u0442\u043d\u0430\u044f \u0441\u0438\u0441\u0442\u0435\u043c\u0430, \u043a\u043e\u0442\u043e\u0440\u0430\u044f \u0435\u0436\u0435\u0434\u043d\u0435\u0432\u043d\u043e \u0441\u043e\u0431\u0438\u0440\u0430\u0435\u0442 \u043d\u043e\u0432\u043e\u0441\u0442\u0438 \u0438\u0437 \u0431\u043e\u043b\u0435\u0435 \u0434\u044e\u0436\u0438\u043d\u044b \u0438\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u043e\u0432, \u0444\u0438\u043b\u044c\u0442\u0440\u0443\u0435\u0442 \u043f\u043e \u0440\u0435\u043b\u0435\u0432\u0430\u043d\u0442\u043d\u043e\u0441\u0442\u0438 \u0438 \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0435 \u0430\u043d\u0430\u043b\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u043e\u0442\u0447\u0451\u0442\u044b. \u0420\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0432 \u043f\u0440\u043e\u0434\u0430\u043a\u0448\u043d\u0435 \u0443\u0436\u0435 \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u043c\u0435\u0441\u044f\u0446\u0435\u0432.',
+                p1_why: '\u2192 \u041a\u043e\u0441\u0442-\u043e\u043f\u0442\u0438\u043c\u0438\u0437\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 model routing, \u0430\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u0430\u044f \u043a\u043e\u043e\u0440\u0434\u0438\u043d\u0430\u0446\u0438\u044f \u0430\u0433\u0435\u043d\u0442\u043e\u0432 \u0438 \u043f\u0440\u043e\u0434\u0430\u043a\u0448\u043d-\u044d\u043a\u0441\u043f\u043b\u0443\u0430\u0442\u0430\u0446\u0438\u044f',
+                p2_title: 'Natural Language SQL Engine',
+                p2_desc: '\u041f\u0435\u0440\u0435\u0432\u043e\u0434 \u0435\u0441\u0442\u0435\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u0433\u043e \u044f\u0437\u044b\u043a\u0430 \u043d\u0430\u043f\u0440\u044f\u043c\u0443\u044e \u0432 SQL-\u0437\u0430\u043f\u0440\u043e\u0441\u044b \u2014 \u043a \u0440\u0435\u0430\u043b\u044c\u043d\u044b\u043c \u043a\u043e\u0440\u043f\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u044b\u043c \u0431\u0430\u0437\u0430\u043c \u0434\u0430\u043d\u043d\u044b\u0445. \u041f\u043e\u043b\u044c\u0437\u043e\u0432\u0430\u0442\u0435\u043b\u0438 \u0437\u0430\u0434\u0430\u044e\u0442 \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u043d\u0430 \u043e\u0431\u044b\u0447\u043d\u043e\u043c \u044f\u0437\u044b\u043a\u0435, \u0441\u0438\u0441\u0442\u0435\u043c\u0430 \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0442\u043e\u0447\u043d\u044b\u0435 SQL-\u0437\u0430\u043f\u0440\u043e\u0441\u044b \u0438 \u043f\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043b\u044f\u0435\u0442 \u0440\u0435\u0437\u0443\u043b\u044c\u0442\u0430\u0442\u044b.',
+                p2_why: '\u2192 \u041e\u0434\u0438\u043d \u0438\u0437 \u0441\u0430\u043c\u044b\u0445 \u0432\u043e\u0441\u0442\u0440\u0435\u0431\u043e\u0432\u0430\u043d\u043d\u044b\u0445 \u043a\u043e\u0440\u043f\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u044b\u0445 \u043a\u0435\u0439\u0441\u043e\u0432',
+                p3_title: 'RAG-\u0441\u0438\u0441\u0442\u0435\u043c\u0430 (Retrieval Augmented Generation)',
+                p3_desc: '\u0418\u043d\u0442\u0435\u043b\u043b\u0435\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u044b\u0439 \u043f\u043e\u0438\u0441\u043a \u043f\u043e \u043a\u043e\u0440\u043f\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u044b\u043c \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442\u0430\u043c. \u0421\u0438\u0441\u0442\u0435\u043c\u0430 \u0438\u043d\u0434\u0435\u043a\u0441\u0438\u0440\u0443\u0435\u0442 \u0437\u043d\u0430\u043d\u0438\u044f, \u043d\u0430\u0445\u043e\u0434\u0438\u0442 \u0440\u0435\u043b\u0435\u0432\u0430\u043d\u0442\u043d\u044b\u0435 \u0444\u0440\u0430\u0433\u043c\u0435\u043d\u0442\u044b \u0438 \u0433\u0435\u043d\u0435\u0440\u0438\u0440\u0443\u0435\u0442 \u0442\u043e\u0447\u043d\u044b\u0435 \u043e\u0442\u0432\u0435\u0442\u044b \u0441 \u0443\u043a\u0430\u0437\u0430\u043d\u0438\u0435\u043c \u0438\u0441\u0442\u043e\u0447\u043d\u0438\u043a\u043e\u0432. \u0412\u0441\u0451 on-premises \u2014 \u043d\u0438\u0447\u0435\u0433\u043e \u043d\u0435 \u043f\u043e\u043a\u0438\u0434\u0430\u0435\u0442 \u043a\u043e\u0440\u043f\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u0443\u044e \u0441\u0435\u0442\u044c.',
+                p3_why: '\u2192 RAG \u2014 \u0437\u043e\u043b\u043e\u0442\u043e\u0439 \u0441\u0442\u0430\u043d\u0434\u0430\u0440\u0442 \u043a\u043e\u0440\u043f\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u043e\u0433\u043e AI',
+                p4_title: '\u0415\u0436\u0435\u0434\u043d\u0435\u0432\u043d\u044b\u0439 World Intelligence Report',
+                p4_desc: '\u041f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0430\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u044b\u0439 \u0430\u0433\u0435\u043d\u0442, \u043a\u043e\u0442\u043e\u0440\u044b\u0439 \u0435\u0436\u0435\u0434\u043d\u0435\u0432\u043d\u043e \u0441\u043e\u0431\u0438\u0440\u0430\u0435\u0442 \u0440\u0430\u0437\u0432\u0438\u0442\u0438\u0435 AI, \u0433\u0435\u043e\u043f\u043e\u043b\u0438\u0442\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0442\u0440\u0435\u043d\u0434\u044b \u0438 \u044d\u043a\u043e\u043d\u043e\u043c\u0438\u0447\u0435\u0441\u043a\u0438\u0435 \u0441\u0438\u0433\u043d\u0430\u043b\u044b, \u0430\u043d\u0430\u043b\u0438\u0437\u0438\u0440\u0443\u0435\u0442 \u0438 \u0444\u043e\u0440\u043c\u0438\u0440\u0443\u0435\u0442 \u0441\u0442\u0440\u0443\u043a\u0442\u0443\u0440\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439 \u043e\u0442\u0447\u0451\u0442. \u0420\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0431\u0435\u0437 \u0432\u043c\u0435\u0448\u0430\u0442\u0435\u043b\u044c\u0441\u0442\u0432\u0430.',
+                p4_why: '\u2192 \u0410\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u044b\u0439 AI \u0437\u0430 \u043f\u0440\u0435\u0434\u0435\u043b\u0430\u043c\u0438 \u0447\u0430\u0442\u0430 \u2014 \u0441\u0438\u0441\u0442\u0435\u043c\u0430, \u043a\u043e\u0442\u043e\u0440\u0430\u044f \u0440\u0430\u0431\u043e\u0442\u0430\u0435\u0442 \u0441\u0430\u043c\u043e\u0441\u0442\u043e\u044f\u0442\u0435\u043b\u044c\u043d\u043e',
+                p5_title: 'Enterprise Analytics Platform (\u044d\u0442\u043e\u0442 \u0441\u0430\u0439\u0442)',
+                p5_desc: '\u041f\u043e\u043b\u043d\u043e\u0446\u0435\u043d\u043d\u0430\u044f \u043a\u043e\u0440\u043f\u043e\u0440\u0430\u0442\u0438\u0432\u043d\u0430\u044f \u0434\u0435\u043c\u043e-\u043f\u043b\u0430\u0442\u0444\u043e\u0440\u043c\u0430, \u043f\u043e\u043a\u0430\u0437\u044b\u0432\u0430\u044e\u0449\u0430\u044f \u043a\u0430\u043a \u0432\u0441\u0435 \u043c\u043e\u0434\u0443\u043b\u0438 \u0440\u0430\u0431\u043e\u0442\u0430\u044e\u0442 \u0432\u043c\u0435\u0441\u0442\u0435 \u2014 NL-SQL, RAG, \u043c\u0443\u043b\u044c\u0442\u0438-\u0430\u0433\u0435\u043d\u0442\u043d\u044b\u0439 \u0430\u043d\u0430\u043b\u0438\u0437 \u2014 \u0432 \u0435\u0434\u0438\u043d\u043e\u043c DSGVO-\u043a\u043e\u043d\u0444\u043e\u0440\u043c\u043d\u043e\u043c \u0438\u043d\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0435.',
+                p5_why: '\u2192 \u0421\u0438\u0441\u0442\u0435\u043c\u043d\u043e\u0435 \u043c\u044b\u0448\u043b\u0435\u043d\u0438\u0435 \u2014 \u043d\u0435 \u043f\u0440\u043e\u0441\u0442\u043e \u0444\u0438\u0447\u0438, \u0430 \u043f\u043e\u043b\u043d\u043e\u0446\u0435\u043d\u043d\u0430\u044f \u0430\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u0443\u0440\u0430',
+                p5_cta: '\u041f\u043e\u043f\u0440\u043e\u0431\u043e\u0432\u0430\u0442\u044c Live Demo',
+                status_production: '\u041f\u0440\u043e\u0434\u0430\u043a\u0448\u043d',
+                status_working: '\u0420\u0430\u0431\u043e\u0442\u0430\u0435\u0442',
+                status_live: 'Live Demo',
+                about_title: '\u041e\u0431\u043e \u043c\u043d\u0435',
+                about_p1: '\u042f Alex \u2014 AI Developer \u0438 \u0431\u0438\u043b\u0434\u0435\u0440.',
+                about_p2: '\u0421 IT-\u0431\u044d\u043a\u0433\u0440\u0430\u0443\u043d\u0434\u043e\u043c \u0432 \u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u043a\u0435 \u043f\u0440\u0438\u043b\u043e\u0436\u0435\u043d\u0438\u0439 (ILS), \u0441 \u0441\u0435\u0440\u0435\u0434\u0438\u043d\u044b 2025 \u044f \u043f\u043e\u043b\u043d\u043e\u0441\u0442\u044c\u044e \u0441\u0444\u043e\u043a\u0443\u0441\u0438\u0440\u043e\u0432\u0430\u043b\u0441\u044f \u043d\u0430 \u0438\u0441\u043a\u0443\u0441\u0441\u0442\u0432\u0435\u043d\u043d\u043e\u043c \u0438\u043d\u0442\u0435\u043b\u043b\u0435\u043a\u0442\u0435. \u0421 \u0442\u0435\u0445 \u043f\u043e\u0440 \u043f\u043e\u0441\u0442\u0440\u043e\u0438\u043b \u043d\u0435\u0441\u043a\u043e\u043b\u044c\u043a\u043e \u043f\u0440\u043e\u0434\u0430\u043a\u0448\u043d-AI-\u0441\u0438\u0441\u0442\u0435\u043c \u2014 \u043e\u0442 \u043c\u0443\u043b\u044c\u0442\u0438-\u0430\u0433\u0435\u043d\u0442\u043d\u044b\u0445 \u043f\u0430\u0439\u043f\u043b\u0430\u0439\u043d\u043e\u0432 \u0434\u043e NL-SQL, RAG \u0438 \u0430\u0432\u0442\u043e\u043d\u043e\u043c\u043d\u044b\u0445 \u0430\u0433\u0435\u043d\u0442\u043e\u0432.',
+                about_p3: '<strong class="text-white">\u041c\u043e\u0439 \u043f\u043e\u0434\u0445\u043e\u0434:</strong> \u042f \u043d\u0435 \u0441\u0442\u0440\u043e\u044e \u043f\u043e \u0442\u0443\u0442\u043e\u0440\u0438\u0430\u043b\u0430\u043c. \u042f \u043d\u0430\u0445\u043e\u0436\u0443 \u043f\u0440\u043e\u0431\u043b\u0435\u043c\u0443, \u0438\u0441\u0441\u043b\u0435\u0434\u0443\u044e \u043b\u0443\u0447\u0448\u0435\u0435 \u0440\u0435\u0448\u0435\u043d\u0438\u0435 \u0438 \u0440\u0435\u0430\u043b\u0438\u0437\u0443\u044e \u0435\u0433\u043e \u2014 \u043e\u0442 \u0430\u0440\u0445\u0438\u0442\u0435\u043a\u0442\u0443\u0440\u044b \u0434\u043e \u043f\u0440\u043e\u0434\u0430\u043a\u0448\u043d\u0430.',
+                about_p4: '<strong class="text-white">\u0427\u0442\u043e \u044f \u0438\u0449\u0443:</strong> \u041f\u043e\u0437\u0438\u0446\u0438\u044e, \u0433\u0434\u0435 \u044f \u0441\u0442\u0440\u043e\u044e AI-\u0441\u0438\u0441\u0442\u0435\u043c\u044b, \u0441\u043e\u0437\u0434\u0430\u044e\u0449\u0438\u0435 \u0440\u0435\u0430\u043b\u044c\u043d\u0443\u044e \u0431\u0438\u0437\u043d\u0435\u0441-\u0446\u0435\u043d\u043d\u043e\u0441\u0442\u044c \u2014 \u0438\u043d\u0442\u0435\u043b\u043b\u0435\u043a\u0442\u0443\u0430\u043b\u044c\u043d\u0430\u044f \u0438\u043d\u0442\u0435\u0433\u0440\u0430\u0446\u0438\u044f AI \u0432 \u0441\u0443\u0449\u0435\u0441\u0442\u0432\u0443\u044e\u0449\u0438\u0435 \u0431\u0438\u0437\u043d\u0435\u0441-\u043f\u0440\u043e\u0446\u0435\u0441\u0441\u044b.',
+                about_languages_label: '\u042f\u0437\u044b\u043a\u0438',
+                about_more: '\u0411\u043e\u043b\u044c\u0448\u0435 \u043e\u0431\u043e \u043c\u043d\u0435 \u0438 \u043c\u043e\u0438\u0445 \u0446\u0435\u043d\u043d\u043e\u0441\u0442\u044f\u0445',
+                contact_title: '\u041a\u043e\u043d\u0442\u0430\u043a\u0442',
+                contact_subtitle: '\u0418\u0449\u0435\u0442\u0435 AI-\u0440\u0430\u0437\u0440\u0430\u0431\u043e\u0442\u0447\u0438\u043a\u0430 \u0434\u043b\u044f \u0432\u0430\u0448\u0435\u0439 \u043a\u043e\u043c\u0430\u043d\u0434\u044b, \u0445\u043e\u0442\u0438\u0442\u0435 \u043e\u0431\u0441\u0443\u0434\u0438\u0442\u044c \u043f\u0440\u043e\u0435\u043a\u0442 \u0438\u043b\u0438 \u0435\u0441\u0442\u044c \u0432\u043e\u043f\u0440\u043e\u0441\u044b \u2014 \u0431\u0443\u0434\u0443 \u0440\u0430\u0434 \u0432\u0430\u0448\u0435\u043c\u0443 \u0441\u043e\u043e\u0431\u0449\u0435\u043d\u0438\u044e.',
+                contact_linkedin_soon: '\u041f\u0440\u043e\u0444\u0438\u043b\u044c',
+                contact_demo: 'Live Demo',
             }
         };
 
         function setLanguage(lang) {
-            const prevLang = currentLang;
             currentLang = lang;
             localStorage.setItem('lang', lang);
 
-            document.getElementById('lang-de').className = lang === 'de'
-                ? 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white'
-                : 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
-            document.getElementById('lang-en').className = lang === 'en'
-                ? 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white'
-                : 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
+            // Update button styles
+            ['de', 'en', 'ru'].forEach(l => {
+                const btn = document.getElementById('lang-' + l);
+                if (btn) {
+                    btn.className = l === lang
+                        ? 'px-2 py-1 rounded text-sm font-medium transition bg-cyan-500 text-white'
+                        : 'px-2 py-1 rounded text-sm font-medium transition text-gray-400 hover:text-white';
+                }
+            });
 
-            if (lang === 'en' && translations.en) {
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    const key = el.getAttribute('data-i18n');
-                    if (translations.en[key]) {
-                        el.innerHTML = translations.en[key];
-                    }
-                });
-            } else if (lang === 'de') {
+            if (lang === 'de') {
                 document.querySelectorAll('[data-i18n]').forEach(el => {
                     const key = el.getAttribute('data-i18n');
                     if (deOriginals[key]) el.innerHTML = deOriginals[key];
+                });
+            } else if (translations[lang]) {
+                document.querySelectorAll('[data-i18n]').forEach(el => {
+                    const key = el.getAttribute('data-i18n');
+                    if (translations[lang][key]) {
+                        el.innerHTML = translations[lang][key];
+                    }
                 });
             }
         }
 
         // Apply saved language on load
-        if (currentLang === 'en') {
-            setLanguage('en');
+        if (currentLang !== 'de') {
+            setLanguage(currentLang);
         }
     </script>
 </body>
