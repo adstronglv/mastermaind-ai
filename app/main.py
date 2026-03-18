@@ -257,6 +257,12 @@ async def support_page(request: Request):
     return templates.TemplateResponse("support.html", {"request": request})
 
 
+@app.get("/buergerservice", response_class=HTMLResponse)
+async def buergerservice(request: Request):
+    """Render Bürgerservice pitch page."""
+    return templates.TemplateResponse("buergerservice.html", {"request": request})
+
+
 @app.get("/about", response_class=HTMLResponse)
 async def about(request: Request):
     """Render about page."""
