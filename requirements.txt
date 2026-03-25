@@ -4,7 +4,7 @@ python-dotenv
 anthropic
 pydantic
 pydantic-settings
-jinja2
+jinja2>=3.1.6
 python-multipart
 aiofiles
 fal-client
