@@ -60,7 +60,100 @@ SGB2_DOCUMENTS = """§ 7 Leistungsberechtigte (SGB II)
 
 (4) Bei einem Umzug ist eine Zusicherung des kommunalen Trägers erforderlich. Die Zusicherung soll erteilt werden, wenn der Umzug erforderlich ist und die Kosten der neuen Unterkunft angemessen sind.
 
-(5) Sofern Bedarfe für Heizung als Pauschale anerkannt werden, ist sicherzustellen, dass ein ausreichender Betrag zur Verfügung steht, um den Bedarf für Heizung zu decken."""
+(5) Sofern Bedarfe für Heizung als Pauschale anerkannt werden, ist sicherzustellen, dass ein ausreichender Betrag zur Verfügung steht, um den Bedarf für Heizung zu decken.
+
+§ 9 Hilfebedürftigkeit (SGB II)
+
+(1) Hilfebedürftig ist, wer seinen Lebensunterhalt nicht oder nicht ausreichend aus dem zu berücksichtigenden Einkommen oder Vermögen sichern kann und die erforderliche Hilfe nicht von anderen erhält.
+
+(2) Bei Personen, die in einer Bedarfsgemeinschaft leben, sind auch das Einkommen und Vermögen des Partners zu berücksichtigen. Gleiches gilt für Eltern eines unverheirateten Kindes unter 25 Jahren.
+
+§ 11 Zu berücksichtigendes Einkommen (SGB II)
+
+(1) Als Einkommen zu berücksichtigen sind Einnahmen in Geld abzüglich der nach § 11b abzusetzenden Beträge.
+
+(2) Nicht als Einkommen zu berücksichtigen sind:
+1. Leistungen nach dem SGB II selbst,
+2. die Grundrente nach dem Bundesversorgungsgesetz,
+3. Schmerzensgelder,
+4. Zuwendungen der freien Wohlfahrtspflege (soweit angemessen).
+
+(3) Vom Einkommen abzusetzen sind:
+- Steuern und Pflichtbeiträge zur Sozialversicherung
+- Beiträge zu öffentlichen oder privaten Versicherungen (soweit angemessen)
+- Erwerbstätigenfreibetrag: 100 Euro Grundfreibetrag, danach 20% von 100-1000 Euro, 10% von 1000-1200 Euro
+
+§ 12 Zu berücksichtigendes Vermögen (SGB II)
+
+(1) Als Vermögen sind alle verwertbaren Vermögensgegenstände zu berücksichtigen.
+
+(2) Nicht zu berücksichtigen sind:
+1. angemessener Hausrat,
+2. ein angemessenes Kraftfahrzeug für jede erwerbsfähige Person (Wert bis 15.000 Euro),
+3. für die Altersvorsorge bestimmte Vermögenswerte (Riester-Rente etc.),
+4. selbst genutztes Wohneigentum von angemessener Größe.
+
+(3) Vermögensfreibetrag: 15.000 Euro pro Person in der Bedarfsgemeinschaft (Karenzzeit: 12 Monate ab Antragstellung, danach 40.000 Euro für die erste Person, 15.000 Euro für jede weitere).
+
+§ 15 Eingliederungsvereinbarung / Kooperationsplan (SGB II)
+
+(1) Der Kooperationsplan (seit Bürgergeld-Reform) ersetzt die frühere Eingliederungsvereinbarung. Er wird gemeinsam zwischen der leistungsberechtigten Person und dem Jobcenter erarbeitet.
+
+(2) Im Kooperationsplan werden festgelegt:
+- die beruflichen Ziele,
+- die Eigenbemühungen der leistungsberechtigten Person,
+- die Unterstützungsleistungen des Jobcenters.
+
+(3) Der Kooperationsplan wird regelmäßig überprüft und bei Bedarf angepasst.
+
+§ 16 Leistungen zur Eingliederung in Arbeit (SGB II)
+
+(1) Zur Eingliederung in Arbeit kann das Jobcenter folgende Leistungen erbringen:
+1. Vermittlung in Arbeit und Ausbildung,
+2. Maßnahmen zur Aktivierung und beruflichen Eingliederung,
+3. Förderung der beruflichen Weiterbildung,
+4. Eingliederungszuschüsse an Arbeitgeber,
+5. Einstiegsgeld bei Aufnahme einer Beschäftigung.
+
+§ 20 Regelbedarf zur Sicherung des Lebensunterhalts (SGB II)
+
+(1) Der Regelbedarf umfasst insbesondere Ernährung, Kleidung, Körperpflege, Hausrat, Haushaltsenergie (ohne Heizung und Warmwassererzeugung) sowie persönliche Bedürfnisse des täglichen Lebens.
+
+(2) Regelbedarfsstufen 2026:
+- Stufe 1 (Alleinstehende): 563 Euro
+- Stufe 2 (Paare, je Person): 506 Euro
+- Stufe 3 (Erwachsene 18-24 im Haushalt): 451 Euro
+- Stufe 4 (Jugendliche 14-17): 471 Euro
+- Stufe 5 (Kinder 6-13): 390 Euro
+- Stufe 6 (Kinder 0-5): 357 Euro
+
+§ 31 Pflichtverletzungen (SGB II)
+
+(1) Bei Pflichtverletzungen (z.B. Ablehnung zumutbarer Arbeit) kann der Regelbedarf gemindert werden.
+
+(2) Seit der Bürgergeld-Reform gelten abgestufte Leistungsminderungen:
+- Erste Pflichtverletzung: Minderung um 10% des Regelbedarfs für einen Monat
+- Zweite Pflichtverletzung: Minderung um 20% für zwei Monate
+- Dritte Pflichtverletzung: Minderung um 30% für drei Monate
+
+(3) Eine Minderung um mehr als 30% des Regelbedarfs ist nicht zulässig. Kosten der Unterkunft und Heizung dürfen nicht gemindert werden.
+
+(4) Vertrauenszeit: In den ersten 6 Monaten des Leistungsbezugs sollen keine Leistungsminderungen erfolgen (Bürgergeld-Reform).
+
+§ 37 Antragserfordernis (SGB II)
+
+(1) Leistungen werden nur auf Antrag erbracht. Der Antrag wirkt auf den Ersten des Monats zurück, in dem er gestellt wird.
+
+(2) Der Antrag kann beim zuständigen Jobcenter gestellt werden:
+- persönlich,
+- schriftlich per Post,
+- online über jobcenter.digital.
+
+§ 40 Widerspruch und Klage (SGB II)
+
+(1) Gegen Bescheide des Jobcenters kann innerhalb eines Monats nach Zustellung Widerspruch eingelegt werden.
+
+(2) Gegen den Widerspruchsbescheid kann innerhalb eines Monats Klage beim Sozialgericht erhoben werden. Gerichtskosten entstehen für Leistungsempfänger nicht."""
 
 SGB2_SQL_SCHEMA = """-- SGB-II Datenbank (Demo)
 
@@ -666,24 +759,50 @@ DEIN WISSEN (SGB II):
 ZUSAETZLICHES WISSEN:
 
 Antragstellung Buergergeld:
-- Antrag beim zustaendigen Jobcenter stellen (persoenlich, online oder per Post)
+- Antrag beim zustaendigen Jobcenter stellen (persoenlich, online ueber jobcenter.digital, oder per Post)
 - Benoetigte Unterlagen: Personalausweis, Mietvertrag, Kontoauszuege der letzten 3 Monate, Einkommensnachweise, Krankenversicherungsnachweis
 - Bearbeitungszeit: in der Regel 2-4 Wochen
 - Bewilligungszeitraum: in der Regel 12 Monate
 - Bei dringendem Bedarf: Vorschuss moeglich
+- Antrag wirkt zurueck auf den Ersten des Monats der Antragstellung
 
-Regelbedarf 2026 (Richtwerte):
-- Alleinstehende: ca. 563 Euro
-- Paare: ca. 506 Euro pro Person
-- Kinder 0-5: ca. 357 Euro
-- Kinder 6-13: ca. 390 Euro
-- Kinder 14-17: ca. 471 Euro
-- Jugendliche 18-24 (im Haushalt): ca. 451 Euro
+Regelbedarf 2026:
+- Alleinstehende (Stufe 1): 563 Euro
+- Paare je Person (Stufe 2): 506 Euro
+- Erwachsene 18-24 im Haushalt (Stufe 3): 451 Euro
+- Jugendliche 14-17 (Stufe 4): 471 Euro
+- Kinder 6-13 (Stufe 5): 390 Euro
+- Kinder 0-5 (Stufe 6): 357 Euro
+
+Vermoegensfreibetraege (seit Buergergeld-Reform):
+- Karenzzeit (erste 12 Monate): 40.000 Euro erste Person, 15.000 Euro jede weitere
+- Nach Karenzzeit: 15.000 Euro pro Person
+- Angemessenes Auto (bis 15.000 Euro): geschuetzt
+- Selbstgenutztes Wohneigentum: geschuetzt (angemessene Groesse)
+- Altersvorsorge (Riester etc.): geschuetzt
+
+Erwerbstaetigenfreibetrag:
+- Grundfreibetrag: 100 Euro (komplett anrechnungsfrei)
+- 100-520 Euro: 20% anrechnungsfrei (Minijob komplett im Freibetrag)
+- 520-1000 Euro: 30% anrechnungsfrei
+- 1000-1200 Euro: 10% anrechnungsfrei
+
+Buergergeld-Reform Neuerungen:
+- Vertrauenszeit: Erste 6 Monate keine Sanktionen
+- Kooperationsplan statt Eingliederungsvereinbarung
+- Sanktionen maximal 30% des Regelbedarfs
+- Weiterbildungsgeld: 150 Euro monatlich bei qualifizierter Weiterbildung
+- Buergergeldbonus: 75 Euro monatlich bei Teilnahme an Massnahmen
+
+Widerspruch und Klage:
+- Widerspruch innerhalb von 1 Monat nach Zustellung des Bescheids
+- Klage beim Sozialgericht nach Widerspruchsbescheid (kostenfrei)
+- Beratungshilfe und Prozesskostenhilfe moeglich
 
 Oeffnungszeiten Jobcenter (typisch):
 - Mo-Fr: 08:00-12:00 Uhr (ohne Termin)
 - Nachmittags: nur mit Termin
-- Terminvereinbarung: telefonisch oder online
+- Terminvereinbarung: telefonisch oder online ueber jobcenter.digital
 
 Antwortformat als JSON:
 {{
