@@ -196,103 +196,103 @@ Provide your analysis in JSON format."""
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
     """Render home page with tool selection."""
-    return templates.TemplateResponse("index.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="index.html")
 
 
 @app.get("/prompt", response_class=HTMLResponse)
 async def prompt_page(request: Request):
     """Render Prompt Engineer page."""
-    return templates.TemplateResponse("prompt.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="prompt.html")
 
 
 @app.get("/agents", response_class=HTMLResponse)
 async def agents_page(request: Request):
     """Render Custom AI Agents page."""
-    return templates.TemplateResponse("agents.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="agents.html")
 
 
 @app.get("/rag", response_class=HTMLResponse)
 async def rag_page(request: Request):
     """Render RAG Document Analysis page."""
-    return templates.TemplateResponse("rag.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="rag.html")
 
 
 @app.get("/sql", response_class=HTMLResponse)
 async def sql_page(request: Request):
     """Render NL to SQL page."""
-    return templates.TemplateResponse("sql.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="sql.html")
 
 
 @app.get("/process", response_class=HTMLResponse)
 async def process_page(request: Request):
     """Render Process Automation page."""
-    return templates.TemplateResponse("process.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="process.html")
 
 
 @app.get("/troubleshoot", response_class=HTMLResponse)
 async def troubleshoot_page(request: Request):
     """Render Troubleshooting page."""
-    return templates.TemplateResponse("troubleshoot.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="troubleshoot.html")
 
 
 @app.get("/reports", response_class=HTMLResponse)
 async def reports_page(request: Request):
     """Render Reports Demo page."""
-    return templates.TemplateResponse("reports.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="reports.html")
 
 
 @app.get("/orchestrator", response_class=HTMLResponse)
 async def orchestrator_page(request: Request):
     """Render Multi-Agent Orchestrator page."""
-    return templates.TemplateResponse("orchestrator.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="orchestrator.html")
 
 
 @app.get("/mindlight", response_class=HTMLResponse)
 async def mindlight_page(request: Request):
     """Render MindLight unified AI chat page."""
-    return templates.TemplateResponse("mindlight.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="mindlight.html")
 
 
 @app.get("/support", response_class=HTMLResponse)
 async def support_page(request: Request):
     """Render AI First-Level-Support page."""
-    return templates.TemplateResponse("support.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="support.html")
 
 
 @app.get("/buergerservice", response_class=HTMLResponse)
 async def buergerservice(request: Request):
     """Render Bürgerservice pitch page."""
-    return templates.TemplateResponse("buergerservice.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="buergerservice.html")
 
 
 @app.get("/about", response_class=HTMLResponse)
 async def about(request: Request):
     """Render about page."""
-    return templates.TemplateResponse("about.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="about.html")
 
 
 @app.get("/impressum", response_class=HTMLResponse)
 async def impressum(request: Request):
     """Render impressum page."""
-    return templates.TemplateResponse("impressum.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="impressum.html")
 
 
 @app.get("/datenschutz", response_class=HTMLResponse)
 async def datenschutz(request: Request):
     """Render privacy policy page."""
-    return templates.TemplateResponse("datenschutz.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="datenschutz.html")
 
 
 @app.get("/terms", response_class=HTMLResponse)
 async def terms(request: Request):
     """Render terms of service page."""
-    return templates.TemplateResponse("terms.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="terms.html")
 
 
 @app.get("/login", response_class=HTMLResponse)
 async def login(request: Request):
     """Render login page."""
-    return templates.TemplateResponse("login.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="login.html")
 
 
 @app.get("/dashboard", response_class=HTMLResponse)
@@ -300,7 +300,7 @@ async def dashboard(request: Request):
     """Render dashboard page (auth checked client-side)."""
     # Don't check auth server-side - let client-side JS handle it
     # This avoids redirect loop since token is in localStorage, not cookies
-    return templates.TemplateResponse("dashboard.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="dashboard.html")
 
 
 @app.post("/api/optimize")
