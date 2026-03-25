@@ -259,6 +259,12 @@ async def support_page(request: Request):
     return templates.TemplateResponse(request=request, name="support.html")
 
 
+@app.get("/mcp", response_class=HTMLResponse)
+async def mcp_page(request: Request):
+    """Render MCP Integration demo page."""
+    return templates.TemplateResponse(request=request, name="mcp.html")
+
+
 @app.get("/buergerservice", response_class=HTMLResponse)
 async def buergerservice(request: Request):
     """Render Bürgerservice pitch page."""
