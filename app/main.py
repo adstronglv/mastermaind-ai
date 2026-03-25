@@ -62,6 +62,8 @@ app.add_middleware(
 # Templates and static files
 BASE_DIR = Path(__file__).parent
 templates = Jinja2Templates(directory=str(BASE_DIR / "templates"))
+templates.env.auto_reload = True
+templates.env.cache_size = 0
 app.mount("/static", StaticFiles(directory=str(BASE_DIR / "static")), name="static")
 
 # Include routers
