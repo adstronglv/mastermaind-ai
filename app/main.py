@@ -74,7 +74,7 @@ app.include_router(enterprise_router)
 # Models
 class PromptRequest(BaseModel):
     prompt: str
-    model: str = "claude-3-haiku"
+    model: str = "claude-haiku-4-5-20251001"
     task_type: str = "general"  # general, coding, creative, marketing
     is_further_optimization: bool = False  # True when optimizing an already optimized prompt
 
